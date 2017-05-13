@@ -2,11 +2,11 @@
 
 TODO: short project description, some sample screenshots or mockups
 
-![home](images/Mafia_home.png "home")
-![profile](images/Mafia_profile.png "profile")
-![directions](images/Mafia_directions.png "directions")
-![players](images/Mafia_players.png "players")
-![chat](images/Mafia_chat.png "chat")
+![home](images/Mafia_home.png)
+![profile](images/Mafia_profile.png)
+![directions](images/Mafia_directions.png)
+![players](images/Mafia_players.png)
+![chat](images/Mafia_chat.png)
 
 ## Architecture
 
