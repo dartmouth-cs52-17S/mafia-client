@@ -1,6 +1,6 @@
 # Mafia
 
-TODO: short project description, some sample screenshots or mockups
+TODO: short project description, some sample screenshots or mockups!
 
 ![home](images/Mafia_home.png "home")
 ![profile](images/Mafia_profile.png "profile")
