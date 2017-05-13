@@ -1,34 +1,33 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, NavLink, Switch } from 'react-router-dom';
-import Counter from './counter';
-import Controls from '../containers/controls';
 
 const Nav = (props) => {
   return (
     <nav>
       <ul>
         <li><NavLink to="/" exact>Home</NavLink></li>
-        <li><NavLink to="/about">About</NavLink></li>
-        <li><NavLink to="/test/id1">test id1</NavLink></li>
-        <li><NavLink to="/test/id2">test id2</NavLink></li>
+        <li><NavLink to="/otherPage">Super Awesome NavLink</NavLink></li>
       </ul>
     </nav>
   );
 };
-const About = (props) => {
-  return <div> All there is to know about me </div>;
-};
+
 const Welcome = (props) => {
   return (
     <div>
-      <Counter />
-      <Controls />
+      Hello world!
     </div>
   );
 };
-const Test = (props) => {
-  return <div> ID: {props.match.params.id} </div>;
+
+const Reroute = (props) => {
+  return (
+    <div>
+      Yay you routed succesfully!
+    </div>
+  );
 };
+
 const FallBack = (props) => {
   return <div>URL Not Found</div>;
 };
@@ -40,8 +39,7 @@ const App = () => {
         <Nav />
         <Switch>
           <Route exact path="/" component={Welcome} />
-          <Route path="/about" component={About} />
-          <Route exact path="/test/:id" component={Test} />
+          <Route path="/otherPage" component={Reroute} />
           <Route component={FallBack} />
         </Switch>
       </div>
