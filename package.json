@@ -9,7 +9,7 @@
     "build": "WEBPACK_ENV=production webpack --colors",
     "clean": "rimraf public/build",
     "deploy": "npm run build; gh-pages -d public; npm run clean",
-    "surge": "npm run build; surge -p public -d annieke-starterpack.surge.sh; npm run clean"
+    "surge": "npm run build; surge -p public -d mafia.surge.sh; npm run clean"
   },
   "repository": {
     "type": "git",
