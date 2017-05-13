@@ -10,7 +10,10 @@ TODO: short project description, some sample screenshots or mockups
 
 ## Architecture
 
-TODO:  descriptions of code organization and tools and libraries used
+### Libraries
+We're using React.js to compartmentalize the application, and also to make React Router available to us. We're planning to use Redux for storing the in-game information in global state, like current players, score, and who's in the graveyard.
+
+We need a backend framework, and since we don't really know any better, we're going to use MongoDB with Mongoose and Express.
 
 ## Setup
 
@@ -22,11 +25,11 @@ TODO: how to deploy the project
 
 ## Authors
 
-Annie Ke '19
-Nitasha Kochar '19
-Sia Peng '20
-Adam Rinehouse '19
-Andy Yoon '19
+- Annie Ke '19
+- Nitasha Kochar '19
+- Sia Peng '20
+- Adam Rinehouse '19
+- Andy Yoon '19
 
 ## Acknowledgments
 
