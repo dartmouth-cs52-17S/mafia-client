@@ -22,6 +22,12 @@ TODO: how to deploy the project
 
 ## Authors
 
-TODO: list of authors
+Annie Ke '19
+Nitasha Kochar '19
+Sia Peng '20
+Adam Rinehouse '19
+Andy Yoon '19
 
 ## Acknowledgments
+
+Thanks to [Tim Tregubov](https://github.com/timofei7) for [this great walkthrough](http://cs52.me/assignments/sa/starterpack/) on building the frontend starterpack, as well as for [the backend starter](https://github.com/dartmouth-cs52/express-babel-starter).
