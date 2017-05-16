@@ -2,10 +2,21 @@
 
 TODO: short project description, some sample screenshots or mockups!
 
+## Mockups
+
+### Home
 ![home](images/Mafia_home.png "home")
+
+### Profile
 ![profile](images/Mafia_profile.png "profile")
+
+### Directions
 ![directions](images/Mafia_directions.png "directions")
+
+### Players
 ![players](images/Mafia_players.png "players")
+
+### Chat
 ![chat](images/Mafia_chat.png "chat")
 
 ## Architecture
