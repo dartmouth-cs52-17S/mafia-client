@@ -1,7 +1,9 @@
 # Mafia
 
-TODO: short project description, some sample screenshots or mockups!
+## Description
+This is an online Mafia game where players are automatically given roles to play the game Mafia. Players are given time to discuss about who is mafia and vote on the person to kill. The person who is blamed as the mafia is given time to defend him or herself. The narration is done automatically, with various storylines. Depending on the number of the players, number of roles differ, too.
 
+Here below are mockups of the website:
 ![home](images/Mafia_home.png "home")
 ![profile](images/Mafia_profile.png "profile")
 ![directions](images/Mafia_directions.png "directions")
