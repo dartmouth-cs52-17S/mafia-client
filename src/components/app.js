@@ -8,6 +8,9 @@ const Nav = (props) => {
         <li><NavLink to="/" exact>Home</NavLink></li>
         <li><NavLink to="/otherPage">Super Awesome NavLink</NavLink></li>
         <li><NavLink to="/cast">Cast List</NavLink></li>
+        <li><NavLink to="/directions">Directions</NavLink></li>
+        <li><NavLink to="/profile">Profile</NavLink></li>
+        <li><NavLink to="/chat">Chat</NavLink></li>
       </ul>
     </nav>
   );
@@ -15,7 +18,7 @@ const Nav = (props) => {
 
 const Welcome = (props) => {
   return (
-    <div>
+    <div className="welcomeDiv">
       Hello world!
     </div>
   );
@@ -23,15 +26,39 @@ const Welcome = (props) => {
 
 const Reroute = (props) => {
   return (
-    <div>
+    <div className="RerouteDiv">
       Yay you routed succesfully!
+    </div>
+  );
+};
+
+const Profile = (props) => {
+  return (
+    <div className="ProfileDiv">
+      Your cool profile!
+    </div>
+  );
+};
+
+const Directions = (props) => {
+  return (
+    <div className="ProfileDiv">
+      Game Instructions!
+    </div>
+  );
+};
+
+const Chat = (props) => {
+  return (
+    <div className="ChatDiv">
+      On Game chatting!
     </div>
   );
 };
 
 const CharacterList = ((props0) => {
   return (
-    <div>
+    <div className="CharDiv">
       <h1>The Bad Guys</h1>
       <ul>
         <li>The Mafia <i className="fa fa-hand-o-right" /></li>
@@ -62,6 +89,9 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={Welcome} />
           <Route path="/otherPage" component={Reroute} />
+          <Route path="/directions" component={Directions} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/chat" component={Chat} />
           <Route path="/cast" component={CharacterList} />
           <Route component={FallBack} />
         </Switch>
