@@ -1,7 +1,5 @@
 body {
   font-family: 'Open Sans', sans-serif;
-  background-color: black;
-  color: white;
 }
 
 // text and image
@@ -28,4 +26,35 @@ img {
 
 .active {
   color: red;
+}
+
+.landing-page-container {
+  display: flex;
+
+  .landing-page-upper {
+    height: 70vh;
+    width: 100vw;
+    background-color: black;
+    display: flex;
+
+    img {
+      margin: 210px 500px;
+    }
+  }
+
+  .signup {
+    position: absolute;
+    top: 65vh;
+    height: 12vh;
+    left: 40vw;
+    width: 20vw;
+    border: none;
+    border-radius: 5px;
+    background-color: #E10000;
+
+    .signup-text {
+      font-size: 2vw;
+      color: white;
+    }
+  }
 }

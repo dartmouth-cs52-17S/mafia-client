@@ -1,33 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, NavLink, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import SignUp from './signup';
+// import Nav from './nav';
 
-const Nav = (props) => {
+const LandingPage = (props) => {
   return (
-    <nav>
-      <ul>
-        <li><NavLink to="/" exact>Home</NavLink></li>
-        <li><NavLink to="/otherPage">Super Awesome NavLink</NavLink></li>
-        <li><NavLink to="/cast">Cast List</NavLink></li>
-        <li><NavLink to="/directions">Directions</NavLink></li>
-        <li><NavLink to="/profile">Profile</NavLink></li>
-        <li><NavLink to="/chat">Chat</NavLink></li>
-      </ul>
-    </nav>
-  );
-};
-
-const Welcome = (props) => {
-  return (
-    <div className="welcomeDiv">
-      Hello world!
-    </div>
-  );
-};
-
-const Reroute = (props) => {
-  return (
-    <div className="RerouteDiv">
-      Yay you routed succesfully!
+    <div className="landing-page-container">
+      <div className="landing-page-upper">
+        <img src="/images/logo.png" alt="Mafia" />
+      </div>
+      <Link to="/signup"><button className="signup"><span className="signup-text">Play Now</span></button></Link>
     </div>
   );
 };
@@ -44,14 +26,6 @@ const Directions = (props) => {
   return (
     <div className="ProfileDiv">
       Game Instructions!
-    </div>
-  );
-};
-
-const Chat = (props) => {
-  return (
-    <div className="ChatDiv">
-      On Game chatting!
     </div>
   );
 };
@@ -85,13 +59,13 @@ const App = () => {
   return (
     <Router>
       <div>
-        <Nav />
+        {/* <Nav /> */}
         <Switch>
-          <Route exact path="/" component={Welcome} />
-          <Route path="/otherPage" component={Reroute} />
+          <Route exact path="/" component={LandingPage} />
+          <Route path="/signup" component={SignUp} />
           <Route path="/directions" component={Directions} />
-          <Route path="/profile" component={Profile} />
-          <Route path="/chat" component={Chat} />
+          <Route path="/profile/:id" component={Profile} />
+          {/* <Route path="/chat" component={Chat} /> */}
           <Route path="/cast" component={CharacterList} />
           <Route component={FallBack} />
         </Switch>
