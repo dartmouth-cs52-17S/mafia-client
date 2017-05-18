@@ -1,6 +1,7 @@
 import React from 'react';
-// import Profile from './containers/profile';
 import { BrowserRouter as Router, Route, NavLink, Switch } from 'react-router-dom';
+
+// import Profile from '../containers/profile';
 
 const Nav = (props) => {
   return (
