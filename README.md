@@ -6,19 +6,19 @@ This is an online Mafia game where players are automatically given roles to play
 ## Mockups
 
 ### Home
-![home](images/Mafia_home.png "home")
+![home](public/images/Mafia_home.png "home")
 
 ### Profile
-![profile](images/Mafia_profile.png "profile")
+![profile](public/images/Mafia_profile.png "profile")
 
 ### Directions
-![directions](images/Mafia_directions.png "directions")
+![directions](public/images/Mafia_directions.png "directions")
 
 ### Players
-![players](images/Mafia_players.png "players")
+![players](public/images/Mafia_players.png "players")
 
 ### Chat
-![chat](images/Mafia_chat.png "chat")
+![chat](public/images/Mafia_chat.png "chat")
 
 ## Architecture
 

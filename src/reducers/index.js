@@ -1,10 +1,9 @@
 import { combineReducers } from 'redux';
 
-import CountReducer from './count-reducer';
+import UserReducer from './user_reducer';
 
 const rootReducer = combineReducers({
-  count: CountReducer,
-  // profile: ProfileReducer,
+  users: UserReducer,
 });
 
 export default rootReducer;
