@@ -57,3 +57,39 @@ a{
     }
   }
 }
+
+//signup
+.signup_container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Open Sans';
+  background-color: white;
+
+  .signup_input{
+    position: absolute;
+    left: 20vw;
+    width: 60vw;
+    height: 4vh;
+    top: 30vh;
+    background-color: #D8D8D8;
+    border: none;
+    padding: 5px;
+    font-size: 2vw;
+  }
+  .signup_done{
+    position: absolute;
+    top: 40vh;
+    height: 5vh;
+    .signup_button{
+      left: 40vw;
+      width: 20vw;
+      height: 5vh;
+      border: none;
+      border-radius: 5px;
+      background-color: #E10000;
+      font-size: 2vw;
+      color: white;
+    }
+  }
+}
