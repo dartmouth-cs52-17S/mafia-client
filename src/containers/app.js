@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import SignIn from './signin';
 import SignUp from './signup';
 import Users from './users';
+// import Nav from './nav';
 
 const LandingPage = (props) => {
   return (
@@ -61,7 +62,7 @@ const App = () => {
   return (
     <Router>
       <div>
-        {/* <Nav /> */}
+        {/* <Nav />*/ }
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <Route path="/signin" component={SignIn} />

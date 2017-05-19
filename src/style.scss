@@ -91,6 +91,7 @@ a{
   }
 }
 
+
 .signin_container {
   display: flex;
   flex-direction: column;
@@ -135,5 +136,18 @@ a{
         font-weight: bold;
       }
     }
+
+// Nav
+.Nav{
+  position: absolute;
+  height: 10vh;
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .NavUser{
+    display: flex;
+    flex-direction: row;
   }
 }
