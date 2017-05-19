@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import SignIn from './signin';
 import SignUp from './signup';
 import Users from './users';
 // import Nav from './nav';
@@ -8,9 +9,9 @@ const LandingPage = (props) => {
   return (
     <div className="landing-page-container">
       <div className="landing-page-upper">
-        <img src="/images/logo.png" alt="Mafia" />
+        <img src="/images/Logo.svg" alt="Mafia" />
       </div>
-      <Link to="/signup"><button className="signup"><span className="signup-text">Play Now</span></button></Link>
+      <Link to="/signin"><button className="signin"><span className="signin-text">Play Now</span></button></Link>
     </div>
   );
 };
@@ -64,6 +65,7 @@ const App = () => {
         {/* <Nav />*/ }
         <Switch>
           <Route exact path="/" component={LandingPage} />
+          <Route path="/signin" component={SignIn} />
           <Route path="/signup" component={SignUp} />
           <Route path="/directions" component={Directions} />
           <Route path="/profile/:id" component={Profile} />
