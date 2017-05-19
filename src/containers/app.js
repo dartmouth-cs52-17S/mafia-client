@@ -8,7 +8,7 @@ const LandingPage = (props) => {
   return (
     <div className="landing-page-container">
       <div className="landing-page-upper">
-        <img src="/images/logo.png" alt="Mafia" />
+        <img src="/images/Logo.svg" alt="Mafia" />
       </div>
       <Link to="/signin"><button className="signin"><span className="signin-text">Play Now</span></button></Link>
     </div>

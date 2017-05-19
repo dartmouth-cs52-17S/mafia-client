@@ -20,10 +20,6 @@ a{
   text-decoration: none;
 }
 
-img {
-  width: 100%;
-}
-
 .active {
   color: red;
 }
@@ -36,9 +32,12 @@ img {
     width: 100vw;
     background-color: black;
     display: flex;
+    justify-content: center;
 
     img {
-      margin: 210px 500px;
+      width: 50%;
+      margin-right:60px;
+      margin-bottom: 50px;
     }
   }
 
