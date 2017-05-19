@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import SignIn from './signin';
 import SignUp from './signup';
-// import Nav from './nav';
+import Users from './users';
 
 const LandingPage = (props) => {
   return (
@@ -52,6 +52,7 @@ const CharacterList = ((props0) => {
   );
 });
 
+
 const FallBack = (props) => {
   return <div>URL Not Found</div>;
 };
@@ -67,6 +68,8 @@ const App = () => {
           <Route path="/signup" component={SignUp} />
           <Route path="/directions" component={Directions} />
           <Route path="/profile/:id" component={Profile} />
+          <Route path="/users" component={Users} />
+
           {/* <Route path="/chat" component={Chat} /> */}
           <Route path="/cast" component={CharacterList} />
           <Route component={FallBack} />
