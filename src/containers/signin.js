@@ -32,27 +32,25 @@ class SignIn extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="signin-form">
-          <span> Sign In </span>
-          <div>
-            <input placeholder="username" onChange={this.onUsernameChange} value={this.state.username} />
-          </div>
-          <div>
-            <input placeholder="password" onChange={this.onPasswordChange} value={this.state.password} />
-          </div>
-        </div>
-        <div id="buttons">
-          <button onClick={this.onSubmit}>Submit</button>
-          <NavLink to="/"><button>Cancel</button></NavLink>
+      <div className="signin_container">
+        <div>
+          <input placeholder="username" className="signin_input" onChange={this.onUsernameChange} value={this.state.username} />
         </div>
         <div>
-          <span>Wanna </span>
-          <Link to="/signup">Sign Up</Link>
-          <span>?</span>
+          <input placeholder="password" className="signin_input" onChange={this.onPasswordChange} value={this.state.password} />
+        </div>
+        <div className="signin_done">
+          <div id="buttons">
+            <button className="signin_button" onClick={this.onSubmit}>Submit</button>
+            <NavLink to="/"><button className="signin_button">Cancel</button></NavLink>
+          </div>
+          <div className="signup_link">
+            <span>Wanna </span>
+            <Link to="/signup" className="signup_text">Sign Up</Link>
+            <span>?</span>
+          </div>
         </div>
       </div>
-
     );
   }
 }
