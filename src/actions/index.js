@@ -39,3 +39,13 @@ export function signupUser(username, history) {
     });
   };
 }
+
+export function signinUser(username, history) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/signin`, { username })
+    .then(history.push('/'))
+    .catch((error) => {
+      console.log(error);
+    });
+  };
+}
