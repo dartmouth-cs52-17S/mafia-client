@@ -93,3 +93,18 @@ a{
     }
   }
 }
+
+// Nav
+.Nav{
+  position: absolute;
+  height: 10vh;
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .NavUser{
+    display: flex;
+    flex-direction: row;
+  }
+}
