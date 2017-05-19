@@ -30,8 +30,8 @@ class SignUp extends Component {
           <input className="signup_input" onChange={this.onUsernameChange} placeholder="Enter a username" />
         </div>
         <div className="signup_done">
-          <button className="signup_button" onClick={this.onSubmitClicked}>Sign Up!</button>
-          <p>or, <NavLink to="/signin"><strong>create</strong></NavLink> an account</p>
+          <button className="signup_button" onClick={this.onSubmitClicked}>Sign Up</button>
+          <NavLink to="/"><button className="signup_button">Cancel</button></NavLink>
         </div>
       </div>
     );
