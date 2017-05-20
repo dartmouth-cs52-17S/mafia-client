@@ -20,10 +20,10 @@ export function fetchUsers() {
   };
 }
 
-export function fetchUser(id) {
+export function fetchProfile(id) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/user/${id}`).then((response) => {
-      dispatch({ type: ActionTypes.FETCH_USER, payload: response });
+      dispatch({ type: ActionTypes.FETCH_USER, payload: response.data });
     }).catch((error) => {
       console.log(error);
     });

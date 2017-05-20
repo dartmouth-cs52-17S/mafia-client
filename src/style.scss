@@ -1,5 +1,9 @@
+
+$mafia-red: #D0011B;
+
 body {
   font-family: 'Open Sans', sans-serif;
+  margin: 0;
 }
 
 // text and image
@@ -21,7 +25,18 @@ a{
 }
 
 .active {
-  color: red;
+  color: $mafia-red;
+}
+
+nav {
+  background-color: black;
+  display: flex;
+
+  .logo-top-left {
+    padding: 20px;
+    height: 50px;
+    width: 10%;
+  }
 }
 
 .landing-page-container {
@@ -35,7 +50,7 @@ a{
     justify-content: center;
 
     img {
-      width: 50%;
+      width: 40%;
       margin-right:60px;
       margin-bottom: 50px;
     }
@@ -43,13 +58,13 @@ a{
 
   .signin {
     position: absolute;
-    top: 65vh;
+    top: 76vh;
     height: 12vh;
     left: 40vw;
     width: 20vw;
     border: none;
     border-radius: 10px;
-    background-color: #E10000;
+    background-color: $mafia-red;
 
     .signin-text {
       font-size: 3vw;
@@ -151,5 +166,72 @@ a{
   .NavUser{
     display: flex;
     flex-direction: row;
+  }
+}
+
+// Style attributes for the profile page
+.ProfilePage {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+
+  .BasicInfo {
+    height: 15vh;
+    color: white;
+    margin-left: 30vw;
+  }
+
+  .MainProfile {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+    height: 85vh;
+    background-color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin: 0 80px;
+
+    .UserInfo {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      margin: 30px;
+    }
+
+    .GameData {
+      flex-grow: 5;
+      margin: 30px;
+
+      .MostPlayed {
+        display: flex;
+        flex-direction: column;
+
+        .MostFrequentPlayer {
+          border: .5px solid black;
+          height: 160px;
+          width: 100px;
+          align-self: center;
+        }
+      }
+
+      .Badge-Section {
+        display: flex;
+        flex-direction: column;
+
+        .Badges {
+          align-self: center;
+
+          .Badge-Singular {
+            border: 1px solid black;
+            border-radius: 10px;
+            height: 120px;
+            width: 120px;
+          }
+        }
+      }
+    }
   }
 }
