@@ -7,8 +7,8 @@ export const ActionTypes = {
 };
 
 // If running in localhost, switch the following lines!
-const ROOT_URL = 'http://localhost:9090/api';
-// const ROOT_URL = 'https://online-mafia.herokuapp.com/api';
+// const ROOT_URL = 'http://localhost:9090/api';
+const ROOT_URL = 'https://online-mafia.herokuapp.com/api';
 
 export function fetchUsers() {
   return (dispatch) => {
