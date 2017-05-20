@@ -7,8 +7,8 @@ export const ActionTypes = {
 };
 
 // If running in localhost, switch the following lines!
-// const ROOT_URL = 'http://localhost:9090/api';
-const ROOT_URL = 'https://online-mafia.herokuapp.com/api';
+const ROOT_URL = 'http://localhost:9090/api';
+// const ROOT_URL = 'https://online-mafia.herokuapp.com/api';
 
 export function fetchUsers() {
   return (dispatch) => {
@@ -20,10 +20,10 @@ export function fetchUsers() {
   };
 }
 
-export function fetchUser(id) {
+export function fetchProfile(id) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/user/${id}`).then((response) => {
-      dispatch({ type: ActionTypes.FETCH_USER, payload: response });
+      dispatch({ type: ActionTypes.FETCH_USER, payload: response.data });
     }).catch((error) => {
       console.log(error);
     });

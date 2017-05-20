@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import SignIn from './signin';
 import SignUp from './signup';
 import Users from './users';
+import Profile from './profile';
 // import Nav from './nav';
 
 const LandingPage = (props) => {
@@ -12,14 +13,6 @@ const LandingPage = (props) => {
         <img src="/images/Logo.svg" alt="Mafia" />
       </div>
       <Link to="/signin"><button className="signin"><span className="signin-text">Play Now</span></button></Link>
-    </div>
-  );
-};
-
-const Profile = (props) => {
-  return (
-    <div className="ProfileDiv">
-      Your cool profile!
     </div>
   );
 };
@@ -53,6 +46,14 @@ const CharacterList = ((props0) => {
   );
 });
 
+const Nav = (props) => {
+  return (
+    <nav>
+      <img className="logo-top-left" src="/images/Logo.svg" alt="Mafia" />
+    </nav>
+  );
+};
+
 
 const FallBack = (props) => {
   return <div>URL Not Found</div>;
@@ -62,13 +63,13 @@ const App = () => {
   return (
     <Router>
       <div>
-        {/* <Nav />*/ }
+        <Nav />
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <Route path="/signin" component={SignIn} />
           <Route path="/signup" component={SignUp} />
           <Route path="/directions" component={Directions} />
-          <Route path="/profile/:id" component={Profile} />
+          <Route path="/profile/:userID" component={Profile} />
           <Route path="/users" component={Users} />
 
           {/* <Route path="/chat" component={Chat} /> */}

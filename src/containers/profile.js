@@ -11,153 +11,101 @@ class Profile extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      author: props.profile.author,
-      pic: props.profile.pic,
-      kill: props.profile.kill,
-      win: props.profile.win,
-      lose: props.profile.lose,
-      leave: props.profile.leave,
-      scores: props.profile.scores,
-      // maps
-      badges: props.profile.badges,
-      mostPlayed: props.profile.tags,
-      past: props.profile.past,
-      friends: props.profile.friends,
-      isFriends: false,
-    };
+    this.state = {};
 
     // binding
-    this.renderPast = this.renderPast.bind(this);
-    this.renderFriends = this.renderFriends.bind(this);
-    this.renderMostPlayed = this.renderMostPlayed.bind(this);
+    this.renderProfile = this.renderProfile.bind(this);
+    this.playedMostAs = this.playedMostAs.bind(this);
     this.renderBadges = this.renderBadges.bind(this);
-    this.renderHonorFriend = this.renderHonorFriend.bind(this);
-    this.renderMain = this.renderMain.bind(this);
   }
 
   componentDidMount() {
-    this.props.fetchProfile(this.props.match.params.profileID);
-  }
-
-  componentWillReceiveProps(props) {
-    this.setState({
-      author: props.profile.author,
-      pic: props.profile.pic,
-      kill: props.profile.kill,
-      win: props.profile.win,
-      lose: props.profile.lose,
-      leave: props.profile.leave,
-      scores: props.profile.scores,
-      // maps
-      badges: props.profile.badges,
-      mostPlayed: props.profile.tags,
-      past: props.profile.past,
-      friends: props.profile.friends,
-      isFriends: false,
-    });
+    this.props.fetchProfile(this.props.match.params.userID);
   }
 
   // individual section
-  renderPast() {
-    return this.state.past.entrySeq().map((past) => {
-      return (
-        <div className="pastSeg">{past}
-        </div>
-      );
-    });
-  }
-
-  renderFriends() {
-    return this.state.past.entrySeq().map((friend) => {
-      return (
-        <div className="friend">{friend}
-        </div>
-      );
-    });
-  }
-
-  renderMostPlayed() {
-    return this.state.past.entrySeq().map((role) => {
-      return (
-        <div>{role}</div>
-      );
-    });
-  }
-
-  renderBadges() {
-    return this.state.past.entrySeq().map((badge) => {
-      return (
-        <div className="friend">{badge}
-        </div>
-      );
-    });
-  }
-
-
-  renderHonorFriend() {
-    if (this.state.isFriends) {
-      return (
-        <div className="Friends">
-          {this.renderFriends()}
-        </div>
-      );
+  playedMostAs() {
+    if (!this.props.profile.username) { // this just checks if data has been fetched and mapped to props yet
+      return '';
     } else {
-      return (
-        <div className="History">
-          <div className="MostPlayed">{this.renderMostPlayed}</div>
-          <div className="Badges">{this.renderBadges}</div>
-        </div>
-      );
+      const mafia = this.props.profile.roundsAsMafia;
+      const police = this.props.profile.roundsAsPolice;
+      const doctor = this.props.profile.roundsAsDoctor;
+      const villager = this.props.profile.roundsAsVillager;
+      const max = Math.max(mafia, police, doctor, villager);
+      switch (max) {
+        case mafia: return (<div className="MostFrequentPlayer">Mafia</div>);
+        case villager: return (<div className="MostFrequentPlayer">Villager</div>);
+        case doctor: return (<div className="MostFrequentPlayer">Doctor</div>);
+        case police: return (<div className="MostFrequentPlayer">Police</div>);
+        default: return '';
+      }
     }
   }
 
-  // Main
-  renderMain() {
-    return (
-      <div>
-        <div className="BasicInfor">
-          <h2 className="KWL"> K/W/L {this.state.kill}/{this.state.win}/{this.state.lose}</h2>
-          <div className="FriendNav">
-            <h2> Total scores {this.state.scores}     Leave {this.state.leave}</h2>
-            <button className="FriendsButton" onClick={() => this.setState({ isFriends: !this.state.isFriends })}>Friends</button>
+  renderBadges() {
+    if (this.props.profile.badges.length === 0) {
+      return 'No Badges Yet! :(';
+    } else {
+      return this.props.profile.badges.map((badge) => {
+        return (
+          <div className="Badge-Singular">
+            {badge}
           </div>
+        );
+      });
+    }
+  }
+
+  // Render the profile page
+  renderProfile() {
+    return (
+      <div className="ProfilePage">
+        <div className="BasicInfo">
+          <h2 className="Stats"> Wins: {this.props.profile.wins} / Losses: {this.props.profile.losses}</h2>
         </div>
-        <div className="ProfileDisplay">
-          <div className="ProfileLeft">
-            <div className="ProfilePic" />
-            <img src={this.state.pic || ''} alt="Profile Pic" />
-            <div className="Past"> {this.renderPast()}
+        <div className="MainProfile">
+          <div className="UserInfo">
+            <div className="ProfilePic">
+              <img src={this.props.profile.pic || ''} alt="Profile Pic" />
+              <div>{this.props.profile.username}</div>
             </div>
           </div>
-          <div className="HonorFriend">
-            {this.renderHonorFriend()}
+          <div className="GameData">
+            <div className="MostPlayed">
+              <h3>Most Played</h3>
+              {this.playedMostAs()}
+            </div>
+            <div className="Badge-Section">
+              <h3>Badges:</h3>
+              <div className="Badges">{this.renderBadges()}</div>
+            </div>
           </div>
         </div>
       </div>
     );
   }
 
-  // render(), check if profile existss
+
   render() {
-    // console.log(this.props.post);
-    if (this.props.profile) {
+    /* check if profile has been mapped to props yet */
+    if (this.props.profile.username) {
       return (
         <div>
-          {this.renderMain()}
+          {this.renderProfile()}
         </div>
       );
     } else {
-      return <div>Is Loading</div>;
+      /* If not then maybe we'll add a lil spinny loady here */
+      return (<div>Loading Profile...</div>);
     }
   }
 }
 
 const mapStateToProps = state => (
   {
-    profile: state.profile,
+    profile: state.users.user,
   }
 );
 
-// export default withRouter(connect(mapStateToProps, { fetchPost, updatePost, deletePost })(Profile));
 export default withRouter(connect(mapStateToProps, { fetchProfile })(Profile));
