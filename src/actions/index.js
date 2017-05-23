@@ -4,6 +4,7 @@ import axios from 'axios';
 export const ActionTypes = {
   FETCH_USERS: 'FETCH_USERS',
   FETCH_USER: 'FETCH_USER',
+  FETCH_GAME: 'FETCH_GAME',
 };
 
 // If running in localhost, switch the following lines!
@@ -24,6 +25,16 @@ export function fetchUser(id) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/user/${id}`).then((response) => {
       dispatch({ type: ActionTypes.FETCH_USER, payload: response });
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
+
+export function fetchGame(id) {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/game`).then((response) => {
+      dispatch({ type: ActionTypes.FETCH_GAME, payload: response.data });
     }).catch((error) => {
       console.log(error);
     });

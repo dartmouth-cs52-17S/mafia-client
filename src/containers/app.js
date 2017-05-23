@@ -21,7 +21,7 @@ const Directions = (props) => {
 const Nav = (props) => {
   return (
     <nav>
-      <img className="logo-top-left" src="/images/Logo.svg" alt="Mafia" />
+      <img className="logo-top-left" src="/images/fedora-hat.svg" alt="Mafia" />
     </nav>
   );
 };
