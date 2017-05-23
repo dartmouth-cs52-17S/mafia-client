@@ -5,6 +5,7 @@ export const ActionTypes = {
   FETCH_USERS: 'FETCH_USERS',
   FETCH_USER: 'FETCH_USER',
   FETCH_GAME: 'FETCH_GAME',
+  CREATE_GAME: 'CREATE_GAME',
   AUTH_USER: 'AUTH_USER',
   ADD_USER: 'ADD_USER',
 };
@@ -17,6 +18,17 @@ export function fetchUsers() {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/users`).then((response) => {
       dispatch({ type: ActionTypes.FETCH_USERS, payload: response });
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
+
+export function createGame(fbid) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/games`, { fbid }).then((response) => {
+      console.log(response);
+      dispatch({ type: ActionTypes.CREATE_GAME, payload: response });
     }).catch((error) => {
       console.log(error);
     });
@@ -59,9 +71,15 @@ export function authUser(token, history) {
 
 export function addUserToGame(fbid) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/getNameFromFBID`, { fbid })
+    axios.put(`${ROOT_URL}/games`, { fbid })
     .then((response) => {
       dispatch({ type: ActionTypes.ADD_USER, payload: response });
     });
   };
 }
+
+// export function getNameFromFBID(fbid) {
+//   axios.post(`${ROOT_URL}/getNameFromFBID`, { fbid }).then((response) => {
+//     // dispatch({ type: ActionTypes.ADD_USER, payload: response });
+//   });
+// }

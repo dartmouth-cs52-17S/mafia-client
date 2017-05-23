@@ -1,7 +1,7 @@
 import { ActionTypes } from '../actions';
 
 const defaultState = {
-  players: [],
+  all: [],
 };
 
 const UserReducer = (state = defaultState, action) => {

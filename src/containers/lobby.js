@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 import jwt from 'jwt-simple';
-import { addUserToGame } from '../actions';
+import { createGame, updatePlayers, addUserToGame } from '../actions';
 
 
 const socketserver = 'http://localhost:3000';
@@ -19,16 +19,23 @@ class Lobby extends Component {
   }
 
   componentDidMount() {
+    if (this.props.game.id === 'unassigned') {
+      this.props.createGame(localStorage.getItem('fbid'));
+    } else {
+      this.props.updatePlayers(localStorage.getItem('fbid'));
+    }
     console.log(localStorage.getItem('token'));
     console.log(jwt.decode(localStorage.getItem('token'), process.env.AUTH_SECRET));
   }
 
   renderPlayers() {
-    setTimeout(() => {
+    if (this.props.game.players) {
       return this.props.game.players.map((person) => {
         return (<li>{person}</li>);
       });
-    }, 2000);
+    } else {
+      return (<div />);
+    }
   }
 
   render() {
@@ -49,4 +56,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { addUserToGame })(Lobby));
+export default withRouter(connect(mapStateToProps, { createGame, updatePlayers, addUserToGame })(Lobby));
