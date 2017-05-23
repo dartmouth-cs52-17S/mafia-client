@@ -31,6 +31,38 @@ class Lobby extends Component {
     }, 2000);
   }
 
+  // renderPlayers() {
+  //   setTimeout(() => {
+  //     return this.props.players.map((player) => {
+  //       return (<li>{player}</li>);
+  //     });
+  //   }, 2000);
+  // }
+
+  // renderRoles() {
+  //   return (
+  //     <div className="RolesContainer">
+  //       <h2>You Are</h2>
+  //       {this.props.player.role}
+  //     </div>
+  //   );
+  // }
+
+  // renderChat() {
+  //
+  // }
+
+  // render() {
+  //   return (
+  //     <div className-"GameContainer">
+  //       <div className="Roles">{this.renderRoles}</div>
+  //       <div className="Roles">{}</div>
+  //       // <div className="Selection">{this.renderselection}</div>  // all the pop ups
+  //       // <div className="Chat">{this.renderChat}</div>
+  //     </div>
+  //   );
+  // }
+
   render() {
     return (
       <div>
@@ -46,6 +78,8 @@ class Lobby extends Component {
 const mapStateToProps = state => (
   {
     game: state.game,
+    players: state.players,
+    player: state.player,
   }
 );
 
