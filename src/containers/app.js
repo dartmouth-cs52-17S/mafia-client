@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import io from 'socket.io-client';
-import SignIn from './signin';
-import SignUp from './signup';
 import Users from './users';
 import Profile from './profile';
 import LandingPage from './landing_page';
@@ -51,8 +49,6 @@ class App extends Component {
             <Route exact path="/" component={LandingPage} />
             <Route path="/home" component={CreateOrJoinGame} />
             <Route path="/lobby" component={Lobby} />
-            <Route path="/signin" component={SignIn} />
-            <Route path="/signup" component={SignUp} />
             <Route path="/directions" component={Directions} />
             <Route path="/profile/:userID" component={Profile} />
             <Route path="/users" component={Users} />
