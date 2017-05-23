@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { authUser } from '../actions';
 
 const FB = window.FB;
@@ -51,6 +51,7 @@ class LandingPage extends Component {
   // }
 
   sendToken(authResponse) {
+    localStorage.setItem('fbid', authResponse.userID);
     this.props.authUser(authResponse.accessToken, this.props.history);
   }
 
@@ -96,6 +97,7 @@ class LandingPage extends Component {
         <button className="signin" onClick={this.handleClick}>
           <span className="signin-text">Log in with Facebook</span>
         </button>
+        <Link to="/home"><button>Enter</button></Link>
         <p id="status" />
       </div>
     );
