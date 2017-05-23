@@ -22,7 +22,7 @@ class Nav extends Component {
     if (this.props.auth) {
       return (
         <div className="Nav">
-          <NavLink exact to="/"><img src="/images/logo.png" alt="Mafia" /></NavLink>
+          <NavLink exact to="/"><img src="/images/fedora-hat.svg" alt="Mafia" /></NavLink>
           <div className="NavUser">
             <NavLink exact to="/profile/:id">{this.props.user.username}</NavLink>
             <button className="SignOutB" onClick={this.onSignOutClick}>Sign Out</button>
@@ -31,7 +31,13 @@ class Nav extends Component {
       );
     } else {
       return (
-        <div />
+        <div className="Nav">
+          <NavLink exact to="/"><img src="/images/fedora-hat.svg" alt="Mafia" /></NavLink>
+          <div className="NavUser">
+            <NavLink exact to="/profile/:id">{this.props.user.username}</NavLink>
+            <button className="SignOutB" onClick={this.onSignOutClick}>Sign Out</button>
+          </div>
+        </div>
       );
     }
   }
