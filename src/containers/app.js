@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import io from 'socket.io-client';
-import Users from './users';
 import Profile from './profile';
 import LandingPage from './landing_page';
 import CreateOrJoinGame from './createOrJoinGame';
@@ -51,7 +50,6 @@ class App extends Component {
             <Route path="/lobby" component={Lobby} />
             <Route path="/directions" component={Directions} />
             <Route path="/profile/:userID" component={Profile} />
-            <Route path="/users" component={Users} />
 
             {/* <Route path="/chat" component={Chat} /> */}
             <Route component={FallBack} />
