@@ -5,11 +5,12 @@ export const ActionTypes = {
   FETCH_USERS: 'FETCH_USERS',
   FETCH_USER: 'FETCH_USER',
   KILL_USER: 'KILL_USER',
+  FETCH_GAME: 'FETCH_GAME',
 };
 
 // If running in localhost, switch the following lines!
-// const ROOT_URL = 'http://localhost:9090/api';
-const ROOT_URL = 'https://online-mafia.herokuapp.com/api';
+const ROOT_URL = 'http://localhost:9090/api';
+// const ROOT_URL = 'https://online-mafia.herokuapp.com/api';
 
 
 export function killUser() { // actionCreator
@@ -43,20 +44,24 @@ export function fetchUser(id) {
   };
 }
 
-export function signupUser(username, history) {
+export function fetchGame(id) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/signup`, { username })
-    .then(history.push('/'))
-    .catch((error) => {
+    axios.get(`${ROOT_URL}/game`).then((response) => {
+      dispatch({ type: ActionTypes.FETCH_GAME, payload: response.data });
+    }).catch((error) => {
       console.log(error);
     });
   };
 }
 
-export function signinUser(username, history) {
+export function authUser(token, history) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/signin`, { username })
-    .then(history.push('/'))
+    axios.post(`${ROOT_URL}/signin`, { token })
+    .then((response) => {
+      dispatch({ type: ActionTypes.AUTH_USER });
+      localStorage.setItem('token', response.data.token);
+      history.push('/');
+    })
     .catch((error) => {
       console.log(error);
     });
