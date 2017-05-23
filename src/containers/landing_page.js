@@ -94,7 +94,9 @@ class LandingPage extends Component {
         <div className="landing-page-upper">
           <img src="/images/Logo.svg" alt="Mafia" />
         </div>
-        <button className="signin" onClick={this.handleClick}><span className="signin-text">Log in with Facebook</span></button>
+        <button className="signin" onClick={this.handleClick}>
+          <span className="signin-text">Log in with Facebook</span>
+        </button>
         <Link to="/home"><button>Enter</button></Link>
         <p id="status" />
       </div>
