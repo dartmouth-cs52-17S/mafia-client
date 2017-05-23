@@ -2,3 +2,4 @@ npm-debug.log*
 public/build
 node_modules
 .npm
+.DS_Store
