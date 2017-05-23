@@ -4,11 +4,24 @@ import axios from 'axios';
 export const ActionTypes = {
   FETCH_USERS: 'FETCH_USERS',
   FETCH_USER: 'FETCH_USER',
+  KILL_USER: 'KILL_USER',
 };
 
 // If running in localhost, switch the following lines!
 // const ROOT_URL = 'http://localhost:9090/api';
 const ROOT_URL = 'https://online-mafia.herokuapp.com/api';
+
+
+export function killUser() { // actionCreator
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/mafia_selection`).then((response) => {
+      dispatch({ type: ActionTypes.KILL_USER, payload: response });
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
+
 
 export function fetchUsers() {
   return (dispatch) => {
