@@ -1,12 +1,15 @@
 import { ActionTypes } from '../actions';
 
-// const UserReducer = (state = defaultState, action) => {
-const GameReducer = (state = {}, action) => {
+const defaultState = {
+  players: [],
+};
+
+const GameReducer = (state = defaultState, action) => {
   switch (action.type) {
     case ActionTypes.FETCH_GAME:
       return Object.assign({}, state, action.payload);
-    // case ActionTypes.FETCH_USER:
-    //   return Object.assign({}, state, { user: action.payload });
+    case ActionTypes.ADD_USER:
+      return Object.assign({}, state, state.players.push(action.payload.data.name));
     default:
       return state;
   }

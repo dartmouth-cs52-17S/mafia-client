@@ -6,7 +6,8 @@ import SignUp from './signup';
 import Users from './users';
 import Profile from './profile';
 import LandingPage from './landing_page';
-// import Nav from './nav';
+import CreateOrJoinGame from './createOrJoinGame';
+import Lobby from './lobby';
 
 const socketserver = 'http://localhost:3000';
 
@@ -26,7 +27,6 @@ const Nav = (props) => {
   );
 };
 
-
 const FallBack = (props) => {
   return (<div>URL Not Found</div>);
 };
@@ -36,7 +36,7 @@ class App extends Component {
     super(props);
 
     this.socket = io.connect(socketserver);
-    this.socket.on('connect', (data) => { console.log(`player ${data} connected`); });
+    this.socket.on('connect', () => { console.log('socket.io connected'); });
     this.socket.on('disconnect', () => { console.log('socket.io disconnected'); });
     this.socket.on('reconnect', () => { console.log('socket.io reconnected'); });
     this.socket.on('error', (error) => { console.log(error); });
@@ -49,6 +49,8 @@ class App extends Component {
           <Nav />
           <Switch>
             <Route exact path="/" component={LandingPage} />
+            <Route path="/home" component={CreateOrJoinGame} />
+            <Route path="/lobby" component={Lobby} />
             <Route path="/signin" component={SignIn} />
             <Route path="/signup" component={SignUp} />
             <Route path="/directions" component={Directions} />
