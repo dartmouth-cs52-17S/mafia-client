@@ -1,21 +1,14 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import io from 'socket.io-client';
 import SignIn from './signin';
 import SignUp from './signup';
 import Users from './users';
 import Profile from './profile';
+import LandingPage from './landing_page';
 // import Nav from './nav';
 
-const LandingPage = (props) => {
-  return (
-    <div className="landing-page-container">
-      <div className="landing-page-upper">
-        <img src="/images/Logo.svg" alt="Mafia" />
-      </div>
-      <Link to="/signin"><button className="signin"><span className="signin-text">Play Now</span></button></Link>
-    </div>
-  );
-};
+const socketserver = 'http://localhost:3000';
 
 const Directions = (props) => {
   return (
@@ -24,27 +17,6 @@ const Directions = (props) => {
     </div>
   );
 };
-
-const CharacterList = ((props0) => {
-  return (
-    <div className="CharDiv">
-      <h1>The Bad Guys</h1>
-      <ul>
-        <li>The Mafia <i className="fa fa-hand-o-right" /></li>
-      </ul>
-      <h1>The Good Guys</h1>
-      <ul>
-        <li>The Doctor <i className="fa fa-plus-square" /></li>
-        <li>The Detective <i className="fa fa-eye" /></li>
-      </ul>
-      <h1>The Everyone Else Guys</h1>
-      <ul>
-        <li>The Villagers <i className="fa fa-male" /></li>
-        <li>The Tanner <i className="fa fa-frown-o" /></li>
-      </ul>
-    </div>
-  );
-});
 
 const Nav = (props) => {
   return (
@@ -56,29 +28,40 @@ const Nav = (props) => {
 
 
 const FallBack = (props) => {
-  return <div>URL Not Found</div>;
+  return (<div>URL Not Found</div>);
 };
 
-const App = () => {
-  return (
-    <Router>
-      <div>
-        <Nav />
-        <Switch>
-          <Route exact path="/" component={LandingPage} />
-          <Route path="/signin" component={SignIn} />
-          <Route path="/signup" component={SignUp} />
-          <Route path="/directions" component={Directions} />
-          <Route path="/profile/:userID" component={Profile} />
-          <Route path="/users" component={Users} />
+class App extends Component {
+  constructor(props) {
+    super(props);
 
-          {/* <Route path="/chat" component={Chat} /> */}
-          <Route path="/cast" component={CharacterList} />
-          <Route component={FallBack} />
-        </Switch>
-      </div>
-    </Router>
-  );
-};
+    this.socket = io.connect(socketserver);
+    this.socket.on('connect', (data) => { console.log(`player ${data} connected`); });
+    this.socket.on('disconnect', () => { console.log('socket.io disconnected'); });
+    this.socket.on('reconnect', () => { console.log('socket.io reconnected'); });
+    this.socket.on('error', (error) => { console.log(error); });
+  }
+
+  render() {
+    return (
+      <Router>
+        <div>
+          <Nav />
+          <Switch>
+            <Route exact path="/" component={LandingPage} />
+            <Route path="/signin" component={SignIn} />
+            <Route path="/signup" component={SignUp} />
+            <Route path="/directions" component={Directions} />
+            <Route path="/profile/:userID" component={Profile} />
+            <Route path="/users" component={Users} />
+
+            {/* <Route path="/chat" component={Chat} /> */}
+            <Route component={FallBack} />
+          </Switch>
+        </div>
+      </Router>
+    );
+  }
+}
 
 export default App;

@@ -7,8 +7,8 @@ export const ActionTypes = {
 };
 
 // If running in localhost, switch the following lines!
-// const ROOT_URL = 'http://localhost:9090/api';
-const ROOT_URL = 'https://online-mafia.herokuapp.com/api';
+const ROOT_URL = 'http://localhost:9090/api';
+// const ROOT_URL = 'https://online-mafia.herokuapp.com/api';
 
 export function fetchUsers() {
   return (dispatch) => {
@@ -20,30 +20,24 @@ export function fetchUsers() {
   };
 }
 
-export function fetchProfile(id) {
+export function fetchUser(id) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/user/${id}`).then((response) => {
-      dispatch({ type: ActionTypes.FETCH_USER, payload: response.data });
+      dispatch({ type: ActionTypes.FETCH_USER, payload: response });
     }).catch((error) => {
       console.log(error);
     });
   };
 }
 
-export function signupUser(username, history) {
+export function authUser(token, history) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/signup`, { username })
-    .then(history.push('/'))
-    .catch((error) => {
-      console.log(error);
-    });
-  };
-}
-
-export function signinUser(username, history) {
-  return (dispatch) => {
-    axios.post(`${ROOT_URL}/signin`, { username })
-    .then(history.push('/'))
+    axios.post(`${ROOT_URL}/signin`, { token })
+    .then((response) => {
+      dispatch({ type: ActionTypes.AUTH_USER });
+      localStorage.setItem('token', response.data.token);
+      history.push('/');
+    })
     .catch((error) => {
       console.log(error);
     });

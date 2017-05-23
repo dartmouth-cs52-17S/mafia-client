@@ -29,7 +29,9 @@
         "react/prop-types": 0,
         "react/jsx-first-prop-new-line": 0,
         "react/jsx-filename-extension": 0,
-        "import/no-unresolved": [2, { "commonjs": true, "caseSensitive": false}]
+        "jsx-a11y/href-no-hash": 0,
+        "import/no-unresolved": [2, { "commonjs": true, "caseSensitive": false}],
+        "class-methods-use-this": 0,
     },
     "plugins": [
         "react"
