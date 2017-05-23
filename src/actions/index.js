@@ -5,6 +5,8 @@ export const ActionTypes = {
   FETCH_USERS: 'FETCH_USERS',
   FETCH_USER: 'FETCH_USER',
   FETCH_GAME: 'FETCH_GAME',
+  AUTH_USER: 'AUTH_USER',
+  ADD_USER: 'ADD_USER',
 };
 
 // If running in localhost, switch the following lines!
@@ -51,6 +53,15 @@ export function authUser(token, history) {
     })
     .catch((error) => {
       console.log(error);
+    });
+  };
+}
+
+export function addUserToGame(fbid) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/getNameFromFBID`, { fbid })
+    .then((response) => {
+      dispatch({ type: ActionTypes.ADD_USER, payload: response });
     });
   };
 }
