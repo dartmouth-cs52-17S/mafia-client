@@ -85,8 +85,8 @@ class Lobby extends Component {
 const mapStateToProps = state => (
   {
     game: state.game,
-    players: state.players,
-    player: state.player,
+    players: state.players.all,
+    player: state.players.player,
   }
 );
 

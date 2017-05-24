@@ -9,6 +9,8 @@ export const ActionTypes = {
   CREATE_GAME: 'CREATE_GAME',
   AUTH_USER: 'AUTH_USER',
   ADD_USER: 'ADD_USER',
+  FETCH_PLAYERS: 'FETCH_PLAYERS',
+  FETCH_PLAYER: 'FETCH_PLAYER',
 };
 
 // If running in localhost, switch the following lines!
@@ -72,6 +74,26 @@ export function fetchGame(id) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/game`).then((response) => {
       dispatch({ type: ActionTypes.FETCH_GAME, payload: response.data });
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
+
+export function fetchPlayers() {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/players`).then((response) => {
+      dispatch({ type: ActionTypes.FETCH_PLAYERS, payload: response });
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
+
+export function fetchPlayer(id) {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/players/${id}`).then((response) => {
+      dispatch({ type: ActionTypes.FETCH_PLAYER, payload: response });
     }).catch((error) => {
       console.log(error);
     });
