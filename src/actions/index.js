@@ -26,6 +26,16 @@ export function killUser() { // actionCreator
   };
 }
 
+export function createPlayers(gameId, userIds) { // actionCreator
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/createplayers`, { gameId, userIds }).then((response) => {
+      dispatch({ type: ActionTypes.CREATE_PLAYERS, payload: response });
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
+
 
 export function fetchUsers() {
   return (dispatch) => {
