@@ -58,10 +58,10 @@
     "react-redux": "^5.0.4",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
+    "react-textarea-autosize": "^5.0.4",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "socket.io-client": "^2.0.1",
     "uuid": "^3.0.1"
-
   }
 }

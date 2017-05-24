@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 import { createGame, updatePlayers, addUserToGame } from '../actions';
+import Chat from './chat';
 
 const socketserver = 'http://localhost:3000';
 
@@ -71,10 +72,15 @@ class Lobby extends Component {
   render() {
     return (
       <div>
-        <h3>Players Connected:</h3>
-        <ul>
-          {this.renderPlayers()}
-        </ul>
+        <div>
+          <h3>Players Connected:</h3>
+          <ul>
+            {this.renderPlayers()}
+          </ul>
+        </div>
+        <div>
+          <Chat />
+        </div>
       </div>
     );
   }

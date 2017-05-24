@@ -27,16 +27,16 @@ class Narration extends Component {
       return '';
     } else {
       return (
-        this.props.players.map((playerId) => {
+        this.props.players.map((player) => {
           return (
             <div className="playerStatusContainer">
-              <div className="playerName">{this.props.users.findById(playerId).username}</div>
+              <div className="playerName">{player.user.name}</div>
               {/* CSS: isAlive and isDead influence image opacity*/}
-              if (playerStatus[players.indexOf(player.id)]){
-                <img className="isAlive" src={this.props.users.findById(playerId).pic || ''} alt="Player Alive" key={playerId} />
+              if (player.status){
+                <img className="isAlive" src={player.user.pic || ''} alt="Player Alive" key={player.user.facebookID} />
               }
               else {
-                <img className="isDead" src={this.props.users.findById(playerId).pic || ''} alt="Player Dead" key={playerId} />
+                <img className="isDead" src={player.user.pic || ''} alt="Player Dead" key={player.user.facebookID} />
               }
             </div>
           );
@@ -57,9 +57,7 @@ class Narration extends Component {
 
 const mapStateToProps = state => (
   {
-    playerStatus: state.game.playerStatus,
-    players: state.game.players,
-    users: state.users.all,
+    players: state.players.all,
   }
 );
 
