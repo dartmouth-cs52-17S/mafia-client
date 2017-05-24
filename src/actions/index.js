@@ -19,13 +19,7 @@ export const ActionTypes = {
   ADVANCE_STAGE: 'ADVANCE_STAGE',
 };
 
-let ROOT_URL;
-
-if (RUNNING_LOCALLY) {
-  ROOT_URL = 'http://localhost:9090/api';
-} else {
-  ROOT_URL = 'https://online-mafia.herokuapp.com/api';
-}
+export const ROOT_URL = RUNNING_LOCALLY ? 'http://localhost:9090/api' : 'https://online-mafia.herokuapp.com/api';
 
 export function createPlayers(gameId, userIds) { // actionCreator
   return (dispatch) => {
@@ -61,7 +55,7 @@ export function fetchUser(id) {
 export function createGame(jwt, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/games`, null, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
-      dispatch({ type: ActionTypes.CREATE_GAME, payload: response });
+      // dispatch({ type: ActionTypes.CREATE_GAME, payload: response });
       history.push(`/lobby/${response.data.id}`);
     }).catch((error) => {
       console.log(error);
@@ -73,7 +67,7 @@ export function updatePlayers(jwt, gameID) { // actionCreator
   console.log(`gameID is ${gameID}`);
   return (dispatch) => {
     axios.put(`${ROOT_URL}/games`, { gameID }, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
-      dispatch({ type: ActionTypes.UPDATE_GAME, payload: response });
+      // dispatch({ type: ActionTypes.UPDATE_GAME, payload: response.data });
     }).catch((error) => {
       console.log(error);
     });
@@ -82,8 +76,8 @@ export function updatePlayers(jwt, gameID) { // actionCreator
 
 export function fetchGame(id) {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/game`).then((response) => {
-      dispatch({ type: ActionTypes.FETCH_GAME, payload: response.data });
+    axios.get(`${ROOT_URL}/game/${id}`).then((response) => {
+      dispatch({ type: ActionTypes.FETCH_GAME, payload: response });
     }).catch((error) => {
       console.log(error);
     });
