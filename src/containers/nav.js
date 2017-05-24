@@ -3,12 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { signoutUser } from '../actions';
 
-const mapStateToProps = (state) => {
-  return {
-    authenticated: state.auth.authenticated,
-  };
-};
-
 class Nav extends Component {
   constructor(props) {
     super(props);
@@ -39,6 +33,12 @@ class Nav extends Component {
     }
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    authenticated: state.auth.authenticated,
+  };
+};
 
 export default withRouter(connect(mapStateToProps, { signoutUser })(Nav));
 
