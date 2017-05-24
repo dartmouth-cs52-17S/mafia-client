@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
+// import jwt from 'jwt-simple';
+// import Selection from './mafia_selection';
 import { createGame, updatePlayers, addUserToGame } from '../actions';
 import Chat from './chat';
 
 const socketserver = 'http://localhost:3000';
+let stage = 0;
 
 class Lobby extends Component {
   constructor(props) {
@@ -21,6 +24,21 @@ class Lobby extends Component {
     });
 
     this.state = {};
+  }
+
+
+  componentDidMount() {
+    if (this.props.game.id === 'unassigned') {
+      this.props.createGame(localStorage.getItem('fbid'));
+    } else {
+      this.props.updatePlayers(localStorage.getItem('fbid'));
+    }
+  }
+
+  onSubmit(event) {
+    event.preventDefault();
+    stage += 1;
+    console.log(stage);
   }
 
   renderPlayers() {
@@ -70,6 +88,26 @@ class Lobby extends Component {
   // }
 
   render() {
+//     switch (stage) {
+//       case 0:
+//         return (
+//           <div>
+//             <h3>Players Connected:</h3>
+//             <ul>
+//               {this.renderPlayers()}
+//             </ul>
+//             <button onClick={this.onSubmit}>Start Game</button>
+//           </div>
+//         );
+//       case 1:
+//         return (
+//           <div>
+//             Hurray!
+//             {Selection}
+//           </div>
+//         );
+//       default: return '';
+//     }
     return (
       <div>
         <div>
@@ -84,7 +122,30 @@ class Lobby extends Component {
       </div>
     );
   }
-}
+  }
+
+
+//   render() {
+//     if (stage === 0) {
+//       return (
+//         <div>
+//           <h3>Players Connected:</h3>
+//           <ul>
+//             {this.renderPlayers()}
+//           </ul>
+//           <button onClick={this.onSubmit}>Start Game</button>
+//         </div>
+//       );
+//     } else if (stage === 1) {
+//       console.log('Hrray');
+//       return (
+//         <Selection />
+//       );
+//     } else {
+//       return (<div>Nothing</div>);
+//     }
+//   }
+// }
 
 const mapStateToProps = state => (
   {
