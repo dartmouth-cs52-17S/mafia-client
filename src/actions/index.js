@@ -31,6 +31,21 @@ export function createPlayers(gameId, userIds) { // actionCreator
   };
 }
 
+export function assignRoles() {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/players`)
+    .then((response) => {
+      response.data.forEach((player) => {
+        if (player.user === localStorage.getItem('userId')) {
+          localStorage.setItem('role', player.role);
+        }
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
+}
 
 export function fetchUsers() {
   return (dispatch) => {
