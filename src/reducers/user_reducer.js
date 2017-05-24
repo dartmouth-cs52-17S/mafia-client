@@ -6,7 +6,7 @@ const defaultState = {
 
 const UserReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case ActionTypes.FETCH_PLAYERS:
+    case ActionTypes.FETCH_USERS:
       return Object.assign({}, state, { all: action.payload });
     case ActionTypes.CREATE_USER:
       console.log('creating user');

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { RUNNING_LOCALLY } from '../containers/app';
 
 // keys for actiontypes
 export const ActionTypes = {
@@ -7,6 +8,7 @@ export const ActionTypes = {
   UPDATE_PLAYER: 'UPDATE_PLAYER',
   FETCH_GAME: 'FETCH_GAME',
   CREATE_GAME: 'CREATE_GAME',
+  UPDATE_GAME: 'UPDATE_GAME',
   AUTH_USER: 'AUTH_USER',
   ADD_USER: 'ADD_USER',
   DEAUTH_USER: 'DEAUTH_USER',
@@ -14,20 +16,15 @@ export const ActionTypes = {
   FETCH_PLAYER: 'FETCH_PLAYER',
   UPDATE_PLAYERS: 'UPDATE_PLAYERS',
   CREATE_USER: 'CREATE_USER',
+  ADVANCE_STAGE: 'ADVANCE_STAGE',
 };
 
-// If running in localhost, switch the following lines!
-const ROOT_URL = 'http://localhost:9090/api';
-// const ROOT_URL = 'https://online-mafia.herokuapp.com/api';
+let ROOT_URL;
 
-export function updatePlayers(gameId, userIds) { // actionCreator
-  return (dispatch) => {
-    axios.post(`${ROOT_URL}/games`, { gameId, userIds }).then((response) => {
-      dispatch({ type: ActionTypes.UPDATE_PLAYERS, payload: response });
-    }).catch((error) => {
-      console.log(error);
-    });
-  };
+if (RUNNING_LOCALLY) {
+  ROOT_URL = 'http://localhost:9090/api';
+} else {
+  ROOT_URL = 'https://online-mafia.herokuapp.com/api';
 }
 
 export function createPlayers(gameId, userIds) { // actionCreator
@@ -64,9 +61,19 @@ export function fetchUser(id) {
 export function createGame(jwt, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/games`, null, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
-      console.log(response);
       dispatch({ type: ActionTypes.CREATE_GAME, payload: response });
       history.push(`/lobby/${response.data.id}`);
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
+
+export function updatePlayers(jwt, gameID) { // actionCreator
+  console.log(`gameID is ${gameID}`);
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/games`, { gameID }, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
+      dispatch({ type: ActionTypes.UPDATE_GAME, payload: response });
     }).catch((error) => {
       console.log(error);
     });
@@ -136,6 +143,13 @@ export function addUserToGame(fbid) {
     });
   };
 }
+
+export function advanceStage() {
+  return (dispatch) => {
+    dispatch({ type: ActionTypes.ADVANCE_STAGE });
+  };
+}
+
 // export function addUserToGame(fbid) {
 //   return (dispatch) => {
 //     axios.put(`${ROOT_URL}/games`, { fbid })

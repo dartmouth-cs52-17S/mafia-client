@@ -2,68 +2,38 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
-// import jwt from 'jwt-simple';
-// import Selection from './mafia_selection';
-import { createGame, updatePlayers, addUserToGame } from '../actions';
+import axios from 'axios';
+import { createGame, updatePlayers, addUserToGame, advanceStage, ROOT_URL } from '../actions';
 import Chat from './chat';
+import { RUNNING_LOCALLY } from './app';
 
-const socketserver = 'http://localhost:3000';
-let stage = 0;
+let socketserver;
+
+if (RUNNING_LOCALLY) {
+  socketserver = 'http://localhost:3000';
+} else {
+  socketserver = 'https://mafia-sockets.herokuapp.com';
+}
 
 class Lobby extends Component {
   constructor(props) {
     super(props);
     this.socket = io.connect(socketserver);
 
+    this.usersInLobby = [];
+
     this.socket.on('connect', () => {
-      if (this.props.game.id === 'unassigned') {
+      if (window.location.pathname === '/lobby' || window.location.pathname === '/lobby/') {
         this.props.createGame(localStorage.getItem('token'), this.props.history);
       } else {
-        this.props.updatePlayers(localStorage.getItem('fbid'));
+        this.props.updatePlayers(localStorage.getItem('token'), window.location.pathname.substring(7));
+        // lol that thing above is a massive hack. I should be using match.params.id but it didn't work so...
       }
     });
 
-    this.state = {};
+    this.renderPlayers = this.renderPlayers.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-
-
-  componentDidMount() {
-    if (this.props.game.id === 'unassigned') {
-      this.props.createGame(localStorage.getItem('fbid'));
-    } else {
-      this.props.updatePlayers(localStorage.getItem('fbid'));
-    }
-  }
-
-  onSubmit(event) {
-    event.preventDefault();
-    this.props.createPlayers(this.props.game, this.props.game.players);
-    stage += 1;
-    console.log(stage);
-  }
-
-  renderPlayers() {
-    return this.props.game.players.map((fbid) => {
-      if (fbid !== null) {
-        let name;
-        this.props.users.all.forEach((user) => {
-          if (user.facebookID === fbid) {
-            name = user.name;
-          }
-        });
-        return (<li>{name}</li>);
-      } else return <div />;
-    });
-  }
-
-  // renderPlayers() {
-  //   setTimeout(() => {
-  //     return this.props.players.map((player) => {
-  //       return (<li>{player}</li>);
-  //     });
-  //   }, 2000);
-  // }
 
   // renderRoles() {
   //   return (
@@ -88,6 +58,32 @@ class Lobby extends Component {
   //     </div>
   //   );
   // }
+
+  componentWillUpdate() {
+    if (this.props.game.players.length > 0) {
+      for (let index = 0; index < this.props.game.players.length; index += 1) {
+        axios.get(`${ROOT_URL}/user/${this.props.game.players[index]}`).then((response) => {
+          this.usersInLobby = this.usersInLobby.concat([response.data.name]);
+          console.log(this.usersInLobby);
+        });
+      }
+    }
+  }
+
+  onSubmit(event) {
+    event.preventDefault();
+    this.props.createPlayers(this.props.game, this.props.game.players);
+    advanceStage();
+    console.log(this.props.game.stage);
+  }
+
+  renderPlayers() {
+    console.log(this.usersInLobby);
+    return this.props.game.players.map((name) => {
+      console.log('hi there');
+      return (<li>{name}</li>);
+    });
+  }
 
   render() {
 //     switch (stage) {
@@ -139,4 +135,4 @@ const mapStateToProps = state => ({
 }
 );
 
-export default withRouter(connect(mapStateToProps, { createGame, updatePlayers, addUserToGame })(Lobby));
+export default withRouter(connect(mapStateToProps, { createGame, updatePlayers, addUserToGame, advanceStage })(Lobby));
