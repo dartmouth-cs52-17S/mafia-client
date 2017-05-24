@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+<<<<<<< HEAD
 import io from 'socket.io-client';
 import Textarea from 'react-textarea-autosize';
 
@@ -43,6 +44,11 @@ class Chat extends Component {
       </div>
     );
   }
+=======
+
+class Chat extends Component {
+
+>>>>>>> 6909b3f8de566f50b378f70a4f63b094ac702dec
 }
 
 const mapStateToProps = state => (
