@@ -12,24 +12,27 @@ class Lobby extends Component {
     super(props);
     this.socket = io.connect(socketserver);
 
-    this.socket.on('connect', () => this.props.addUserToGame(localStorage.getItem('fbid')));
+    this.socket.on('connect', () => {
+      if (this.props.game.id === 'unassigned') {
+        this.props.createGame(localStorage.getItem('token'), this.props.history);
+      } else {
+        this.props.updatePlayers(localStorage.getItem('fbid'));
+      }
+    });
 
     this.state = {};
   }
 
-  componentDidMount() {
-    if (this.props.game.id === 'unassigned') {
-      this.props.createGame(localStorage.getItem('fbid'));
-    } else {
-      this.props.updatePlayers(localStorage.getItem('fbid'));
-    }
-  }
-
   renderPlayers() {
-    console.log(this.props.game.players);
-    return this.props.game.players.map((person) => {
-      if (person !== null) {
-        return (<li>{person}</li>);
+    return this.props.game.players.map((fbid) => {
+      if (fbid !== null) {
+        let name;
+        this.props.users.all.forEach((user) => {
+          if (user.facebookID === fbid) {
+            name = user.name;
+          }
+        });
+        return (<li>{name}</li>);
       } else return <div />;
     });
   }
@@ -86,8 +89,7 @@ class Lobby extends Component {
 const mapStateToProps = state => (
   {
     game: state.game,
-    players: state.players.all,
-    player: state.players.player,
+    users: state.users,
   }
 );
 

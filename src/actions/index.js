@@ -60,7 +60,6 @@ export function fetchUsers() {
   };
 }
 
-
 export function fetchUser(id) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/user/${id}`).then((response) => {
@@ -71,11 +70,12 @@ export function fetchUser(id) {
   };
 }
 
-export function createGame(fbid) {
+export function createGame(jwt, history) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/games`, { fbid }).then((response) => {
+    axios.post(`${ROOT_URL}/games`, null, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
       console.log(response);
       dispatch({ type: ActionTypes.CREATE_GAME, payload: response });
+      history.push(`/lobby/${response.data.id}`);
     }).catch((error) => {
       console.log(error);
     });
@@ -116,6 +116,7 @@ export function authUser(authData, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/signin`, { authData })
     .then((response) => {
+      console.log(response);
       dispatch({ type: ActionTypes.AUTH_USER });
       dispatch({ type: ActionTypes.CREATE_USER, payload: response.data.user });
       localStorage.setItem('token', response.data.token);
@@ -127,14 +128,14 @@ export function authUser(authData, history) {
   };
 }
 
-export function addUserToGame(fbid) {
-  return (dispatch) => {
-    axios.put(`${ROOT_URL}/games`, { fbid })
-    .then((response) => {
-      dispatch({ type: ActionTypes.ADD_USER, payload: response });
-    });
-  };
-}
+// export function addUserToGame(fbid) {
+//   return (dispatch) => {
+//     axios.put(`${ROOT_URL}/games`, { fbid })
+//     .then((response) => {
+//       dispatch({ type: ActionTypes.ADD_USER, payload: response });
+//     });
+//   };
+// }
 
 // export function getNameFromFBID(fbid) {
 //   axios.post(`${ROOT_URL}/getNameFromFBID`, { fbid }).then((response) => {
