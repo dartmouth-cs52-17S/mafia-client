@@ -9,6 +9,7 @@ export const ActionTypes = {
   CREATE_GAME: 'CREATE_GAME',
   AUTH_USER: 'AUTH_USER',
   ADD_USER: 'ADD_USER',
+  DEAUTH_USER: 'DEAUTH_USER',
   FETCH_PLAYERS: 'FETCH_PLAYERS',
   FETCH_PLAYER: 'FETCH_PLAYER',
   UPDATE_PLAYERS: 'UPDATE_PLAYERS',
@@ -124,6 +125,14 @@ export function authUser(authData, history) {
     .catch((error) => {
       console.log(error);
     });
+  };
+}
+
+export function signoutUser(history) {
+  return (dispatch) => {
+    localStorage.removeItem('token');
+    dispatch({ type: ActionTypes.DEAUTH_USER });
+    history.push('/');
   };
 }
 
