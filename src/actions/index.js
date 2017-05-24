@@ -9,6 +9,7 @@ export const ActionTypes = {
   CREATE_GAME: 'CREATE_GAME',
   AUTH_USER: 'AUTH_USER',
   ADD_USER: 'ADD_USER',
+  DEAUTH_USER: 'DEAUTH_USER',
 };
 
 // If running in localhost, switch the following lines!
@@ -89,6 +90,14 @@ export function authUser(token, history) {
     .catch((error) => {
       console.log(error);
     });
+  };
+}
+
+export function signoutUser(history) {
+  return (dispatch) => {
+    localStorage.removeItem('token');
+    dispatch({ type: ActionTypes.DEAUTH_USER });
+    history.push('/');
   };
 }
 

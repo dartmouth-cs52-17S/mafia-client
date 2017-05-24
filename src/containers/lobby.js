@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 import jwt from 'jwt-simple';
+import Selection from './mafia_selection';
 import { createGame, updatePlayers, addUserToGame } from '../actions';
 
 
 const socketserver = 'http://localhost:3000';
+let stage = 0;
 
 class Lobby extends Component {
   constructor(props) {
@@ -26,6 +28,12 @@ class Lobby extends Component {
     }
     console.log(localStorage.getItem('token'));
     console.log(jwt.decode(localStorage.getItem('token'), process.env.AUTH_SECRET));
+  }
+
+  onSubmit(event) {
+    event.preventDefault();
+    stage += 1;
+    console.log(stage);
   }
 
   renderPlayers() {
@@ -71,16 +79,51 @@ class Lobby extends Component {
   // }
 
   render() {
-    return (
-      <div>
-        <h3>Players Connected:</h3>
-        <ul>
-          {this.renderPlayers()}
-        </ul>
-      </div>
-    );
+    switch (stage) {
+      case 0:
+        return (
+          <div>
+            <h3>Players Connected:</h3>
+            <ul>
+              {this.renderPlayers()}
+            </ul>
+            <button onClick={this.onSubmit}>Start Game</button>
+          </div>
+        );
+      case 1:
+        return (
+          <div>
+            Hurray!
+            {Selection}
+          </div>
+        );
+      default: return '';
+    }
   }
-}
+  }
+
+
+//   render() {
+//     if (stage === 0) {
+//       return (
+//         <div>
+//           <h3>Players Connected:</h3>
+//           <ul>
+//             {this.renderPlayers()}
+//           </ul>
+//           <button onClick={this.onSubmit}>Start Game</button>
+//         </div>
+//       );
+//     } else if (stage === 1) {
+//       console.log('Hrray');
+//       return (
+//         <Selection />
+//       );
+//     } else {
+//       return (<div>Nothing</div>);
+//     }
+//   }
+// }
 
 const mapStateToProps = state => (
   {
