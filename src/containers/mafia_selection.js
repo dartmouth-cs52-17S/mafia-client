@@ -15,8 +15,8 @@ class MafiaSel extends Component {
   }
 
   onKillClick(event) {
-    this.props.killUser(this.player);
-    this.setState({ selectedPlayer: this.selectedPlayer }); // don't need this? --> should kill be in actions
+    this.props.killUser();
+    this.setState({ selectedPlayer: this.selectedPlayer });
   }
 
   render() {
