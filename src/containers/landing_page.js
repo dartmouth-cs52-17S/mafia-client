@@ -52,7 +52,7 @@ class LandingPage extends Component {
 
   sendToken(authResponse) {
     localStorage.setItem('fbid', authResponse.userID);
-    this.props.authUser(authResponse.accessToken, this.props.history);
+    this.props.authUser(authResponse, this.props.history);
   }
 
   // This is called with the results from from FB.getLoginStatus().

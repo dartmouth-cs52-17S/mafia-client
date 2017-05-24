@@ -12,6 +12,7 @@ export const ActionTypes = {
   FETCH_PLAYERS: 'FETCH_PLAYERS',
   FETCH_PLAYER: 'FETCH_PLAYER',
   UPDATE_PLAYERS: 'UPDATE_PLAYERS',
+  CREATE_USER: 'CREATE_USER',
 };
 
 // If running in localhost, switch the following lines!
@@ -111,11 +112,12 @@ export function fetchPlayer(id) {
   };
 }
 
-export function authUser(token, history) {
+export function authUser(authData, history) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/signin`, { token })
+    axios.post(`${ROOT_URL}/signin`, { authData })
     .then((response) => {
       dispatch({ type: ActionTypes.AUTH_USER });
+      dispatch({ type: ActionTypes.CREATE_USER, payload: response.data.user });
       localStorage.setItem('token', response.data.token);
       history.push('/');
     })

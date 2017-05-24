@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
-import jwt from 'jwt-simple';
 import { createGame, updatePlayers, addUserToGame } from '../actions';
-
 
 const socketserver = 'http://localhost:3000';
 
@@ -24,18 +22,15 @@ class Lobby extends Component {
     } else {
       this.props.updatePlayers(localStorage.getItem('fbid'));
     }
-    console.log(localStorage.getItem('token'));
-    console.log(jwt.decode(localStorage.getItem('token'), process.env.AUTH_SECRET));
   }
 
   renderPlayers() {
-    if (this.props.game.players) {
-      return this.props.game.players.map((person) => {
+    console.log(this.props.game.players);
+    return this.props.game.players.map((person) => {
+      if (person !== null) {
         return (<li>{person}</li>);
-      });
-    } else {
-      return (<div />);
-    }
+      } else return <div />;
+    });
   }
 
   // renderPlayers() {
