@@ -9,13 +9,7 @@ import Lobby from './lobby';
 
 export const RUNNING_LOCALLY = false;
 
-let socketserver;
-
-if (RUNNING_LOCALLY) {
-  socketserver = 'http://localhost:3000/';
-} else {
-  socketserver = 'http://mafia-sockets.herokuapp.com/';
-}
+export const socketserver = RUNNING_LOCALLY ? 'http://localhost:3000/' : 'http://online-mafia.herokuapp.com/';
 
 const Directions = (props) => {
   return (

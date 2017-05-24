@@ -3,17 +3,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 import axios from 'axios';
-import { createGame, updatePlayers, addUserToGame, advanceStage, ROOT_URL } from '../actions';
+import { createGame, updatePlayers, addUserToGame, fetchGame, advanceStage, ROOT_URL } from '../actions';
 import Chat from './chat';
-import { RUNNING_LOCALLY } from './app';
-
-let socketserver;
-
-if (RUNNING_LOCALLY) {
-  socketserver = 'http://localhost:3000';
-} else {
-  socketserver = 'https://mafia-sockets.herokuapp.com';
-}
+import { socketserver } from './app';
 
 class Lobby extends Component {
   constructor(props) {
@@ -29,10 +21,12 @@ class Lobby extends Component {
         this.props.updatePlayers(localStorage.getItem('token'), window.location.pathname.substring(7));
         // lol that thing above is a massive hack. I should be using match.params.id but it didn't work so...
       }
+      this.props.fetchGame(window.location.pathname.substring(7));
     });
 
     this.renderPlayers = this.renderPlayers.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.renderSubmitButton = this.renderSubmitButton.bind(this);
   }
 
   // renderRoles() {
@@ -80,9 +74,16 @@ class Lobby extends Component {
   renderPlayers() {
     console.log(this.usersInLobby);
     return this.props.game.players.map((name) => {
-      console.log('hi there');
       return (<li>{name}</li>);
     });
+  }
+
+  renderSubmitButton() {
+    if (this.usersInLobby.length >= 6) {
+      return (<button onSubmit={this.onSubmit}>Play</button>);
+    } else {
+      return (<div />);
+    }
   }
 
   render() {
@@ -112,13 +113,7 @@ class Lobby extends Component {
         <ul>
           {this.renderPlayers()}
         </ul>
-        <button onSubmit={this.onSubmit}>Play</button>
-        <div>
-          <h3>Players Connected:</h3>
-          <ul>
-            {this.renderPlayers()}
-          </ul>
-        </div>
+        {this.renderSubmitButton()}
         <div>
           <Chat />
         </div>
@@ -135,4 +130,4 @@ const mapStateToProps = state => ({
 }
 );
 
-export default withRouter(connect(mapStateToProps, { createGame, updatePlayers, addUserToGame, advanceStage })(Lobby));
+export default withRouter(connect(mapStateToProps, { createGame, updatePlayers, addUserToGame, fetchGame, advanceStage })(Lobby));

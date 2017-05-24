@@ -3,15 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 import Textarea from 'react-textarea-autosize';
-import { RUNNING_LOCALLY } from './app';
-
-let socketserver;
-
-if (RUNNING_LOCALLY) {
-  socketserver = 'http://localhost:3000/chat';
-} else {
-  socketserver = 'http://mafia-sockets.herokuapp.com/';
-}
+import { socketserver } from './app';
 
 class Chat extends Component {
   constructor(props) {
