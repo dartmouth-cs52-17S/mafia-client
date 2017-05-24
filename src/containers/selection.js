@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { killUser } from '../actions';
+import { updatePlayer } from '../actions';
 
-class MafiaSel extends Component {
+class Selection extends Component {
   constructor(props) {
     super(props);
 
@@ -46,4 +46,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { killUser })(MafiaSel));
+export default withRouter(connect(mapStateToProps, { updatePlayer })(Selection));
