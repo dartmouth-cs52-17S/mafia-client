@@ -112,13 +112,11 @@ class Lobby extends Component {
 //     }
     return (
       <div>
-
         <h3>Players Connected:</h3>
         <ul>
           {this.renderPlayers()}
         </ul>
         <button onSubmit={this.onSubmit}>Play</button>
-
         <div>
           <h3>Players Connected:</h3>
           <ul>
@@ -128,7 +126,6 @@ class Lobby extends Component {
         <div>
           <Chat />
         </div>
-
       </div>
 
     );
