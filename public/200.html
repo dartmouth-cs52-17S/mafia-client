@@ -8,7 +8,26 @@
     <link rel="stylesheet" type="text/css" href="/build/style.css">
   </head>
   <body>
-    <div id="main">Howdy</div>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '1073312029468737',
+          cookie     : true,
+          xfbml      : true,
+          version    : 'v2.8'
+        });
+        FB.AppEvents.logPageView();
+      };
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <div id="main">Loading...</div>
   </body>
   <script src="/build/bundle.js"  charset="utf-8"></script>
   <script src="https://use.fontawesome.com/7e581b2448.js"></script>

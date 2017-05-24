@@ -29,11 +29,25 @@ We need a backend framework, and since we don't really know any better, we're go
 
 ## Setup
 
-TODO: how to get the project dev environment up and running, npm install etc
+clone this repository to your local filesystem
+
+```sh
+$ git clone git@github.com:dartmouth-cs52-17S/project-client-mafia.git
+$ cd project-client-mafia
+$ npm install
+```
+
+You should also clone the backend repo so you can access the api locally as well.
+
+```sh
+$ git clone git@github.com:dartmouth-cs52-17S/project-api-mafia.git
+$ cd project-api-mafia
+$ npm install
+```
 
 ## Deployment
 
-TODO: how to deploy the project
+Deployment is done automatically with Travis CI to Surge and Heroku. Simply git push to master, and once travis checks clear, you're good to go. Navigate to [our site](http://mafia.surge.sh) and get going!
 
 ## Authors
 
@@ -46,3 +60,5 @@ TODO: how to deploy the project
 ## Acknowledgments
 
 Thanks to [Tim Tregubov](https://github.com/timofei7) for [this great walkthrough](http://cs52.me/assignments/sa/starterpack/) on building the frontend starterpack, as well as for [the backend starter](https://github.com/dartmouth-cs52/express-babel-starter).
+
+Thanks to [Jason Feng](https://github.com/jason-feng), our global TA, as well.
