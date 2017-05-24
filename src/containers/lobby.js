@@ -16,6 +16,7 @@ class Lobby extends Component {
     this.socket.on('connect', () => this.props.addUserToGame(localStorage.getItem('fbid')));
 
     this.state = {};
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -26,6 +27,11 @@ class Lobby extends Component {
     }
     console.log(localStorage.getItem('token'));
     console.log(jwt.decode(localStorage.getItem('token'), process.env.AUTH_SECRET));
+  }
+
+  onSubmit(event) {
+    event.preventDefault();
+    this.props.createPlayers(this.props.game, this.props.game.players);
   }
 
   renderPlayers() {
@@ -77,7 +83,9 @@ class Lobby extends Component {
         <ul>
           {this.renderPlayers()}
         </ul>
+        <button onSubmit={this.onSubmit}>Play</button>
       </div>
+
     );
   }
 }

@@ -9,29 +9,27 @@ class MafiaSel extends Component {
 
     this.state = {
       players: [],
-      selectedPlayer: null,
     };
-    this.onKillClick = this.onKillClick.bind(this);
+    this.onSelect = this.onSelect.bind(this);
   }
 
-  onKillClick(event) {
-    this.props.killUser();
-    this.setState({ selectedPlayer: this.selectedPlayer });
+  onSelect(event) {
+    this.props.updatePlayer();
   }
 
   render() {
     if (!this.props.players) { // this just checks if data has been fetched and mapped to props yet
       return '';
-    } else if (this.props.players.indexOf(this.props.user.id) === this.players[0]) { // if current player is mafia, show this
+    } else if (this.props.player.role === 'mafia') { // if current player is mafia, show this
       return (
         <div className="players_container">
           <ul>
-            <li onKillClick={this.onKillClicked}> {this.players[0].pic} </li>
-            <li onKillClick={this.onKillClicked}> {this.players[1].pic} </li>
-            <li onKillClick={this.onKillClicked}> {this.players[2].pic} </li>
-            <li onKillClick={this.onKillClicked}> {this.players[3].pic} </li>
-            <li onKillClick={this.onKillClicked}> {this.players[4].pic} </li>
-            <li onKillClick={this.onKillClicked}> {this.players[5].pic} </li>
+            <button onClick={this.onSelect}> {this.players[0].pic} </button>
+            <button onClick={this.onSelect}> {this.players[1].pic} </button>
+            <button onClick={this.onSelect}> {this.players[2].pic} </button>
+            <button onClick={this.onSelect}> {this.players[3].pic} </button>
+            <button onClick={this.onSelect}> {this.players[4].pic} </button>
+            <button onClick={this.onSelect}> {this.players[5].pic} </button>
           </ul>
         </div>
       );
@@ -45,7 +43,6 @@ class MafiaSel extends Component {
 const mapStateToProps = state => (
   {
     players: state.game.players,
-    user: state.users.user,
   }
 );
 

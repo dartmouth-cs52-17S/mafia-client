@@ -4,7 +4,7 @@ import axios from 'axios';
 export const ActionTypes = {
   FETCH_USERS: 'FETCH_USERS',
   FETCH_USER: 'FETCH_USER',
-  KILL_USER: 'KILL_USER',
+  UPDATE_PLAYER: 'UPDATE_PLAYER',
   FETCH_GAME: 'FETCH_GAME',
   CREATE_GAME: 'CREATE_GAME',
   AUTH_USER: 'AUTH_USER',
@@ -16,10 +16,10 @@ const ROOT_URL = 'http://localhost:9090/api';
 // const ROOT_URL = 'https://online-mafia.herokuapp.com/api';
 
 
-export function killUser() { // actionCreator
+export function updatePlayer() { // actionCreator
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/mafia_selection`).then((response) => {
-      dispatch({ type: ActionTypes.KILL_USER, payload: response });
+    axios.put(`${ROOT_URL}/selection`).then((response) => {
+      dispatch({ type: ActionTypes.UPDATE_PLAYER, payload: response });
     }).catch((error) => {
       console.log(error);
     });
