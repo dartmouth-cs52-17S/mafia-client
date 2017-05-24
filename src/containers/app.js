@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 import Profile from './profile';
 import LandingPage from './landing_page';
 import CreateOrJoinGame from './createOrJoinGame';
+import Nav from './nav';
 import Lobby from './lobby';
 
 export const RUNNING_LOCALLY = false;
@@ -24,13 +25,30 @@ const Directions = (props) => {
   );
 };
 
-const Nav = (props) => {
-  return (
-    <nav>
-      <img className="logo-top-left" src="/images/fedora-hat.svg" alt="Mafia" />
-    </nav>
-  );
-};
+// class Nav extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.handleSubmit = this.handleSubmit.bind(this);
+//   }
+//
+//   handleSubmit(e) {
+//     e.preventDefault();
+//     this.props.signoutUser(this.props.history);
+//   }
+//
+//   render() {
+//     return (
+//       <nav>
+//         <Link to="/"><img className="logo-top-left" src="/images/fedora-hat.svg" alt="Mafia" /></Link>
+//         <form onSubmit={this.handleSubmit}>
+//           <button id="signoutbutt" to="/signout">Sign Out</button>
+//         </form>
+//       </nav>
+//     );
+//   }
+// }
+
+// export default connect(null, { signoutUser })(Nav);
 
 const FallBack = (props) => {
   return (<div>URL Not Found</div>);

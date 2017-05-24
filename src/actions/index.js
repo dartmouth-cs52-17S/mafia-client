@@ -5,16 +5,18 @@ import { RUNNING_LOCALLY } from '../containers/app';
 export const ActionTypes = {
   FETCH_USERS: 'FETCH_USERS',
   FETCH_USER: 'FETCH_USER',
-  KILL_USER: 'KILL_USER',
+  UPDATE_PLAYER: 'UPDATE_PLAYER',
   FETCH_GAME: 'FETCH_GAME',
   CREATE_GAME: 'CREATE_GAME',
   UPDATE_GAME: 'UPDATE_GAME',
   AUTH_USER: 'AUTH_USER',
   ADD_USER: 'ADD_USER',
+  DEAUTH_USER: 'DEAUTH_USER',
   FETCH_PLAYERS: 'FETCH_PLAYERS',
   FETCH_PLAYER: 'FETCH_PLAYER',
   UPDATE_PLAYERS: 'UPDATE_PLAYERS',
   CREATE_USER: 'CREATE_USER',
+  ADVANCE_STAGE: 'ADVANCE_STAGE',
 };
 
 let ROOT_URL;
@@ -24,17 +26,6 @@ if (RUNNING_LOCALLY) {
 } else {
   ROOT_URL = 'https://online-mafia.herokuapp.com/api';
 }
-
-
-// export function killUser() { // actionCreator
-//   return (dispatch) => {
-//     axios.put(`${ROOT_URL}/mafia_selection`).then((response) => {
-//       dispatch({ type: ActionTypes.KILL_USER, payload: response });
-//     }).catch((error) => {
-//       console.log(error);
-//     });
-//   };
-// }
 
 export function createPlayers(gameId, userIds) { // actionCreator
   return (dispatch) => {
@@ -132,6 +123,30 @@ export function authUser(authData, history) {
     .catch((error) => {
       console.log(error);
     });
+  };
+}
+
+
+export function signoutUser(history) {
+  return (dispatch) => {
+    localStorage.removeItem('token');
+    dispatch({ type: ActionTypes.DEAUTH_USER });
+    history.push('/');
+  };
+}
+
+export function addUserToGame(fbid) {
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/games`, { fbid })
+    .then((response) => {
+      dispatch({ type: ActionTypes.ADD_USER, payload: response });
+    });
+  };
+}
+
+export function advanceStage() {
+  return (dispatch) => {
+    dispatch({ type: ActionTypes.ADVANCE_STAGE });
   };
 }
 

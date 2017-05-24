@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 import axios from 'axios';
-import { createGame, updatePlayers, addUserToGame, ROOT_URL } from '../actions';
+import { createGame, updatePlayers, addUserToGame, advanceStage, ROOT_URL } from '../actions';
 import Chat from './chat';
 import { RUNNING_LOCALLY } from './app';
 
@@ -32,21 +32,8 @@ class Lobby extends Component {
     });
 
     this.renderPlayers = this.renderPlayers.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
-
-  // renderPlayers() {
-  //   return this.props.game.players.map((fbid) => {
-  //     if (fbid !== null) {
-  //       let name;
-  //       this.props.users.all.forEach((user) => {
-  //         if (user.facebookID === fbid) {
-  //           name = user.name;
-  //         }
-  //       });
-  //       return (<li>{name}</li>);
-  //     } else return <div />;
-  //   });
-  // }
 
   // renderRoles() {
   //   return (
@@ -83,6 +70,13 @@ class Lobby extends Component {
     }
   }
 
+  onSubmit(event) {
+    event.preventDefault();
+    this.props.createPlayers(this.props.game, this.props.game.players);
+    advanceStage();
+    console.log(this.props.game.stage);
+  }
+
   renderPlayers() {
     console.log(this.usersInLobby);
     return this.props.game.players.map((name) => {
@@ -92,8 +86,33 @@ class Lobby extends Component {
   }
 
   render() {
+//     switch (stage) {
+//       case 0:
+//         return (
+//           <div>
+//             <h3>Players Connected:</h3>
+//             <ul>
+//               {this.renderPlayers()}
+//             </ul>
+//             <button onClick={this.onSubmit}>Start Game</button>
+//           </div>
+//         );
+//       case 1:
+//         return (
+//           <div>
+//             Hurray!
+//             {Selection}
+//           </div>
+//         );
+//       default: return '';
+//     }
     return (
       <div>
+        <h3>Players Connected:</h3>
+        <ul>
+          {this.renderPlayers()}
+        </ul>
+        <button onSubmit={this.onSubmit}>Play</button>
         <div>
           <h3>Players Connected:</h3>
           <ul>
@@ -104,15 +123,16 @@ class Lobby extends Component {
           <Chat />
         </div>
       </div>
+
     );
   }
 }
 
-const mapStateToProps = state => (
-  {
-    game: state.game,
-    users: state.users,
-  }
+
+const mapStateToProps = state => ({
+  game: state.game,
+  users: state.users,
+}
 );
 
-export default withRouter(connect(mapStateToProps, { createGame, updatePlayers, addUserToGame })(Lobby));
+export default withRouter(connect(mapStateToProps, { createGame, updatePlayers, addUserToGame, advanceStage })(Lobby));

@@ -4,6 +4,7 @@ const defaultState = {
   id: 'unassigned',
   players: [],
   creator: '',
+  stage: 0,
 };
 
 const GameReducer = (state = defaultState, action) => {
@@ -19,6 +20,8 @@ const GameReducer = (state = defaultState, action) => {
       return Object.assign({}, state, { players: action.payload.players });
     case ActionTypes.ADD_USER:
       return Object.assign({}, state, state.players.push(action.payload.data.name));
+    case ActionTypes.ADVANCE_STAGE:
+      return Object.assign({}, state, { stage: state.stage + 1 });
     default:
       return state;
   }
