@@ -1,12 +1,12 @@
 import { ActionTypes } from '../actions';
 
-const defaultState = {
-  id: 'unassigned',
-  players: [],
-  creator: '',
-};
+// const defaultState = {
+//   id: 'unassigned',
+//   players: [],
+//   creator: '',
+// };
 
-const GameReducer = (state = defaultState, action) => {
+const GameReducer = (state = {}, action) => {
   switch (action.type) {
     case ActionTypes.CREATE_GAME:
       state.players.push(action.payload.data.creator);
