@@ -24,6 +24,7 @@ class Lobby extends Component {
     });
 
     this.state = {};
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
 
@@ -37,6 +38,7 @@ class Lobby extends Component {
 
   onSubmit(event) {
     event.preventDefault();
+    this.props.createPlayers(this.props.game, this.props.game.players);
     stage += 1;
     console.log(stage);
   }
@@ -110,6 +112,11 @@ class Lobby extends Component {
 //     }
     return (
       <div>
+        <h3>Players Connected:</h3>
+        <ul>
+          {this.renderPlayers()}
+        </ul>
+        <button onSubmit={this.onSubmit}>Play</button>
         <div>
           <h3>Players Connected:</h3>
           <ul>
@@ -120,38 +127,16 @@ class Lobby extends Component {
           <Chat />
         </div>
       </div>
+
     );
   }
-  }
+}
 
 
-//   render() {
-//     if (stage === 0) {
-//       return (
-//         <div>
-//           <h3>Players Connected:</h3>
-//           <ul>
-//             {this.renderPlayers()}
-//           </ul>
-//           <button onClick={this.onSubmit}>Start Game</button>
-//         </div>
-//       );
-//     } else if (stage === 1) {
-//       console.log('Hrray');
-//       return (
-//         <Selection />
-//       );
-//     } else {
-//       return (<div>Nothing</div>);
-//     }
-//   }
-// }
-
-const mapStateToProps = state => (
-  {
-    game: state.game,
-    users: state.users,
-  }
+const mapStateToProps = state => ({
+  game: state.game,
+  users: state.users,
+}
 );
 
 export default withRouter(connect(mapStateToProps, { createGame, updatePlayers, addUserToGame })(Lobby));
