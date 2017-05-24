@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import io from 'socket.io-client';
 import Profile from './profile';
 import LandingPage from './landing_page';
@@ -19,7 +19,7 @@ const Directions = (props) => {
 const Nav = (props) => {
   return (
     <nav>
-      <img className="logo-top-left" src="/images/fedora-hat.svg" alt="Mafia" />
+      <Link to="/"><img className="logo-top-left" src="/images/fedora-hat.svg" alt="Mafia" /></Link>
     </nav>
   );
 };
