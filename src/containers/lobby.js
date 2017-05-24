@@ -21,7 +21,7 @@ class Lobby extends Component {
         this.props.updatePlayers(localStorage.getItem('token'), window.location.pathname.substring(7));
         // lol that thing above is a massive hack. I should be using match.params.id but it didn't work so...
       }
-      this.props.fetchGame(window.location.pathname.substring(7));
+      setTimeout(() => this.props.fetchGame(window.location.pathname.substring(7)), 1000);
     });
 
     this.renderPlayers = this.renderPlayers.bind(this);
@@ -87,7 +87,7 @@ class Lobby extends Component {
   }
 
   render() {
-//     switch (stage) {
+//     switch (this.props.game.stage) {
 //       case 0:
 //         return (
 //           <div>
