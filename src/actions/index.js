@@ -9,6 +9,9 @@ export const ActionTypes = {
   CREATE_GAME: 'CREATE_GAME',
   AUTH_USER: 'AUTH_USER',
   ADD_USER: 'ADD_USER',
+  FETCH_PLAYERS: 'FETCH_PLAYERS',
+  FETCH_PLAYER: 'FETCH_PLAYER',
+  UPDATE_PLAYERS: 'UPDATE_PLAYERS',
   CREATE_USER: 'CREATE_USER',
 };
 
@@ -16,11 +19,10 @@ export const ActionTypes = {
 const ROOT_URL = 'http://localhost:9090/api';
 // const ROOT_URL = 'https://online-mafia.herokuapp.com/api';
 
-
-export function updatePlayer() { // actionCreator
+export function updatePlayers(gameId, userIds) { // actionCreator
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/selection`).then((response) => {
-      dispatch({ type: ActionTypes.UPDATE_PLAYER, payload: response });
+    axios.post(`${ROOT_URL}/games`, { gameId, userIds }).then((response) => {
+      dispatch({ type: ActionTypes.UPDATE_PLAYERS, payload: response });
     }).catch((error) => {
       console.log(error);
     });
@@ -48,16 +50,6 @@ export function fetchUsers() {
   };
 }
 
-export function createGame(fbid) {
-  return (dispatch) => {
-    axios.post(`${ROOT_URL}/games`, { fbid }).then((response) => {
-      console.log(response);
-      dispatch({ type: ActionTypes.CREATE_GAME, payload: response });
-    }).catch((error) => {
-      console.log(error);
-    });
-  };
-}
 
 export function fetchUser(id) {
   return (dispatch) => {
@@ -69,10 +61,41 @@ export function fetchUser(id) {
   };
 }
 
+export function createGame(fbid) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/games`, { fbid }).then((response) => {
+      console.log(response);
+      dispatch({ type: ActionTypes.CREATE_GAME, payload: response });
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
+
 export function fetchGame(id) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/game`).then((response) => {
       dispatch({ type: ActionTypes.FETCH_GAME, payload: response.data });
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
+
+export function fetchPlayers() {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/players`).then((response) => {
+      dispatch({ type: ActionTypes.FETCH_PLAYERS, payload: response });
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
+
+export function fetchPlayer(id) {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/players/${id}`).then((response) => {
+      dispatch({ type: ActionTypes.FETCH_PLAYER, payload: response });
     }).catch((error) => {
       console.log(error);
     });

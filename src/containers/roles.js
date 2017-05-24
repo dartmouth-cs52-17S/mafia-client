@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 // import { withRouter, NavLink } from 'react-router-dom';
 
-import { fetchProfile, fetchGame } from '../actions';
+import { fetchPlayer } from '../actions';
 
 class Roles extends Component {
 
@@ -18,22 +18,19 @@ class Roles extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchGame();
-    this.props.fetchProfile();
+    this.props.fetchPlayer();
   }
 
   renderRole() {
-    if (!this.props.players) { // this just checks if data has been fetched and mapped to props yet
+    if (!this.props.player) { // this just checks if data has been fetched and mapped to props yet
       return '';
     } else {
-      switch (this.props.players.indexOf(this.props.user.id)) {
+      switch (this.props.player.role) {
         // 0: mafia, 1: doctor, 3: police, 4-6: village
-        case 0: return (<div className="roleAssigned">Mafia</div>);
-        case 1: return (<div className="roleAssigned">Doctor</div>);
-        case 2: return (<div className="roleAssigned">Police</div>);
-        case 3: return (<div className="roleAssigned">Villager</div>);
-        case 4: return (<div className="roleAssigned">Villager</div>);
-        case 5: return (<div className="roleAssigned">Villager</div>);
+        case 'mafia': return (<div className="roleAssigned">Mafia</div>);
+        case 'doctor': return (<div className="roleAssigned">Doctor</div>);
+        case 'police': return (<div className="roleAssigned">Police</div>);
+        case 'villager': return (<div className="roleAssigned">Villager</div>);
         default: return '';
       }
     }
@@ -51,9 +48,8 @@ class Roles extends Component {
 
 const mapStateToProps = state => (
   {
-    players: state.game.players,
-    user: state.users.user,
+    player: state.players.player,
   }
 );
 
-export default withRouter(connect(mapStateToProps, { fetchProfile, fetchGame })(Roles));
+export default withRouter(connect(mapStateToProps, { fetchPlayer })(Roles));

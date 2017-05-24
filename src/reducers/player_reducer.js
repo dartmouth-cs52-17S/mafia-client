@@ -10,7 +10,9 @@ const PlayerReducer = (state = defaultState, action) => {
   switch (action.type) {
     case ActionTypes.CREATE_PLAYERS:
       return Object.assign({}, state, { all: action.payload });
-    case ActionTypes.UPDATE_PLAYER:
+    case ActionTypes.FETCH_PLAYERS:
+      return Object.assign({}, state, { all: action.payload });
+    case ActionTypes.FETCH_PLAYER:
       return Object.assign({}, state, { player: action.payload });
     default:
       return state;
