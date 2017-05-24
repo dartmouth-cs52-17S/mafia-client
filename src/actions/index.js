@@ -10,6 +10,10 @@ export const ActionTypes = {
   AUTH_USER: 'AUTH_USER',
   ADD_USER: 'ADD_USER',
   DEAUTH_USER: 'DEAUTH_USER',
+  FETCH_PLAYERS: 'FETCH_PLAYERS',
+  FETCH_PLAYER: 'FETCH_PLAYER',
+  UPDATE_PLAYERS: 'UPDATE_PLAYERS',
+  CREATE_USER: 'CREATE_USER',
 };
 
 // If running in localhost, switch the following lines!
@@ -17,10 +21,19 @@ const ROOT_URL = 'http://localhost:9090/api';
 // const ROOT_URL = 'https://online-mafia.herokuapp.com/api';
 
 
-export function killUser() { // actionCreator
+// export function killUser() { // actionCreator
+//   return (dispatch) => {
+//     axios.put(`${ROOT_URL}/mafia_selection`).then((response) => {
+//       dispatch({ type: ActionTypes.KILL_USER, payload: response });
+//     }).catch((error) => {
+//       console.log(error);
+//     });
+//   };
+// }
+export function updatePlayers(gameId, userIds) { // actionCreator
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/mafia_selection`).then((response) => {
-      dispatch({ type: ActionTypes.KILL_USER, payload: response });
+    axios.post(`${ROOT_URL}/games`, { gameId, userIds }).then((response) => {
+      dispatch({ type: ActionTypes.UPDATE_PLAYERS, payload: response });
     }).catch((error) => {
       console.log(error);
     });
@@ -48,21 +61,22 @@ export function fetchUsers() {
   };
 }
 
-export function createGame(fbid) {
+
+export function fetchUser(id) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/games`, { fbid }).then((response) => {
-      console.log(response);
-      dispatch({ type: ActionTypes.CREATE_GAME, payload: response });
+    axios.get(`${ROOT_URL}/user/${id}`).then((response) => {
+      dispatch({ type: ActionTypes.FETCH_USER, payload: response });
     }).catch((error) => {
       console.log(error);
     });
   };
 }
 
-export function fetchUser(id) {
+export function createGame(fbid) {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/user/${id}`).then((response) => {
-      dispatch({ type: ActionTypes.FETCH_USER, payload: response });
+    axios.post(`${ROOT_URL}/games`, { fbid }).then((response) => {
+      console.log(response);
+      dispatch({ type: ActionTypes.CREATE_GAME, payload: response });
     }).catch((error) => {
       console.log(error);
     });
@@ -79,11 +93,32 @@ export function fetchGame(id) {
   };
 }
 
-export function authUser(token, history) {
+export function fetchPlayers() {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/signin`, { token })
+    axios.get(`${ROOT_URL}/players`).then((response) => {
+      dispatch({ type: ActionTypes.FETCH_PLAYERS, payload: response });
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
+
+export function fetchPlayer(id) {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/players/${id}`).then((response) => {
+      dispatch({ type: ActionTypes.FETCH_PLAYER, payload: response });
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
+
+export function authUser(authData, history) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/signin`, { authData })
     .then((response) => {
       dispatch({ type: ActionTypes.AUTH_USER });
+      dispatch({ type: ActionTypes.CREATE_USER, payload: response.data.user });
       localStorage.setItem('token', response.data.token);
       history.push('/');
     })

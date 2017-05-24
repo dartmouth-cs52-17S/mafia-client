@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 import jwt from 'jwt-simple';
 import Selection from './mafia_selection';
 import { createGame, updatePlayers, addUserToGame } from '../actions';
-
+import Chat from './chat';
 
 const socketserver = 'http://localhost:3000';
 let stage = 0;
@@ -26,8 +26,6 @@ class Lobby extends Component {
     } else {
       this.props.updatePlayers(localStorage.getItem('fbid'));
     }
-    console.log(localStorage.getItem('token'));
-    console.log(jwt.decode(localStorage.getItem('token'), process.env.AUTH_SECRET));
   }
 
   onSubmit(event) {
@@ -37,13 +35,12 @@ class Lobby extends Component {
   }
 
   renderPlayers() {
-    if (this.props.game.players) {
-      return this.props.game.players.map((person) => {
+    console.log(this.props.game.players);
+    return this.props.game.players.map((person) => {
+      if (person !== null) {
         return (<li>{person}</li>);
-      });
-    } else {
-      return (<div />);
-    }
+      } else return <div />;
+    });
   }
 
   // renderPlayers() {
@@ -79,26 +76,39 @@ class Lobby extends Component {
   // }
 
   render() {
-    switch (stage) {
-      case 0:
-        return (
-          <div>
-            <h3>Players Connected:</h3>
-            <ul>
-              {this.renderPlayers()}
-            </ul>
-            <button onClick={this.onSubmit}>Start Game</button>
-          </div>
-        );
-      case 1:
-        return (
-          <div>
-            Hurray!
-            {Selection}
-          </div>
-        );
-      default: return '';
-    }
+//     switch (stage) {
+//       case 0:
+//         return (
+//           <div>
+//             <h3>Players Connected:</h3>
+//             <ul>
+//               {this.renderPlayers()}
+//             </ul>
+//             <button onClick={this.onSubmit}>Start Game</button>
+//           </div>
+//         );
+//       case 1:
+//         return (
+//           <div>
+//             Hurray!
+//             {Selection}
+//           </div>
+//         );
+//       default: return '';
+//     }
+    return (
+      <div>
+        <div>
+          <h3>Players Connected:</h3>
+          <ul>
+            {this.renderPlayers()}
+          </ul>
+        </div>
+        <div>
+          <Chat />
+        </div>
+      </div>
+    );
   }
   }
 
@@ -128,8 +138,8 @@ class Lobby extends Component {
 const mapStateToProps = state => (
   {
     game: state.game,
-    players: state.players,
-    player: state.player,
+    players: state.players.all,
+    player: state.players.player,
   }
 );
 
