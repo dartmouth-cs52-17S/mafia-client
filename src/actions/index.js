@@ -24,7 +24,7 @@ export const ROOT_URL = RUNNING_LOCALLY ? 'http://localhost:9090/api' : 'https:/
 
 export function createPlayers(gameId, userIds) { // actionCreator
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/createplayers`, { gameId, userIds }).then((response) => {
+    axios.post(`${ROOT_URL}/players`, { gameId, userIds }).then((response) => {
       dispatch({ type: ActionTypes.CREATE_PLAYERS, payload: response });
     }).catch((error) => {
       console.log(error);

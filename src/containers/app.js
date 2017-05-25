@@ -7,7 +7,7 @@ import CreateOrJoinGame from './createOrJoinGame';
 import Nav from './nav';
 import Lobby from './lobby';
 
-export const RUNNING_LOCALLY = true;
+export const RUNNING_LOCALLY = false;
 
 export const socketserver = RUNNING_LOCALLY ? 'http://localhost:3000/' : 'http://mafia-sockets.herokuapp.com/';
 
@@ -42,8 +42,8 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={LandingPage} />
             <Route path="/home" component={CreateOrJoinGame} />
-            <Route path="/lobby" component={Lobby} />
             <Route path="/lobby/:gameID" component={Lobby} />
+            <Route exact path="/lobby" component={Lobby} />
             <Route path="/directions" component={Directions} />
             <Route path="/profile/:userID" component={Profile} />
 
