@@ -5,12 +5,12 @@ import io from 'socket.io-client';
 import Textarea from 'react-textarea-autosize';
 import { socketserver } from './app';
 
-socketserver = `${socketserver}chat`;
+const chatserver = `${socketserver}chat`;
 
 class Chat extends Component {
   constructor(props) {
     super(props);
-    this.socket = io.connect(socketserver);
+    this.socket = io.connect(chatserver);
     this.socket.on('connect', () => {
       this.socket
         .emit('authenticate', { token: localStorage.getItem('token') })
