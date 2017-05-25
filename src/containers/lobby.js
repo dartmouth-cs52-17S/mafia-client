@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 import axios from 'axios';
-import { createPlayers, createGame, updatePlayers, addUserToGame, fetchGame, advanceStage, ROOT_URL } from '../actions';
+import { createGame, createPlayers, updatePlayers, addUserToGame, fetchGame, advanceStage, ROOT_URL } from '../actions';
+import Chat from './chat';
 import { socketserver } from './app';
 import Roles from './roles';
 import Chat from './chat';
@@ -20,10 +21,10 @@ class Lobby extends Component {
       if (window.location.pathname === '/lobby' || window.location.pathname === '/lobby/') {
         this.props.createGame(localStorage.getItem('token'), this.props.history);
       } else {
-        this.props.updatePlayers(localStorage.getItem('token'), window.location.pathname.substring(7));
+        this.props.updatePlayers(localStorage.getItem('token'), this.props.match.params.gameID);
         // lol that thing above is a massive hack. I should be using match.params.id but it didn't work so...
       }
-      setTimeout(() => this.props.fetchGame(window.location.pathname.substring(7)), 1000);
+      setTimeout(() => this.props.fetchGame(this.props.match.params.gameID), 1000);
     });
 
     this.renderPlayers = this.renderPlayers.bind(this);
@@ -49,10 +50,15 @@ class Lobby extends Component {
 
   // Switch Stages
   onSubmit(event) {
-    event.preventDefault();
     this.props.createPlayers(this.props.game, this.props.game.players);
     advanceStage();
     console.log(this.props.game.stage);
+  }
+
+  renderPlayers() {
+    return this.props.game.players.map((name) => {
+      return (<li>{name}</li>);
+    });
   }
 
   renderSubmitButton() {
