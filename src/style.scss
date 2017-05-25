@@ -57,29 +57,30 @@ nav {
   align-items: center;
 
   .landing-page-upper {
+    background-color: #000000;
+    width:100vw;
     height: 70vh;
-    width: 100vw;
-    background-color: black;
 
     img {
-      width: 40%;
+      position: absolute;
+      width: 40vw;
+      left: 28vw;
+      top: 30vh;
     }
   }
 
-  .landing-page-buttons {
-    flex-direction: row;
-  }
-
   .signin {
-    height: 12vh;
-    width: 20vw;
+    position: absolute;
+    top: 73vh;
+    left: 42vw;
+    height: 10vh;
+    width: 15vw;
     border: none;
     border-radius: 10px;
     background-color: $mafia-red;
-    margin-left: 10px;
 
     .signin-text {
-      font-size: 3vw;
+      font-size: 4vh;
       color: white;
     }
   }
@@ -248,6 +249,39 @@ nav {
   }
 }
 
-.mustdelete{
-  color: #FFFFFF;
+.chat-render-container{
+  border: 2px solid black;
+  width: 20vw;
+  height: 90vh;
+  display:flex;
+  flex-direction: column;
+  justify-content:flex-end;
+  overflow: auto;
+
+  .chat-input{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+
+
+    #text-area {
+      // width: 15vw;
+      margin: 0px;
+
+      input {
+        width: 19vw;
+        border-color:black;
+        height: 2vh;
+        font-size: 20px;
+      }
+    }
+
+  }
 }
+ .lobby-container{
+   display:flex;
+   flex-direction: row;
+   justify-content: space-between;
+ }
