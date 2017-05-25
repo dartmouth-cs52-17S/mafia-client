@@ -78,7 +78,7 @@ nav {
     border: none;
     border-radius: 10px;
     background-color: $mafia-red;
-    
+
     .signin-text {
       font-size: 4vh;
       color: white;
@@ -249,6 +249,39 @@ nav {
   }
 }
 
-.mustdelete{
-  color: #FFFFFF;
+.chat-render-container{
+  border: 2px solid black;
+  width: 20vw;
+  height: 90vh;
+  display:flex;
+  flex-direction: column;
+  justify-content:flex-end;
+  overflow: auto;
+
+  .chat-input{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+
+
+    #text-area {
+      // width: 15vw;
+      margin: 0px;
+
+      input {
+        width: 19vw;
+        border-color:black;
+        height: 2vh;
+        font-size: 20px;
+      }
+    }
+
+  }
 }
+ .lobby-container{
+   display:flex;
+   flex-direction: row;
+   justify-content: space-between;
+ }

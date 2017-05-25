@@ -77,9 +77,6 @@ class Lobby extends Component {
         <ul>
           {this.renderPlayers()}
         </ul>
-        <div>
-          <Chat />
-        </div>
       </div>
     );
   }
@@ -131,12 +128,15 @@ class Lobby extends Component {
       return <div>Loading</div>;
     } else {
       return (
-        <div>
+        <div className="lobby-container">
           <div className="StagesDisplay">
             <h1>Stage: {this.props.game.stage}</h1>
             {this.renderStages()}
+            {this.renderSubmitButton()}
           </div>
-          {this.renderSubmitButton()}
+          <div className="chat-section">
+            <Chat />
+          </div>
         </div>
       );
     }
