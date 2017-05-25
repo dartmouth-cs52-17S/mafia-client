@@ -3,12 +3,24 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 import Textarea from 'react-textarea-autosize';
-import { socketserver } from './app';
+
+const socketserver = 'http://localhost:3000/chat';
 
 class Chat extends Component {
   constructor(props) {
     super(props);
     this.socket = io.connect(socketserver);
+    this.socket.on('connect', () => {
+      this.socket
+        .emit('authenticate', { token: localStorage.getItem('token') })
+        .on('authenticated', () => {
+          console.log('joined chat');
+        })
+        .on('unauthorized', (msg) => {
+          console.log(`unauthorized: ${JSON.stringify(msg.data)}`);
+          throw new Error(msg.data.type);
+        });
+    });
 
     this.state = {
       text: '',

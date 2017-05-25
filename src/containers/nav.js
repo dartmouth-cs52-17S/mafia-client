@@ -34,7 +34,6 @@ class Nav extends Component {
   }
 }
 
-
 const mapStateToProps = state => (
   {
     auth: state.auth.authenticated,
