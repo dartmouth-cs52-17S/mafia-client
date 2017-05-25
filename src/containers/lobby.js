@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 import axios from 'axios';
-import { createGame, updatePlayers, addUserToGame, fetchGame, advanceStage, ROOT_URL } from '../actions';
+import { createPlayers, createGame, updatePlayers, addUserToGame, fetchGame, advanceStage, ROOT_URL } from '../actions';
 import { socketserver } from './app';
 import Roles from './roles';
 import Chat from './chat';
-
+import Players from './playersDisplay';
 
 class Lobby extends Component {
   constructor(props) {
@@ -29,6 +29,11 @@ class Lobby extends Component {
     this.renderPlayers = this.renderPlayers.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.renderSubmitButton = this.renderSubmitButton.bind(this);
+    this.renderStage0 = this.renderStage0.bind(this);
+    this.renderStage1 = this.renderStage1.bind(this);
+    this.renderStage2 = this.renderStage2.bind(this);
+    this.renderStage3 = this.renderStage3.bind(this);
+    this.renderStages = this.renderStages.bind(this);
   }
 
   componentWillUpdate() {
@@ -51,8 +56,8 @@ class Lobby extends Component {
   }
 
   renderSubmitButton() {
-    if (this.usersInLobby.length >= 6) {
-      return (<button onSubmit={this.onSubmit}>Play</button>);
+    if (this.props.game.players.length >= 1) {
+      return (<button onClick={this.onSubmit}>Play</button>);
     } else {
       return (<div />);
     }
@@ -62,7 +67,7 @@ class Lobby extends Component {
   renderPlayers() {
     console.log(this.usersInLobby);
     return this.props.game.players.map((name) => {
-      return (<li>{name}</li>);
+      return (<li key={name}>{name}</li>);
     });
   }
 
@@ -90,38 +95,47 @@ class Lobby extends Component {
     );
   }
 
-  // Stage 2:
+  // Stage 2: Dislay Assigned Roles
   renderStage2() {
     return (
       <div>
         <h3>Display Roles</h3>
-        {Roles}
+        <Roles />
+      </div>
+    );
+  }
+
+  // Stage 3:Display all players
+  renderStage3() {
+    return (
+      <div>
+        <h3>Display Players</h3>
+        <Players />
       </div>
     );
   }
 
   renderStages() {
-    switch (this.props.game.currentGameStage) {
+    switch (this.props.game.stage) {
       case 0:
-        return <div>{this.renderStage0}</div>;
+        return <div>{this.renderStage0()}</div>;
       case 1:
-        return <div>{this.renderStage1}</div>;
+        return <div>{this.renderStage1()}</div>;
       case 2:
-        return <div>{this.renderStage2}</div>;
+        return <div>{this.renderStage2()}</div>;
       default: return '';
     }
   }
 
   render() {
-    console.log('haha');
-    if (!this.props.game.currentGameStage) {
+    if (!this.props.game) {
       return <div>Loading</div>;
     } else {
       return (
         <div>
           <div className="StagesDisplay">
-            <h1>{this.props.game.currentGameStage}</h1>
-            {this.renderStages}
+            <h1>Stage: {this.props.game.stage}</h1>
+            {this.renderStages()}
           </div>
           {this.renderSubmitButton()}
         </div>
@@ -136,4 +150,4 @@ const mapStateToProps = state => ({
 }
 );
 
-export default withRouter(connect(mapStateToProps, { createGame, updatePlayers, addUserToGame, fetchGame, advanceStage })(Lobby));
+export default withRouter(connect(mapStateToProps, { createPlayers, createGame, updatePlayers, addUserToGame, fetchGame, advanceStage })(Lobby));
