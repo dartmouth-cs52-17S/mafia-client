@@ -5,11 +5,10 @@ import io from 'socket.io-client';
 import Textarea from 'react-textarea-autosize';
 import { socketserver } from './app';
 
-const chatsocketserver = `${socketserver}chat`;
-
 class Chat extends Component {
   constructor(props) {
     super(props);
+    const chatsocketserver = `${socketserver}chat`;
     this.socket = io.connect(chatsocketserver);
     this.socket.on('connect', () => {
       this.socket
