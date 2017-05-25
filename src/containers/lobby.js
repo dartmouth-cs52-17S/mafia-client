@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 import axios from 'axios';
-import { createGame, updatePlayers, addUserToGame, fetchGame, advanceStage, ROOT_URL } from '../actions';
+import { createGame, createPlayers, updatePlayers, addUserToGame, fetchGame, advanceStage, ROOT_URL } from '../actions';
 import Chat from './chat';
 import { socketserver } from './app';
 
@@ -65,22 +65,20 @@ class Lobby extends Component {
   }
 
   onSubmit(event) {
-    event.preventDefault();
     this.props.createPlayers(this.props.game, this.props.game.players);
     advanceStage();
     console.log(this.props.game.stage);
   }
 
   renderPlayers() {
-    console.log(this.usersInLobby);
     return this.props.game.players.map((name) => {
       return (<li>{name}</li>);
     });
   }
 
   renderSubmitButton() {
-    if (this.usersInLobby.length >= 6) {
-      return (<button onSubmit={this.onSubmit}>Play</button>);
+    if (this.props.game.players.length >= 1) {
+      return (<button onClick={this.onSubmit}>Play</button>);
     } else {
       return (<div />);
     }
@@ -132,4 +130,4 @@ const mapStateToProps = state => ({
 }
 );
 
-export default withRouter(connect(mapStateToProps, { createGame, updatePlayers, addUserToGame, fetchGame, advanceStage })(Lobby));
+export default withRouter(connect(mapStateToProps, { createPlayers, createGame, updatePlayers, addUserToGame, fetchGame, advanceStage })(Lobby));
