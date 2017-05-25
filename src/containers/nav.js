@@ -15,7 +15,7 @@ class Nav extends Component {
   }
 
   render() {
-    if (this.props.authenticated) {
+    if (this.props.auth) {
       return (
         <nav>
           <Link to="/"><img className="logo-top-left" src="/images/fedora-hat.svg" alt="Mafia" /></Link>
@@ -34,11 +34,13 @@ class Nav extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    authenticated: state.auth.authenticated,
-  };
-};
+
+const mapStateToProps = state => (
+  {
+    auth: state.auth.authenticated,
+    user: state.users.user,
+  }
+);
 
 export default withRouter(connect(mapStateToProps, { signoutUser })(Nav));
 
@@ -88,12 +90,5 @@ export default withRouter(connect(mapStateToProps, { signoutUser })(Nav));
 //     );
 //   }
 // }
-
-// const mapStateToProps = state => (
-//   {
-//     auth: state.auth.authenticated,
-//     user: state.users.user,
-//   }
-// );
 
 // export default withRouter(connect(mapStateToProps, { signoutUser })(Nav));

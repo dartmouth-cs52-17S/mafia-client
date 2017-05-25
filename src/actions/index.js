@@ -17,6 +17,7 @@ export const ActionTypes = {
   UPDATE_PLAYERS: 'UPDATE_PLAYERS',
   CREATE_USER: 'CREATE_USER',
   ADVANCE_STAGE: 'ADVANCE_STAGE',
+  AUTH_ERROR: 'AUTH_ERROR',
 };
 
 export const ROOT_URL = RUNNING_LOCALLY ? 'http://localhost:9090/api' : 'https://online-mafia.herokuapp.com/api';
@@ -108,10 +109,10 @@ export function authUser(authData, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/signin`, { authData })
     .then((response) => {
-      console.log(response);
       dispatch({ type: ActionTypes.AUTH_USER });
       dispatch({ type: ActionTypes.CREATE_USER, payload: response.data.user });
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('userID', JSON.stringify(response.data.user.id));
       history.push('/');
     })
     .catch((error) => {
@@ -126,6 +127,13 @@ export function signoutUser(history) {
     localStorage.removeItem('token');
     dispatch({ type: ActionTypes.DEAUTH_USER });
     history.push('/');
+  };
+}
+
+export function authError(error) {
+  return {
+    type: ActionTypes.AUTH_ERROR,
+    message: error,
   };
 }
 
