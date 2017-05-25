@@ -18,11 +18,12 @@ class Lobby extends Component {
 
     this.socket.on('connect', () => {
       if (window.location.pathname === '/lobby' || window.location.pathname === '/lobby/') {
-        this.props.createGame(localStorage.getItem('token'), this.props.history);
+        this.props.createGame(localStorage.getItem('token'), this.props.history)
+        .then(this.props.updatePlayers(localStorage.getItem('token'), this.props.match.params.gameID));
       } else {
         this.props.updatePlayers(localStorage.getItem('token'), this.props.match.params.gameID);
-        // lol that thing above is a massive hack. I should be using match.params.id but it didn't work so...
       }
+      this.setState({});
       setTimeout(() => this.props.fetchGame(this.props.match.params.gameID), 1000);
     });
 
@@ -65,8 +66,8 @@ class Lobby extends Component {
   // Stage 0:
   renderPlayers() {
     console.log(this.usersInLobby);
-    return this.props.game.players.map((name) => {
-      return (<li key={name}>{name}</li>);
+    return this.props.game.players.map((player) => {
+      return (<li key={name}>{player.name}</li>);
     });
   }
 
