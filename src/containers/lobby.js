@@ -18,10 +18,10 @@ class Lobby extends Component {
       if (window.location.pathname === '/lobby' || window.location.pathname === '/lobby/') {
         this.props.createGame(localStorage.getItem('token'), this.props.history);
       } else {
-        this.props.updatePlayers(localStorage.getItem('token'), window.location.pathname.substring(7));
+        this.props.updatePlayers(localStorage.getItem('token'), this.props.match.params.gameID);
         // lol that thing above is a massive hack. I should be using match.params.id but it didn't work so...
       }
-      setTimeout(() => this.props.fetchGame(window.location.pathname.substring(7)), 1000);
+      setTimeout(() => this.props.fetchGame(this.props.match.params.gameID), 1000);
     });
 
     this.renderPlayers = this.renderPlayers.bind(this);
@@ -107,6 +107,8 @@ class Lobby extends Component {
 //         );
 //       default: return '';
 //     }
+
+
     return (
       <div>
         <h3>Players Connected:</h3>
