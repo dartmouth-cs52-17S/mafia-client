@@ -70,20 +70,22 @@ export function fetchUser(id) {
 
 export function createGame(jwt, history) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/games`, null, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
-      // dispatch({ type: ActionTypes.CREATE_GAME, payload: response });
-      history.push(`/lobby/${response.data.id}`);
-    }).catch((error) => {
-      console.log(error);
+    return new Promise((resolve, reject) => {
+      axios.post(`${ROOT_URL}/games`, null, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
+        history.push(`/lobby/${response.data.id}`);
+        resolve();
+      }).catch((error) => {
+        console.log(error);
+        reject(error);
+      });
     });
   };
 }
 
 export function updatePlayers(jwt, gameID) { // actionCreator
-  console.log(`gameID is ${gameID}`);
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/games`, { gameID }, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
-      // dispatch({ type: ActionTypes.UPDATE_GAME, payload: response.data });
+    axios.put(`${ROOT_URL}/game/${gameID}`, null, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
+      console.log(`response is ${JSON.stringify(response.data)}`);
     }).catch((error) => {
       console.log(error);
     });
@@ -93,7 +95,8 @@ export function updatePlayers(jwt, gameID) { // actionCreator
 export function fetchGame(id) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/game/${id}`).then((response) => {
-      dispatch({ type: ActionTypes.FETCH_GAME, payload: response });
+      console.log(response.data);
+      dispatch({ type: ActionTypes.FETCH_GAME, payload: response.data });
     }).catch((error) => {
       console.log(error);
     });

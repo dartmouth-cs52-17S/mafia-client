@@ -27,7 +27,7 @@ const GameReducer = (state = initialState, action) => {
         return Object.assign({}, state, { players: action.payload.players });
       }
     case ActionTypes.FETCH_GAME:
-      return Object.assign({}, state, action.payload.data);
+      return Object.assign({}, state, action.payload);
     case ActionTypes.ADD_USER:
       return Object.assign({}, state, state.players.push(action.payload.data.name));
     case ActionTypes.ADVANCE_STAGE:
