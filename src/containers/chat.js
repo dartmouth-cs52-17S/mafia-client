@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 import Textarea from 'react-textarea-autosize';
-import { socketserver } from './app';
+
+const socketserver = 'http://localhost:3000/chat';
 
 class Chat extends Component {
   constructor(props) {
