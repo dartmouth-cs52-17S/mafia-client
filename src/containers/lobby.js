@@ -101,7 +101,7 @@ class Lobby extends Component {
   }
 
   renderStages() {
-    switch (this.props.game.stage) {
+    switch (this.props.game.currentGameStage) {
       case 0:
         return <div>{this.renderStage0}</div>;
       case 1:
@@ -113,19 +113,22 @@ class Lobby extends Component {
   }
 
   render() {
-    if (!this.props.game.stage) {
+    console.log('haha');
+    if (!this.props.game.currentGameStage) {
       return <div>Loading</div>;
     } else {
       return (
         <div>
           <div className="StagesDisplay">
+            <h1>{this.props.game.currentGameStage}</h1>
             {this.renderStages}
           </div>
           {this.renderSubmitButton()}
         </div>
       );
     }
-
+  }
+}
 
 const mapStateToProps = state => ({
   game: state.game,
