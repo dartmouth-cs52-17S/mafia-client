@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
-import Textarea from 'react-textarea-autosize';
+// import Textarea from 'react-textarea-autosize';
 import { socketserver } from './app';
 
 class Chat extends Component {
@@ -61,7 +61,7 @@ class Chat extends Component {
   renderMessages() {
     const messages = this.state.messages.map((message) => {
       return (
-        <div>
+        <div className="chat-outcome">
           {`${message.sender}: ${message.text}`}
         </div>
       );
@@ -71,11 +71,12 @@ class Chat extends Component {
 
   render() {
     return (
-      <div>
+      <div className="chat-render-container">
         {this.renderMessages()}
-        <form onSubmit={this.handleChatSubmit}>
-          <Textarea onChange={this.onTextChange} value={this.state.text} />
-          <button>Send</button>
+        <form onSubmit={this.handleChatSubmit} className="chat-input">
+          <div id="text-area" >
+            <input onChange={this.onTextChange} value={this.state.text} type="text" />
+          </div>
         </form>
       </div>
     );
