@@ -24,9 +24,23 @@ class Chat extends Component {
 
     this.state = {
       text: '',
+      messages: [],
     };
+
+    this.socket.on('message', (msg) => {
+      const newmessages = [...this.state.messages, msg];
+      this.setState({
+        messages: newmessages,
+      });
+    });
+
+    this.socket.on('notif', (notif) => {
+      console.log(notif);
+    });
+
     this.onTextChange = this.onTextChange.bind(this);
     this.handleChatSubmit = this.handleChatSubmit.bind(this);
+    this.renderMessages = this.renderMessages.bind(this);
   }
 
   onTextChange(event) {
@@ -44,9 +58,21 @@ class Chat extends Component {
     });
   }
 
+  renderMessages() {
+    const messages = this.state.messages.map((message) => {
+      return (
+        <div>
+          {`${message.sender}: ${message.text}`}
+        </div>
+      );
+    });
+    return messages;
+  }
+
   render() {
     return (
       <div>
+        {this.renderMessages()}
         <form onSubmit={this.handleChatSubmit}>
           <Textarea onChange={this.onTextChange} value={this.state.text} />
           <button>Send</button>
