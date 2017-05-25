@@ -74,9 +74,7 @@ class Chat extends Component {
       <div className="chat-render-container">
         {this.renderMessages()}
         <form onSubmit={this.handleChatSubmit} className="chat-input">
-          <div id="text-area" >
-            <input onChange={this.onTextChange} value={this.state.text} type="text" />
-          </div>
+          <input onChange={this.onTextChange} value={this.state.text} type="text" placeholder="Type a message..." id="text-area" />
         </form>
       </div>
     );

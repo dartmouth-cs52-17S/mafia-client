@@ -249,39 +249,75 @@ nav {
   }
 }
 
-.chat-render-container{
-  border: 2px solid black;
-  width: 20vw;
-  height: 90vh;
+.chat-render-container {
+  margin-right: 12px;
+  margin-top: 12px;
+  border: 3px solid black;
   display:flex;
   flex-direction: column;
   justify-content:flex-end;
   overflow: auto;
+  width: 20vw;
+  height: 90vh;
 
-  .chat-input{
+  .chat-outcome {
+    padding-left: 10px;
+    padding-bottom: 5px;
+  }
+  .chat-input {
     display:flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 
-
-
     #text-area {
-      // width: 15vw;
-      margin: 0px;
-
-      input {
-        width: 19vw;
-        border-color:black;
-        height: 2vh;
-        font-size: 20px;
-      }
+      border-top: 3px solid black;
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+      height: 3vh;
+      width: 20vw;
+      padding-left: 10px;
+      font-size: 20px;
     }
-
   }
 }
- .lobby-container{
-   display:flex;
-   flex-direction: row;
-   justify-content: space-between;
- }
+
+.lobby-container {
+ display: flex;
+ flex-direction: row;
+ justify-content: space-between;
+
+  .StagesDisplay {
+    margin-left: 10px;
+  }
+
+}
+
+.join-container {
+  display: flex;
+  justify-content: center;
+  height: 85vh;
+  align-items: center;
+
+  #join-button {
+    background-color: $mafia-red;
+    border-radius: 40px;
+    border: none;
+    width: 17vw;
+    height:40vh;
+    color: #ffffff;
+    font-size: 5vh;
+    margin: 100px;
+  }
+}
+
+#render-butt {
+  background-color: $mafia-red;
+  border: none;
+  color: #ffffff;
+  font-size: 2.5vh;
+  border-radius: 10px;
+  width: 4vw;
+  height: 4vh;
+}
