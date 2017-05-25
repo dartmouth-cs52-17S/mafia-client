@@ -4,8 +4,10 @@ import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 import axios from 'axios';
 import { createGame, updatePlayers, addUserToGame, fetchGame, advanceStage, ROOT_URL } from '../actions';
-import Chat from './chat';
 import { socketserver } from './app';
+import Roles from './roles';
+import Chat from './chat';
+
 
 class Lobby extends Component {
   constructor(props) {
@@ -29,30 +31,6 @@ class Lobby extends Component {
     this.renderSubmitButton = this.renderSubmitButton.bind(this);
   }
 
-  // renderRoles() {
-  //   return (
-  //     <div className="RolesContainer">
-  //       <h2>You Are</h2>
-  //       {this.props.player.role}
-  //     </div>
-  //   );
-  // }
-
-  // renderChat() {
-  //
-  // }
-
-  // render() {
-  //   return (
-  //     <div className-"GameContainer">
-  //       <div className="Roles">{this.renderRoles}</div>
-  //       <div className="Roles">{}</div>
-  //       // <div className="Selection">{this.renderselection}</div>  // all the pop ups
-  //       // <div className="Chat">{this.renderChat}</div>
-  //     </div>
-  //   );
-  // }
-
   componentWillUpdate() {
     if (this.props.game.players.length > 0) {
       for (let index = 0; index < this.props.game.players.length; index += 1) {
@@ -64,18 +42,12 @@ class Lobby extends Component {
     }
   }
 
+  // Switch Stages
   onSubmit(event) {
     event.preventDefault();
     this.props.createPlayers(this.props.game, this.props.game.players);
     advanceStage();
     console.log(this.props.game.stage);
-  }
-
-  renderPlayers() {
-    console.log(this.usersInLobby);
-    return this.props.game.players.map((name) => {
-      return (<li>{name}</li>);
-    });
   }
 
   renderSubmitButton() {
@@ -86,42 +58,73 @@ class Lobby extends Component {
     }
   }
 
-  render() {
-//     switch (this.props.game.stage) {
-//       case 0:
-//         return (
-//           <div>
-//             <h3>Players Connected:</h3>
-//             <ul>
-//               {this.renderPlayers()}
-//             </ul>
-//             <button onClick={this.onSubmit}>Start Game</button>
-//           </div>
-//         );
-//       case 1:
-//         return (
-//           <div>
-//             Hurray!
-//             {Selection}
-//           </div>
-//         );
-//       default: return '';
-//     }
+  // Stage 0:
+  renderPlayers() {
+    console.log(this.usersInLobby);
+    return this.props.game.players.map((name) => {
+      return (<li>{name}</li>);
+    });
+  }
+
+  renderStage0() {
     return (
       <div>
         <h3>Players Connected:</h3>
         <ul>
           {this.renderPlayers()}
         </ul>
-        {this.renderSubmitButton()}
         <div>
           <Chat />
         </div>
       </div>
-
     );
   }
-}
+
+  // Stage 1:
+  renderStage1() {
+    return (
+      <div>
+        <h3>Assigning Roles</h3>
+        <div>{this.props.assignRoles}</div>
+      </div>
+    );
+  }
+
+  // Stage 2:
+  renderStage2() {
+    return (
+      <div>
+        <h3>Display Roles</h3>
+        {Roles}
+      </div>
+    );
+  }
+
+  renderStages() {
+    switch (this.props.game.stage) {
+      case 0:
+        return <div>{this.renderStage0}</div>;
+      case 1:
+        return <div>{this.renderStage1}</div>;
+      case 2:
+        return <div>{this.renderStage2}</div>;
+      default: return '';
+    }
+  }
+
+  render() {
+    if (!this.props.game.stage) {
+      return <div>Loading</div>;
+    } else {
+      return (
+        <div>
+          <div className="StagesDisplay">
+            {this.renderStages}
+          </div>
+          {this.renderSubmitButton()}
+        </div>
+      );
+    }
 
 
 const mapStateToProps = state => ({
