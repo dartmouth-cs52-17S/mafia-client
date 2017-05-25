@@ -89,21 +89,40 @@ class LandingPage extends Component {
   }
 
   render() {
-    return (
-      <div className="landing-page-container">
-        <div className="landing-page-upper">
-          <img src="/images/Logo.svg" alt="Mafia" />
+    if (this.props.auth) {
+      return (
+        <div className="landing-page-container">
+          <div className="landing-page-upper">
+            <img src="/images/Logo.svg" alt="Mafia" />
+          </div>
+          <div className="landing-page-buttons">
+            <Link to="/home"><button className="signin"><span className="signin-text">Start Game</span></button></Link>
+          </div>
+          <p id="status" />
         </div>
-        <div className="landing-page-buttons">
-          <button className="signin" onClick={this.handleClick}>
-            <span className="signin-text">Log in with <i className="fa fa-facebook-official" aria-hidden="true" /></span>
-          </button>
-          <Link to="/home"><button className="signin"><span className="signin-text">Enter</span></button></Link>
+      );
+    } else {
+      return (
+        <div className="landing-page-container">
+          <div className="landing-page-upper">
+            <img src="/images/Logo.svg" alt="Mafia" />
+          </div>
+          <div className="landing-page-buttons">
+            <button className="signin" onClick={this.handleClick}>
+              <span className="signin-text">Log in with <i className="fa fa-facebook-official" aria-hidden="true" /></span>
+            </button>
+          </div>
+          <p id="status" />
         </div>
-        <p id="status" />
-      </div>
-    );
+      );
+    }
   }
 }
 
-export default withRouter(connect(null, { authUser })(LandingPage));
+const mapStateToProps = state => (
+  {
+    auth: state.auth.authenticated,
+  }
+);
+
+export default withRouter(connect(mapStateToProps, { authUser })(LandingPage));

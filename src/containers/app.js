@@ -19,31 +19,6 @@ const Directions = (props) => {
   );
 };
 
-// class Nav extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.handleSubmit = this.handleSubmit.bind(this);
-//   }
-//
-//   handleSubmit(e) {
-//     e.preventDefault();
-//     this.props.signoutUser(this.props.history);
-//   }
-//
-//   render() {
-//     return (
-//       <nav>
-//         <Link to="/"><img className="logo-top-left" src="/images/fedora-hat.svg" alt="Mafia" /></Link>
-//         <form onSubmit={this.handleSubmit}>
-//           <button id="signoutbutt" to="/signout">Sign Out</button>
-//         </form>
-//       </nav>
-//     );
-//   }
-// }
-
-// export default connect(null, { signoutUser })(Nav);
-
 const FallBack = (props) => {
   return (<div>URL Not Found</div>);
 };
