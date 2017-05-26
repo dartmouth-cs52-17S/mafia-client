@@ -293,6 +293,15 @@ nav {
   }
 }
 
+.spinny-loady {
+  border: 8px solid rgb(200, 200, 200);
+  border-top: 8px solid $mafia-red;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+}
+
 .join-container {
   display: flex;
   justify-content: center;
@@ -319,4 +328,8 @@ nav {
   border-radius: 10px;
   width: 4vw;
   height: 4vh;
+}
+
+.reactComment {
+  color: white;
 }
