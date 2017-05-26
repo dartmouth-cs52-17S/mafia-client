@@ -25,24 +25,12 @@ export const ROOT_URL = RUNNING_LOCALLY ? 'http://localhost:9090/api' : 'https:/
 export function createPlayers(gameId, userIds) { // actionCreator
   return (dispatch) => {
     axios.post(`${ROOT_URL}/players`, { gameId, userIds }).then((response) => {
-      dispatch({ type: ActionTypes.CREATE_PLAYERS, payload: response });
-    }).catch((error) => {
-      console.log(error);
-    });
-  };
-}
-
-export function assignRoles() {
-  return (dispatch) => {
-    axios.get(`${ROOT_URL}/players`)
-    .then((response) => {
-      response.data.forEach((player) => {
-        if (player.user === localStorage.getItem('userId')) {
-          localStorage.setItem('role', player.role);
+      response.data.forEach((fragment) => {
+        if (fragment.user === localStorage.getItem('userID')) {
+          localStorage.setItem('role', fragment.role);
         }
       });
-    })
-    .catch((error) => {
+    }).catch((error) => {
       console.log(error);
     });
   };
@@ -103,15 +91,24 @@ export function fetchGame(id) {
   };
 }
 
-export function fetchPlayers() {
+export function fetchPlayers(gameID) {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/players`).then((response) => {
+    axios.get(`${ROOT_URL}/players/${gameID}`).then((response) => {
+      console.log(`fetchPlayers response is ${JSON.stringify(response.data)}`);
       dispatch({ type: ActionTypes.FETCH_PLAYERS, payload: response });
     }).catch((error) => {
       console.log(error);
     });
   };
 }
+// !! for above method
+// const payload = response.data.map((fragment) => {
+//   if (fragment.user === localStorage.getItem('userID')) {
+//     localStorage.setItem('role', fragment.role);
+//   }
+//   return { userID: fragment.user, game: fragment.game, isAlive: fragment.status };
+// });
+// dispatch({ type: ActionTypes.CREATE_PLAYERS, payload });
 
 export function fetchPlayer(id) {
   return (dispatch) => {
