@@ -35,6 +35,7 @@ class Lobby extends Component {
     this.renderStage2 = this.renderStage2.bind(this);
     this.renderStage3 = this.renderStage3.bind(this);
     this.renderStages = this.renderStages.bind(this);
+    this.refetchGame = this.refetchGame.bind(this);
   }
 
   componentWillUpdate() {
@@ -55,6 +56,10 @@ class Lobby extends Component {
     console.log(this.props.game.stage);
   }
 
+  refetchGame() {
+    this.props.fetchGame(this.props.match.params.gameID);
+  }
+
   renderSubmitButton() {
     if (this.props.game.players.length >= 1) {
       return (<button onClick={this.onSubmit}>Play</button>);
@@ -65,9 +70,9 @@ class Lobby extends Component {
 
   // Stage 0:
   renderPlayers() {
-    console.log(this.usersInLobby);
+    console.log(this.props.game);
     return this.props.game.players.map((player) => {
-      return (<li key={name}>{player.name}</li>);
+      return (<li key={player.id}>{player.name}</li>);
     });
   }
 
@@ -136,7 +141,7 @@ class Lobby extends Component {
             {this.renderSubmitButton()}
           </div>
           <div className="chat-section">
-            <Chat />
+            <Chat reload={this.refetchGame} />
           </div>
         </div>
       );

@@ -36,6 +36,7 @@ class Chat extends Component {
 
     this.socket.on('notif', (notif) => {
       console.log(notif);
+      this.props.reload();
     });
 
     this.onTextChange = this.onTextChange.bind(this);
