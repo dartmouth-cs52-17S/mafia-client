@@ -6,7 +6,6 @@ import axios from 'axios';
 import { createGame, createPlayers, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, advanceStage, ROOT_URL } from '../actions';
 import Chat from './chat';
 import { socketserver } from './app';
-import Roles from './roles';
 import Players from './playersDisplay';
 import DoctorSelect from './doctor_selection';
 
@@ -79,12 +78,24 @@ class Lobby extends Component {
     });
   }
 
+  renderRole() {
+    switch (localStorage.getItem('role')) {
+      // 0: mafia, 1: doctor, 3: police, 4-6: village
+      case 'mafia': return (<div className="roleAssigned">Mafia</div>);
+      case 'doctor': return (<div className="roleAssigned">Doctor</div>);
+      case 'police': return (<div className="roleAssigned">Police</div>);
+      case 'villager': return (<div className="roleAssigned">Villager</div>);
+      default: return 'none. Why don\'t you have role? It\'s probably Adam\'s fault.';
+    }
+  }
+
   renderStage0() {
     return (
       <div>
         <h3>Players Connected:</h3>
         <ul>
           {this.renderPlayers()}
+          {this.renderPlayButton()}
         </ul>
       </div>
     );
@@ -92,10 +103,17 @@ class Lobby extends Component {
 
   // Stage 1:
   renderStage1() {
-    this.props.fetchPlayers(this.props.game.id);
     return (
       <div>
         <h3>Assigning Roles...</h3>
+        <div>
+          <div className="spinny-loady" />
+        </div>
+        <div className="reactComment">{setTimeout(() => {
+          this.props.fetchPlayers(this.props.game.id);
+          this.props.advanceStage();
+        }, 3000)}
+        </div>
       </div>
     );
   }
@@ -104,8 +122,9 @@ class Lobby extends Component {
   renderStage2() {
     return (
       <div>
-        <h3>Display Roles</h3>
-        <Roles />
+        <h3>Roles have been assigned!</h3>
+        <h2>Your role is:</h2>
+        <div>{this.renderRole()}</div>
       </div>
     );
   }
@@ -151,7 +170,6 @@ class Lobby extends Component {
           <div className="StagesDisplay">
             <h1>Stage: {this.props.game.stage}</h1>
             {this.renderStages()}
-            {this.renderPlayButton()}
           </div>
           <div className="chat-section">
             <Chat reload={this.refetchGame} />

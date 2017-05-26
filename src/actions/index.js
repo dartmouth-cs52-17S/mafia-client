@@ -26,8 +26,9 @@ export const ROOT_URL = RUNNING_LOCALLY ? 'http://localhost:9090/api' : 'https:/
 export function createPlayers(gameId, userIds) { // actionCreator
   return (dispatch) => {
     axios.post(`${ROOT_URL}/players`, { gameId, userIds }).then((response) => {
+      console.log(localStorage.getItem('userID'));
       response.data.forEach((fragment) => {
-        if (fragment.user === localStorage.getItem('userID')) {
+        if (`${fragment.user}` === localStorage.getItem('userID')) {
           localStorage.setItem('role', fragment.role);
         }
       });
@@ -126,21 +127,18 @@ export function fetchGame(id) {
 export function fetchPlayers(gameID) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/players/${gameID}`).then((response) => {
-      console.log(`fetchPlayers response is ${JSON.stringify(response.data)}`);
-      dispatch({ type: ActionTypes.FETCH_PLAYERS, payload: response });
+      // trim the payload to remove roles from the response
+      const payload = response.data.map((fragment) => {
+        return { playerID: fragment.id, userID: fragment.user, gameID: fragment.game, isAlive: fragment.status, name: fragment.name };
+      });
+      dispatch({ type: ActionTypes.FETCH_PLAYERS, payload });
     }).catch((error) => {
       console.log(error);
     });
   };
 }
 // !! for above method
-// const payload = response.data.map((fragment) => {
-//   if (fragment.user === localStorage.getItem('userID')) {
-//     localStorage.setItem('role', fragment.role);
-//   }
-//   return { userID: fragment.user, game: fragment.game, isAlive: fragment.status };
-// });
-// dispatch({ type: ActionTypes.CREATE_PLAYERS, payload });
+
 
 export function fetchPlayer(id) {
   return (dispatch) => {
@@ -159,7 +157,7 @@ export function authUser(authData, history) {
       dispatch({ type: ActionTypes.AUTH_USER });
       dispatch({ type: ActionTypes.CREATE_USER, payload: response.data.user });
       localStorage.setItem('token', response.data.token);
-      localStorage.setItem('userID', JSON.stringify(response.data.user.id));
+      localStorage.setItem('userID', response.data.user.id);
       history.push('/');
     })
     .catch((error) => {
