@@ -95,7 +95,7 @@ export function updatePlayers(jwt, gameID) { // actionCreator
 
 export function healPlayer(id) {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/players/${id}`).then((response) => {
+    axios.put(`${ROOT_URL}/players/heal/${id}`).then((response) => {
       dispatch({ type: ActionTypes.HEAL_PLAYER, payload: response });
     }).catch((error) => {
       console.log(error);

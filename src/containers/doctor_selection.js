@@ -29,7 +29,7 @@ class DoctorSel extends Component {
           return (
             <div className="players_container">
               <div className="playerName">{player.user.name}</div>
-              <img onKillClick={this.onHealClick} src={player.user.pic || ''} alt="Player Alive" key={player._id} />
+              <img onHealClick={this.onHealClick} src={player.user.pic || ''} alt="Player Alive" key={player._id} />
             </div>
           );
         })
