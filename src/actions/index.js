@@ -18,6 +18,7 @@ export const ActionTypes = {
   CREATE_USER: 'CREATE_USER',
   ADVANCE_STAGE: 'ADVANCE_STAGE',
   AUTH_ERROR: 'AUTH_ERROR',
+  HEAL_PLAYER: 'HEAL_PLAYER',
 };
 
 export const ROOT_URL = RUNNING_LOCALLY ? 'http://localhost:9090/api' : 'https://online-mafia.herokuapp.com/api';
@@ -86,6 +87,16 @@ export function updatePlayers(jwt, gameID) { // actionCreator
   return (dispatch) => {
     axios.put(`${ROOT_URL}/game/${gameID}`, null, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
       console.log(`response is ${JSON.stringify(response.data)}`);
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
+
+export function healPlayer(id) {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/players/${id}`).then((response) => {
+      dispatch({ type: ActionTypes.HEAL_PLAYER, payload: response });
     }).catch((error) => {
       console.log(error);
     });
