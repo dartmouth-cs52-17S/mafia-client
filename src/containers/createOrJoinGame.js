@@ -11,7 +11,20 @@ class CreateOrJoinGame extends Component {
 
   render() {
     return (
-      <Link to="/lobby"><button>Join Game</button></Link>
+      <div className="join-container">
+        <Link to="/lobby">
+          <button id="join-button">
+            <i className="fa fa-sign-in" aria-hidden="true" /> <br />
+            Join Game
+          </button>
+        </Link>
+        <Link to="/lobby">
+          <button id="join-button">
+            <i className="fa fa-gamepad" aria-hidden="true" /> <br />
+            Create Game
+          </button>
+        </Link>
+      </div>
     );
   }
 }

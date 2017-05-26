@@ -62,7 +62,7 @@ class Lobby extends Component {
 
   renderSubmitButton() {
     if (this.props.game.players.length >= 1) {
-      return (<button onClick={this.onSubmit}>Play</button>);
+      return (<button onClick={this.onSubmit} id="render-butt">Play</button>);
     } else {
       return (<div />);
     }
