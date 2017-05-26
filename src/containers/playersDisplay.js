@@ -49,7 +49,7 @@ class Narration extends Component {
     return (
       <div className="NarrationContainer">
         <h1>The Village</h1>
-        <div className="palyersStatusContainer">{this.renderPlayerStatus}</div>
+        <div className="playersStatusContainer">{this.renderPlayerStatus}</div>
       </div>
     );
   }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 import axios from 'axios';
-import { createGame, createPlayers, updatePlayers, addUserToGame, fetchGame, advanceStage, ROOT_URL } from '../actions';
+import { createGame, createPlayers, getPlayers, addUserToGame, fetchGame, advanceStage, ROOT_URL } from '../actions';
 import Chat from './chat';
 import { socketserver } from './app';
 import Roles from './roles';
@@ -19,9 +19,9 @@ class Lobby extends Component {
     this.socket.on('connect', () => {
       if (window.location.pathname === '/lobby' || window.location.pathname === '/lobby/') {
         this.props.createGame(localStorage.getItem('token'), this.props.history)
-        .then(this.props.updatePlayers(localStorage.getItem('token'), this.props.match.params.gameID));
+        .then(this.props.getPlayers(localStorage.getItem('token'), this.props.match.params.gameID));
       } else {
-        this.props.updatePlayers(localStorage.getItem('token'), this.props.match.params.gameID);
+        this.props.getPlayers(localStorage.getItem('token'), this.props.match.params.gameID);
       }
       this.setState({});
       setTimeout(() => this.props.fetchGame(this.props.match.params.gameID), 1000);
@@ -155,4 +155,4 @@ const mapStateToProps = state => ({
 }
 );
 
-export default withRouter(connect(mapStateToProps, { createPlayers, createGame, updatePlayers, addUserToGame, fetchGame, advanceStage })(Lobby));
+export default withRouter(connect(mapStateToProps, { createPlayers, createGame, getPlayers, addUserToGame, fetchGame, advanceStage })(Lobby));

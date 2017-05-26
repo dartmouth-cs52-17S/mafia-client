@@ -5,7 +5,7 @@ import { RUNNING_LOCALLY } from '../containers/app';
 export const ActionTypes = {
   FETCH_USERS: 'FETCH_USERS',
   FETCH_USER: 'FETCH_USER',
-  UPDATE_PLAYER: 'UPDATE_PLAYER',
+  KILL_PLAYER: 'KILL_PLAYER',
   FETCH_GAME: 'FETCH_GAME',
   CREATE_GAME: 'CREATE_GAME',
   UPDATE_GAME: 'UPDATE_GAME',
@@ -14,7 +14,7 @@ export const ActionTypes = {
   DEAUTH_USER: 'DEAUTH_USER',
   FETCH_PLAYERS: 'FETCH_PLAYERS',
   FETCH_PLAYER: 'FETCH_PLAYER',
-  UPDATE_PLAYERS: 'UPDATE_PLAYERS',
+  GET_PLAYERS: 'GET_PLAYERS',
   CREATE_USER: 'CREATE_USER',
   ADVANCE_STAGE: 'ADVANCE_STAGE',
   AUTH_ERROR: 'AUTH_ERROR',
@@ -82,7 +82,7 @@ export function createGame(jwt, history) {
   };
 }
 
-export function updatePlayers(jwt, gameID) { // actionCreator
+export function getPlayers(jwt, gameID) { // actionCreator
   return (dispatch) => {
     axios.put(`${ROOT_URL}/game/${gameID}`, null, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
       console.log(`response is ${JSON.stringify(response.data)}`);
@@ -91,6 +91,27 @@ export function updatePlayers(jwt, gameID) { // actionCreator
     });
   };
 }
+
+export function killPlayer(jwt, id) { // actionCreator
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/players/kill/${id}`, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
+      dispatch({ type: ActionTypes.KILL_PLAYER });
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
+
+
+// export function updatePost(id, post) { /* axios put */
+//   return (dispatch) => {
+//     axios.put(`${ROOT_URL}/posts/${id}`, post, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
+//       dispatch({ type: ActionTypes.UPDATE_POST, payload: response.data });
+//     }).catch((error) => {
+//       console.log('failed to update post');
+//     });
+//   };
+// }
 
 export function fetchGame(id) {
   return (dispatch) => {
