@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 import axios from 'axios';
-import { createGame, createPlayers, updatePlayers, fetchPlayers, addUserToGame, fetchGame, advanceStage, ROOT_URL } from '../actions';
+import { createGame, createPlayers, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, advanceStage, ROOT_URL } from '../actions';
 import Chat from './chat';
 import { socketserver } from './app';
 import Players from './playersDisplay';
+import DoctorSelect from './doctor_selection';
 
 class Lobby extends Component {
   constructor(props) {
@@ -18,9 +19,9 @@ class Lobby extends Component {
     this.socket.on('connect', () => {
       if (window.location.pathname === '/lobby' || window.location.pathname === '/lobby/') {
         this.props.createGame(localStorage.getItem('token'), this.props.history)
-        .then(this.props.updatePlayers(localStorage.getItem('token'), this.props.match.params.gameID));
+        .then(this.props.getPlayers(localStorage.getItem('token'), this.props.match.params.gameID));
       } else {
-        this.props.updatePlayers(localStorage.getItem('token'), this.props.match.params.gameID);
+        this.props.getPlayers(localStorage.getItem('token'), this.props.match.params.gameID);
       }
       this.setState({});
       setTimeout(() => this.props.fetchGame(this.props.match.params.gameID), 1000);
@@ -33,6 +34,7 @@ class Lobby extends Component {
     this.renderStage1 = this.renderStage1.bind(this);
     this.renderStage2 = this.renderStage2.bind(this);
     this.renderStage3 = this.renderStage3.bind(this);
+    this.renderStage4 = this.renderStage4.bind(this);
     this.renderStages = this.renderStages.bind(this);
     this.refetchGame = this.refetchGame.bind(this);
   }
@@ -137,6 +139,16 @@ class Lobby extends Component {
     );
   }
 
+  // Stage 4: Doctor Heal
+  renderStage4() {
+    return (
+      <div>
+        <h3>Display Players</h3>
+        <DoctorSelect />
+      </div>
+    );
+  }
+
   renderStages() {
     switch (this.props.game.stage) {
       case 0:
@@ -173,4 +185,5 @@ const mapStateToProps = state => ({
   users: state.users,
 });
 
-export default withRouter(connect(mapStateToProps, { createPlayers, createGame, updatePlayers, fetchPlayers, addUserToGame, fetchGame, advanceStage })(Lobby));
+
+export default withRouter(connect(mapStateToProps, { createPlayers, createGame, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, advanceStage })(Lobby));

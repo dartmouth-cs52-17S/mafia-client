@@ -14,6 +14,10 @@ const PlayerReducer = (state = defaultState, action) => {
       return Object.assign({}, state, { all: action.payload });
     case ActionTypes.FETCH_PLAYER:
       return Object.assign({}, state, { player: action.payload });
+    case ActionTypes.KILL_PLAYER:
+      return Object.assign({}, state, { player: action.payload });
+    case ActionTypes.HEAL_PLAYER:
+      return Object.assign({}, state, { player: action.payload });
     default:
       return state;
   }

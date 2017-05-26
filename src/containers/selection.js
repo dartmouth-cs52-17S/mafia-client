@@ -1,42 +1,43 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { updatePlayer } from '../actions';
+import { killPlayer } from '../actions';
 
 class Selection extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      players: [],
-    };
+    this.state = {};
     this.onSelect = this.onSelect.bind(this);
   }
 
-  onSelect(event) {
-    this.props.updatePlayer();
+  onKillClick(event) {
+    this.props.killPlayer(event.target.key);
+  }
+
+  renderSelection() {
+    if (!localStorage.getItem('role')) { // this just checks if data has been fetched and mapped to props yet
+      return '';
+    } else if (localStorage.getItem('role') === 'mafia') {
+      return (
+       this.props.players.map((player) => {
+         return (
+           <div className="players_container">
+             <div className="playerName">{player.user.name}</div>
+             <button key={player._id} onClick={this.onKillClick}> {player.user} </button>
+           </div>
+         );
+       })
+      );
+    } else {
+      return <div className="wait">Waiting Mafia to Kill</div>;
+    }
   }
 
   render() {
-    if (!this.props.players) { // this just checks if data has been fetched and mapped to props yet
-      return '';
-    } else if (this.props.player.role === 'mafia') { // if current player is mafia, show this
-      return (
-        <div className="players_container">
-          <ul>
-            <button onClick={this.onSelect}> {this.players[0].pic} </button>
-            <button onClick={this.onSelect}> {this.players[1].pic} </button>
-            <button onClick={this.onSelect}> {this.players[2].pic} </button>
-            <button onClick={this.onSelect}> {this.players[3].pic} </button>
-            <button onClick={this.onSelect}> {this.players[4].pic} </button>
-            <button onClick={this.onSelect}> {this.players[5].pic} </button>
-          </ul>
-        </div>
-      );
-    } else { // if not mafia, show this
-      return <div />;
-    }
+    return <div>{this.renderSelection()}</div>;
   }
+
 }
 
 
@@ -46,4 +47,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { updatePlayer })(Selection));
+export default withRouter(connect(mapStateToProps, { killPlayer })(Selection));
