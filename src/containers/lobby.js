@@ -8,6 +8,7 @@ import Chat from './chat';
 import { socketserver } from './app';
 import Roles from './roles';
 import Players from './playersDisplay';
+import DoctorSelect from './doctor_selection';
 
 class Lobby extends Component {
   constructor(props) {
@@ -34,6 +35,7 @@ class Lobby extends Component {
     this.renderStage1 = this.renderStage1.bind(this);
     this.renderStage2 = this.renderStage2.bind(this);
     this.renderStage3 = this.renderStage3.bind(this);
+    this.renderStage4 = this.renderStage4.bind(this);
     this.renderStages = this.renderStages.bind(this);
     this.refetchGame = this.refetchGame.bind(this);
   }
@@ -113,6 +115,16 @@ class Lobby extends Component {
       <div>
         <h3>Display Players</h3>
         <Players />
+      </div>
+    );
+  }
+
+  // Stage 4: Doctor Heal
+  renderStage4() {
+    return (
+      <div>
+        <h3>Display Players</h3>
+        <DoctorSelect />
       </div>
     );
   }

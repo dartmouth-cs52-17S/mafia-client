@@ -36,7 +36,7 @@ class Roles extends Component {
     return (
       <div className="RolesContainer">
         <h2>You Are</h2>
-        {this.renderRole}
+        {this.renderRole()}
       </div>
     );
   }

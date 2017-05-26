@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 
 import { fetchGame, fetchUsers } from '../actions';
 
-class Narration extends Component {
+class PlayersDisplay extends Component {
 
   constructor(props) {
     super(props);
@@ -61,4 +61,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { fetchGame, fetchUsers })(Narration));
+export default withRouter(connect(mapStateToProps, { fetchGame, fetchUsers })(PlayersDisplay));
