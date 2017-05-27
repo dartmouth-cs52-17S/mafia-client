@@ -8,11 +8,13 @@ import { socketserver } from './app';
 class Chat extends Component {
   constructor(props) {
     super(props);
+
     const chatsocketserver = `${socketserver}chat`;
     this.socket = io.connect(chatsocketserver);
     this.socket.on('connect', () => {
       this.socket
         .emit('authenticate', { token: localStorage.getItem('token') })
+        .emit('room', this.props.gameID)
         .on('authenticated', () => {
           console.log('joined chat');
         })
@@ -51,6 +53,7 @@ class Chat extends Component {
   handleChatSubmit(event) {
     event.preventDefault();
     const message = {
+      room: this.props.gameID,
       text: this.state.text,
     };
     this.socket.emit('message', message);
@@ -85,8 +88,7 @@ class Chat extends Component {
 const mapStateToProps = state => (
   {
     game: state.game,
-    players: state.players,
-    player: state.player,
+    users: state.users,
   }
 );
 

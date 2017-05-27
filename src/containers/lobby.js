@@ -190,7 +190,7 @@ class Lobby extends Component {
             {this.renderStages()}
           </div>
           <div className="chat-section">
-            <Chat reload={this.refetchGame} />
+            <Chat reload={this.refetchGame} gameID={this.props.match.params.gameID} />
           </div>
         </div>
       );
