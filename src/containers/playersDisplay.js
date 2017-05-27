@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 // import { withRouter, NavLink } from 'react-router-dom';
 
-import { fetchPlayers } from '../actions';
+import { fetchGame } from '../actions';
 
 class PlayersDisplay extends Component {
 
@@ -55,4 +55,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { fetchPlayers })(PlayersDisplay));
+export default withRouter(connect(mapStateToProps, { fetchGame })(PlayersDisplay));

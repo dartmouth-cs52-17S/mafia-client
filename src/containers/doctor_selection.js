@@ -28,7 +28,7 @@ class DoctorSelection extends Component {
         this.props.game.players.map((player) => {
           return (
             <div className="players_container">
-              <div className="playerName">{player.user.name}</div>
+              <div className="playerName">{player.name}</div>
               <button onClick={this.onHealClick} key={player.id}>{player.name}</button>
             </div>
           );
