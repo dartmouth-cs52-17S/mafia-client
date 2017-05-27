@@ -8,6 +8,7 @@ import Chat from './chat';
 import { socketserver } from './app';
 import Players from './playersDisplay';
 import DoctorSelect from './doctor_selection';
+import MafiaSelect from './mafia_selection';
 
 class Lobby extends Component {
   constructor(props) {
@@ -144,7 +145,18 @@ class Lobby extends Component {
   renderStage4() {
     return (
       <div>
+        <MafiaSelect />
+        <div>{this.renderPlayButton()}</div>
+      </div>
+    );
+  }
+
+  // Stage 4: Doctor Heal
+  renderStage5() {
+    return (
+      <div>
         <DoctorSelect />
+        <div>{this.renderPlayButton()}</div>
       </div>
     );
   }
@@ -161,6 +173,8 @@ class Lobby extends Component {
         return <div>{this.renderStage3()}</div>;
       case 4:
         return <div>{this.renderStage4()}</div>;
+      case 5:
+        return <div>{this.renderStage5()}</div>;
       default: return '';
     }
   }

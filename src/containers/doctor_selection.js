@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { fetchPlayers, healPlayer } from '../actions';
 
-class DoctorSel extends Component {
+class DoctorSelection extends Component {
   constructor(props) {
     super(props);
 
@@ -25,17 +25,17 @@ class DoctorSel extends Component {
       return '';
     } else if (localStorage.getItem('role') === 'doctor') {
       return (
-        this.props.players.map((player) => {
+        this.props.game.players.map((player) => {
           return (
             <div className="players_container">
               <div className="playerName">{player.user.name}</div>
-              <button onClick={this.onHealClick} key={player._id}>{player.user.pic}</button>
+              <button onClick={this.onHealClick} key={player.id}>{player.name}</button>
             </div>
           );
         })
       );
     } else {
-      return <div className="wait">Waiting Mafia to Kill</div>;
+      return <div className="wait">Waiting for the doctor to save someone...</div>;
     }
   }
   render() {
@@ -51,7 +51,8 @@ class DoctorSel extends Component {
 const mapStateToProps = state => (
   {
     players: state.players.all,
+    game: state.game,
   }
 );
 
-export default withRouter(connect(mapStateToProps, { fetchPlayers, healPlayer })(DoctorSel));
+export default withRouter(connect(mapStateToProps, { fetchPlayers, healPlayer })(DoctorSelection));

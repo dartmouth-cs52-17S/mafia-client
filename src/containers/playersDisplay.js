@@ -18,7 +18,7 @@ class PlayersDisplay extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchPlayers();
+    this.props.fetchGame();
   }
 
   renderPlayerStatus() {
@@ -51,7 +51,7 @@ class PlayersDisplay extends Component {
 const mapStateToProps = state => (
   {
     game: state.game,
-    players: state.players.all,
+    players: state.game.players,
   }
 );
 

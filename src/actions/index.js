@@ -102,6 +102,16 @@ export function healPlayer(id) {
   };
 }
 
+export function guessMafia(id) {
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/players/guess/${id}`).then((response) => {
+      dispatch({ type: ActionTypes.GUESS_MAFIA, payload: response });
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
+
 
 // export function updatePost(id, post) { /* axios put */
 //   return (dispatch) => {
