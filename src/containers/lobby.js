@@ -146,6 +146,7 @@ class Lobby extends Component {
     return (
       <div>
         <MafiaSelect />
+        <div>{this.renderPlayButton()}</div>
       </div>
     );
   }
@@ -155,6 +156,7 @@ class Lobby extends Component {
     return (
       <div>
         <DoctorSelect />
+        <div>{this.renderPlayButton()}</div>
       </div>
     );
   }

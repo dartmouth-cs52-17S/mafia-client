@@ -29,7 +29,7 @@ class DoctorSelection extends Component {
           return (
             <div className="players_container">
               <div className="playerName">{player.user.name}</div>
-              <button onClick={this.onHealClick} key={player._id}>{player.name}</button>
+              <button onClick={this.onHealClick} key={player.id}>{player.name}</button>
             </div>
           );
         })

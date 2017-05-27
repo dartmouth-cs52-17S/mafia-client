@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { killPlayer } from '../actions';
+import { fetchPlayers, killPlayer } from '../actions';
 
 class MafiaSelection extends Component {
   constructor(props) {
     super(props);
 
     this.state = {};
-    this.onSelect = this.onSelect.bind(this);
+    this.onKillClick = this.onKillClick.bind(this);
+    this.renderSelection = this.renderSelection.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.fetchPlayers();
   }
 
   onKillClick(event) {
@@ -30,18 +35,14 @@ class MafiaSelection extends Component {
        })
       );
     } else {
-      return <div className="wait">Waiting for da Mafia to kill someone...</div>;
+      return <div className="wait">Waiting 4 mafia 2 kill sum1...</div>;
     }
   }
 
   render() {
-    return (
-      <div className="RolesContainer">
-        <h2>You Are</h2>
-        {this.renderSelection()}
-      </div>
-    );
+    return <div>{this.renderSelection()}</div>;
   }
+
 }
 
 
@@ -52,4 +53,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { killPlayer })(MafiaSelection));
+export default withRouter(connect(mapStateToProps, { fetchPlayers, killPlayer })(MafiaSelection));
