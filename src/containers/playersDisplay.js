@@ -23,24 +23,17 @@ class Narration extends Component {
 
   renderPlayerStatus() {
     // this just checks if data has been fetched and mapped to props yet
-    if (!this.props.players) {
+    if (!this.props.game.players) {
       return '';
     } else {
       return (
-        this.props.players.map((player) => {
-          return (
-            <div className="playerStatusContainer">
-              <div className="playerName">{player.user.name}</div>
-              {/* CSS: isAlive and isDead influence image opacity*/}
-              if (player.status){
-                <img className="isAlive" src={player.user.pic || ''} alt="Player Alive" key={player.user.facebookID} />
-              }
-              else {
-                <img className="isDead" src={player.user.pic || ''} alt="Player Dead" key={player.user.facebookID} />
-              }
-            </div>
-          );
-        })
+      this.props.game.players.map((player) => {
+        return (
+          <div className="playerStatusContainer">
+            <div className="playerName" key={player.id}>{player.name}</div>
+          </div>
+        );
+      })
       );
     }
   }
@@ -49,7 +42,7 @@ class Narration extends Component {
     return (
       <div className="NarrationContainer">
         <h1>The Village</h1>
-        <div className="playersStatusContainer">{this.renderPlayerStatus}</div>
+        <div className="playersStatusContainer">{this.renderPlayerStatus()}</div>
       </div>
     );
   }
@@ -57,6 +50,7 @@ class Narration extends Component {
 
 const mapStateToProps = state => (
   {
+    game: state.game,
     players: state.players.all,
   }
 );
