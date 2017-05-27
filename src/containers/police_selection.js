@@ -1,47 +1,48 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { killPlayer } from '../actions';
+import { guessMafia } from '../actions';
 
-class MafiaSelection extends Component {
+class PoliceSelection extends Component {
   constructor(props) {
     super(props);
 
     this.state = {};
-    this.onSelect = this.onSelect.bind(this);
+    this.onGuessClick = this.onGuessClick.bind(this);
+    this.renderSelection = this.renderSelection.bind(this);
   }
 
-  onKillClick(event) {
-    this.props.killPlayer(event.target.key);
+  componentDidMount() {
+    this.props.fetchPlayers();
+  }
+
+  onGuessClick(event) {
+    this.props.guessMafia(event.target.key);
   }
 
   renderSelection() {
     if (!localStorage.getItem('role')) { // this just checks if data has been fetched and mapped to props yet
       return '';
-    } else if (localStorage.getItem('role') === 'mafia') {
+    } else if (localStorage.getItem('role') === 'police') {
       return (
        this.props.game.players.map((player) => {
          return (
            <div className="players_container">
              <div className="playerName">{player.name}</div>
-             <button key={player._id} onClick={this.onKillClick}> {player.name} </button>
+             <button key={player._id} onClick={this.onGuessClick}> {player.name} </button>
            </div>
          );
        })
       );
     } else {
-      return <div className="wait">Waiting for da Mafia to kill someone...</div>;
+      return <div className="wait">Waiting 4 da cop to inquire... mafia, you betta watch yo back</div>;
     }
   }
 
   render() {
-    return (
-      <div className="RolesContainer">
-        <h2>You Are</h2>
-        {this.renderSelection()}
-      </div>
-    );
+    return <div>{this.renderSelection()}</div>;
   }
+
 }
 
 
@@ -52,4 +53,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { killPlayer })(MafiaSelection));
+export default withRouter(connect(mapStateToProps, { guessMafia })(PoliceSelection));
