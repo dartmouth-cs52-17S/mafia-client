@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 import axios from 'axios';
-import { createGame, createPlayers, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, advanceStage, ROOT_URL } from '../actions';
+import { createGame, createPlayers, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, advanceStage, updateStage, ROOT_URL } from '../actions';
 import Chat from './chat';
 import { socketserver } from './app';
 import Players from './playersDisplay';
 import DoctorSelect from './doctor_selection';
 import MafiaSelect from './mafia_selection';
+import PoliceSelect from './police_selection';
 
 class Lobby extends Component {
   constructor(props) {
@@ -38,6 +39,10 @@ class Lobby extends Component {
     this.renderStage4 = this.renderStage4.bind(this);
     this.renderStages = this.renderStages.bind(this);
     this.refetchGame = this.refetchGame.bind(this);
+    this.tempOnPlayClicked = this.tempOnPlayClicked.bind(this);
+    this.backtoStage3 = this.backtoStage3.bind(this);
+    this.tempRenderNextButton = this.tempRenderNextButton.bind(this);
+    this.backToStageButton = this.backToStageButton.bind(this);
   }
 
   componentWillUpdate() {
@@ -59,8 +64,26 @@ class Lobby extends Component {
     console.log(this.props.game.stage);
   }
 
+// must delete
+  tempOnPlayClicked(event) {
+    this.props.advanceStage();
+  }
+
+  backtoStage3() {
+    this.props.updateStage(3);
+  }
+
   refetchGame() {
     this.props.fetchGame(this.props.match.params.gameID);
+  }
+
+// must delete
+  tempRenderNextButton() {
+    return (<button onClick={this.tempOnPlayClicked}>Next</button>);
+  }
+
+  backToStageButton() {
+    return (<button onClick={this.backtoStage3}>Next</button>);
   }
 
   renderPlayButton() {
@@ -90,6 +113,7 @@ class Lobby extends Component {
     }
   }
 
+  // Stage 0: Show Players Connected, Waiting for Players
   renderStage0() {
     return (
       <div>
@@ -102,7 +126,7 @@ class Lobby extends Component {
     );
   }
 
-  // Stage 1:
+  // Stage 1: Assigning Role Processing
   renderStage1() {
     return (
       <div>
@@ -119,14 +143,14 @@ class Lobby extends Component {
     );
   }
 
-  // Stage 2: Dislay Assigned Roles
+  // Stage 2: Dislay Assigned Roles to Individual Player
   renderStage2() {
     return (
       <div>
         <h3>Roles have been assigned!</h3>
         <h2>Your role is:</h2>
         <div>{this.renderRole()}</div>
-        <div>{this.renderPlayButton()}</div>
+        <div>{this.tempRenderNextButton()}</div>
       </div>
     );
   }
@@ -136,27 +160,37 @@ class Lobby extends Component {
     return (
       <div>
         <Players />
-        <div>{this.renderPlayButton()}</div>
+        <div>{this.tempRenderNextButton()}</div>
       </div>
     );
   }
 
-  // Stage 4: Doctor Heal
+  // Stage 4: Mafia Kill
   renderStage4() {
     return (
       <div>
         <MafiaSelect />
-        <div>{this.renderPlayButton()}</div>
+        <div>{this.tempRenderNextButton()}</div>
       </div>
     );
   }
 
-  // Stage 4: Doctor Heal
+  // Stage 5: Doctor Heal
   renderStage5() {
     return (
       <div>
         <DoctorSelect />
-        <div>{this.renderPlayButton()}</div>
+        <div>{this.tempRenderNextButton()}</div>
+      </div>
+    );
+  }
+
+  // Stage 6: Police Reveal
+  renderStage6() {
+    return (
+      <div>
+        <PoliceSelect />
+        <div>{this.backToStageButton()}</div>
       </div>
     );
   }
@@ -175,6 +209,8 @@ class Lobby extends Component {
         return <div>{this.renderStage4()}</div>;
       case 5:
         return <div>{this.renderStage5()}</div>;
+      case 6:
+        return <div>{this.renderStage6()}</div>;
       default: return '';
     }
   }
@@ -204,4 +240,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default withRouter(connect(mapStateToProps, { createPlayers, createGame, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, advanceStage })(Lobby));
+export default withRouter(connect(mapStateToProps, { createPlayers, createGame, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, advanceStage, updateStage })(Lobby));

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { guessMafia } from '../actions';
+import { guessMafia, fetchPlayers } from '../actions';
 
 class PoliceSelection extends Component {
   constructor(props) {
@@ -53,4 +53,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { guessMafia })(PoliceSelection));
+export default withRouter(connect(mapStateToProps, { guessMafia, fetchPlayers })(PoliceSelection));

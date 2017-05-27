@@ -32,6 +32,8 @@ const GameReducer = (state = initialState, action) => {
       return Object.assign({}, state, state.players.push(action.payload.data.name));
     case ActionTypes.ADVANCE_STAGE:
       return Object.assign({}, state, { stage: state.stage + 1 });
+    case ActionTypes.UPDATE_STAGE:
+      return Object.assign({}, state, { stage: action.payload });
     default:
       return state;
   }

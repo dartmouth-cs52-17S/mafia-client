@@ -19,6 +19,7 @@ export const ActionTypes = {
   ADVANCE_STAGE: 'ADVANCE_STAGE',
   AUTH_ERROR: 'AUTH_ERROR',
   HEAL_PLAYER: 'HEAL_PLAYER',
+  UPDATE_STAGE: 'UPDATE_STAGE',
 };
 
 export const ROOT_URL = RUNNING_LOCALLY ? 'http://localhost:9090/api' : 'https://online-mafia.herokuapp.com/api';
@@ -204,6 +205,12 @@ export function addUserToGame(fbid) {
 export function advanceStage() {
   return (dispatch) => {
     dispatch({ type: ActionTypes.ADVANCE_STAGE });
+  };
+}
+
+export function updateStage(stage) {
+  return (dispatch) => {
+    dispatch({ type: ActionTypes.UPDATE_STAGE, payload: stage });
   };
 }
 
