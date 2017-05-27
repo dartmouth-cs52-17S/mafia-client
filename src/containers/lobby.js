@@ -125,6 +125,7 @@ class Lobby extends Component {
         <h3>Roles have been assigned!</h3>
         <h2>Your role is:</h2>
         <div>{this.renderRole()}</div>
+        <div>{this.renderPlayButton()}</div>
       </div>
     );
   }
@@ -133,8 +134,8 @@ class Lobby extends Component {
   renderStage3() {
     return (
       <div>
-        <h3>Display Players</h3>
         <Players />
+        <div>{this.renderPlayButton()}</div>
       </div>
     );
   }
@@ -143,7 +144,6 @@ class Lobby extends Component {
   renderStage4() {
     return (
       <div>
-        <h3>Display Players</h3>
         <DoctorSelect />
       </div>
     );
@@ -157,6 +157,10 @@ class Lobby extends Component {
         return <div>{this.renderStage1()}</div>;
       case 2:
         return <div>{this.renderStage2()}</div>;
+      case 3:
+        return <div>{this.renderStage3()}</div>;
+      case 4:
+        return <div>{this.renderStage4()}</div>;
       default: return '';
     }
   }
