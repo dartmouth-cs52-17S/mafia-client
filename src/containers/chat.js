@@ -14,9 +14,9 @@ class Chat extends Component {
     this.socket.on('connect', () => {
       this.socket
         .emit('authenticate', { token: localStorage.getItem('token') })
-        .emit('room', this.props.gameID)
         .on('authenticated', () => {
-          console.log('joined chat');
+          this.socket.emit('room', this.props.gameID);
+          console.log(`the gameID is ${this.props.gameID}`);
         })
         .on('unauthorized', (msg) => {
           console.log(`unauthorized: ${JSON.stringify(msg.data)}`);
