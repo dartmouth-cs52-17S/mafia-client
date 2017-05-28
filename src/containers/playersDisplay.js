@@ -28,11 +28,19 @@ class PlayersDisplay extends Component {
     } else {
       return (
       this.props.game.players.map((player) => {
-        return (
-          <div className="playerStatusContainer">
-            <div className="playerName" key={player.id}>{player.name}</div>
-          </div>
-        );
+        if (player.status === true) {
+          return (
+            <div className="playerStatusContainer">
+              <div className="playerAliveName" key={player.id}>{player.name}</div>
+            </div>
+          );
+        } else {
+          return (
+            <div className="playerStatusContainer">
+              <div className="playerDeadName" key={player.id}>{player.name}</div>
+            </div>
+          );
+        }
       })
       );
     }

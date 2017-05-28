@@ -1,23 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { fetchPlayers, healPlayer } from '../actions';
+import { fetchPlayers, healPlayer, advanceStage } from '../actions';
 
 class DoctorSelection extends Component {
   constructor(props) {
     super(props);
 
     this.state = {};
-    this.onHealClick = this.onHealClick.bind(this);
     this.renderSelection = this.renderSelection.bind(this);
+    this.onDoctorHeal = this.onDoctorHeal.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchPlayers();
   }
 
-  onHealClick(event) {
-    this.props.healPlayer(event.target.key);
+  onDoctorHeal() {
+    if (localStorage.getItem('role') === 'doctor') {
+      const doctor = document.querySelector('input[name = "doctor"]:checked').value;
+      if (doctor) { this.props.healPlayer(doctor); }
+    }
+    this.props.advanceStage();
   }
 
   renderSelection() {
@@ -26,12 +30,25 @@ class DoctorSelection extends Component {
     } else if (localStorage.getItem('role') === 'doctor') {
       return (
         this.props.game.players.map((player) => {
-          return (
-            <div className="players_container">
-              <div className="playerName">{player.name}</div>
-              <button onClick={this.onHealClick} key={player.id}>{player.name}</button>
-            </div>
-          );
+          if (player.status === true) {
+            return (
+              <div className="players_container">
+                <div>
+                  <input type="radio" name="doctor" value={player._id} />
+                  <div className="playerAliveName">{player.name}</div>
+                </div>
+              </div>
+            );
+          } else {
+            return (
+              <div className="players_container">
+                <div>
+                  <input type="radio" name="doctor" value={player._id} />
+                  <div className="playerDeadName">{player.name}</div>
+                </div>
+              </div>
+            );
+          }
         })
       );
     } else {
@@ -41,8 +58,10 @@ class DoctorSelection extends Component {
   render() {
     return (
       <div className="RolesContainer">
-        <h2>You Are</h2>
         {this.renderSelection()}
+        <div className="reactComment">
+          {setTimeout(() => { this.onDoctorHeal(); }, 3000)}
+        </div>
       </div>
     );
   }
@@ -55,4 +74,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { fetchPlayers, healPlayer })(DoctorSelection));
+export default withRouter(connect(mapStateToProps, { fetchPlayers, healPlayer, advanceStage })(DoctorSelection));
