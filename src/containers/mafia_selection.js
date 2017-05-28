@@ -64,7 +64,7 @@ class MafiaSelection extends Component {
       <div>
         {this.renderSelection()}
         <div className="reactComment">
-          {setTimeout(() => { this.onMafiaKill(); }, 3000)}
+          {setTimeout(() => { this.onMafiaKill(); }, 7000)}
         </div>
       </div>
     );

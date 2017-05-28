@@ -51,7 +51,10 @@ class PoliceSelection extends Component {
        })
       );
     } else {
-      return <div className="wait">Waiting 4 da cop to inquire... mafia, you betta watch yo back</div>;
+      return (
+        <div className="wait">Waiting 4 da cop to inquire... mafia, you betta watch yo back
+        </div>
+      );
     }
   }
 
@@ -60,7 +63,7 @@ class PoliceSelection extends Component {
       <div>
         {this.renderSelection()}
         <div className="reactComment">
-          {setTimeout(() => { this.onPoliceReveal(); }, 3000)}
+          {setTimeout(() => { this.onPoliceReveal(); }, 7000)}
         </div>
       </div>
     );

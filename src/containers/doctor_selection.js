@@ -52,7 +52,10 @@ class DoctorSelection extends Component {
         })
       );
     } else {
-      return <div className="wait">Waiting for the doctor to save someone...</div>;
+      return (
+        <div className="wait">Waiting for the doctor to save someone...
+        </div>
+      );
     }
   }
   render() {
@@ -60,7 +63,7 @@ class DoctorSelection extends Component {
       <div className="RolesContainer">
         {this.renderSelection()}
         <div className="reactComment">
-          {setTimeout(() => { this.onDoctorHeal(); }, 3000)}
+          {setTimeout(() => { this.onDoctorHeal(); }, 7000)}
         </div>
       </div>
     );

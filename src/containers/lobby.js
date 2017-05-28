@@ -95,10 +95,15 @@ class Lobby extends Component {
   renderRole() {
     switch (localStorage.getItem('role')) {
       // 0: mafia, 1: doctor, 3: police, 4-6: village
-      case 'mafia': return (<div className="roleAssigned"><img src="/images/mafia.png" alt="Mafia" />Mafia</div>);
-      case 'doctor': return (<div className="roleAssigned"><img src="/images/doctor.png" alt="Mafia" />Doctor</div>);
-      case 'police': return (<div className="roleAssigned"><img src="/images/police.png" alt="Mafia" />Police</div>);
-      case 'villager': return (<div className="roleAssigned"><img src="/images/villager.png" alt="Mafia" />Villager</div>);
+      case 'mafia':
+        return (
+          <div className="roleAssigned"><img src="/images/mafia.png" alt="Mafia" /></div>);
+      case 'doctor':
+        return (<div className="roleAssigned"><img src="/images/doctor.png" alt="Mafia" /></div>);
+      case 'police':
+        return (<div className="roleAssigned"><img src="/images/police.png" alt="Mafia" /></div>);
+      case 'villager':
+        return (<div className="roleAssigned"><img src="/images/villager.png" alt="Mafia" /></div>);
       default: return 'none. Why don\'t you have role? It\'s probably Adam\'s fault.';
     }
   }
@@ -119,7 +124,7 @@ class Lobby extends Component {
   // Stage 1: Assigning Role Processing
   renderStage1() {
     return (
-      <div>
+      <div className="stage1">
         <h3>Assigning Roles...</h3>
         <div>
           <div className="spinny-loady" />
@@ -140,7 +145,11 @@ class Lobby extends Component {
         <h3>Roles have been assigned!</h3>
         <h2>Your role is:</h2>
         <div>{this.renderRole()}</div>
-        <button onClick={this.tempOnPlayClicked}>Next</button>
+        <span>Will automatically advance stage after 10 secs</span>
+        <div className="reactComment">{setTimeout(() => {
+          this.props.advanceStage();
+        }, 10000)}
+        </div>
       </div>
     );
   }
