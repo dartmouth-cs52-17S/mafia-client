@@ -27,7 +27,7 @@ export const ROOT_URL = RUNNING_LOCALLY ? 'http://localhost:9090/api' : 'https:/
 
 export function createPlayers(gameId, userIds) { // actionCreator
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/players`, { gameId, userIds }).then((response) => {
+    axios.post(`${ROOT_URL}/players/${gameId}`, { gameId, userIds }).then((response) => {
       response.data.forEach((fragment) => {
         if (`${fragment.user}` === localStorage.getItem('userID')) {
           localStorage.setItem('role', fragment.role);
@@ -83,9 +83,9 @@ export function getPlayers(jwt, gameID) { // actionCreator
   };
 }
 
-export function killPlayer(jwt, id) { // actionCreator
+export function killPlayer(id) { // actionCreator
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/players/kill/${id}`, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
+    axios.put(`${ROOT_URL}/players/kill/${id}`).then((response) => {
       dispatch({ type: ActionTypes.KILL_PLAYER });
     }).catch((error) => {
       console.log(error);
@@ -140,8 +140,6 @@ export function fetchPlayers(gameID) {
     });
   };
 }
-// !! for above method
-
 
 export function fetchPlayer(id) {
   return (dispatch) => {
@@ -185,15 +183,6 @@ export function authError(error) {
   };
 }
 
-export function addUserToGame(fbid) {
-  return (dispatch) => {
-    axios.put(`${ROOT_URL}/games`, { fbid })
-    .then((response) => {
-      dispatch({ type: ActionTypes.ADD_USER, payload: response });
-    });
-  };
-}
-
 export function advanceStage() {
   return (dispatch) => {
     dispatch({ type: ActionTypes.ADVANCE_STAGE });
@@ -205,18 +194,3 @@ export function updateStage(stage) {
     dispatch({ type: ActionTypes.UPDATE_STAGE, payload: stage });
   };
 }
-
-// export function addUserToGame(fbid) {
-//   return (dispatch) => {
-//     axios.put(`${ROOT_URL}/games`, { fbid })
-//     .then((response) => {
-//       dispatch({ type: ActionTypes.ADD_USER, payload: response });
-//     });
-//   };
-// }
-
-// export function getNameFromFBID(fbid) {
-//   axios.post(`${ROOT_URL}/getNameFromFBID`, { fbid }).then((response) => {
-//     // dispatch({ type: ActionTypes.ADD_USER, payload: response });
-//   });
-// }

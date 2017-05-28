@@ -27,12 +27,20 @@ class PlayersDisplay extends Component {
       return '';
     } else {
       return (
-      this.props.game.players.map((player) => {
-        return (
-          <div className="playerStatusContainer">
-            <div className="playerName" key={player.id}>{player.name}</div>
-          </div>
-        );
+      this.props.players.map((player) => {
+        if (player.isAlive) {
+          return (
+            <div className="playerStatusContainer">
+              <div className="playerAliveName" key={player.id}>{player.name}</div>
+            </div>
+          );
+        } else {
+          return (
+            <div className="playerStatusContainer">
+              <div className="playerDeadName" key={player.id}>{player.name}</div>
+            </div>
+          );
+        }
       })
       );
     }
@@ -51,7 +59,7 @@ class PlayersDisplay extends Component {
 const mapStateToProps = state => (
   {
     game: state.game,
-    players: state.game.players,
+    players: state.players.all,
   }
 );
 
