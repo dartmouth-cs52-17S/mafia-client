@@ -24,7 +24,7 @@ export const ActionTypes = {
 
 export const ROOT_URL = RUNNING_LOCALLY ? 'http://localhost:9090/api' : 'https://online-mafia.herokuapp.com/api';
 
-export function createPlayers(gameId, userIds) { // actionCreator
+export function createPlayers(gameId, userIds) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/players`, { gameId, userIds }).then((response) => {
       console.log(localStorage.getItem('userID'));
