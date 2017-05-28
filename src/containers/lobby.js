@@ -41,9 +41,8 @@ class Lobby extends Component {
     this.renderChat = this.renderChat.bind(this);
     this.refetchGame = this.refetchGame.bind(this);
     this.tempOnPlayClicked = this.tempOnPlayClicked.bind(this);
-    this.backtoStage3 = this.backtoStage3.bind(this);
-    this.tempRenderNextButton = this.tempRenderNextButton.bind(this);
-    this.backToStageButton = this.backToStageButton.bind(this);
+    // this.backtoStage3 = this.backtoStage3.bind(this);
+    // this.tempRenderNextButton = this.tempRenderNextButton.bind(this);
   }
 
   componentWillUpdate() {
@@ -70,21 +69,12 @@ class Lobby extends Component {
     this.props.advanceStage();
   }
 
-  backtoStage3() {
-    this.props.updateStage(3);
-  }
+  // backtoStage3() {
+  //   this.props.updateStage(3);
+  // }
 
   refetchGame() {
     this.props.fetchGame(this.props.match.params.gameID);
-  }
-
-// must delete
-  tempRenderNextButton() {
-    return (<button onClick={this.tempOnPlayClicked}>Next</button>);
-  }
-
-  backToStageButton() {
-    return (<button onClick={this.backtoStage3}>Next</button>);
   }
 
   renderPlayButton() {
@@ -106,10 +96,15 @@ class Lobby extends Component {
   renderRole() {
     switch (localStorage.getItem('role')) {
       // 0: mafia, 1: doctor, 3: police, 4-6: village
-      case 'mafia': return (<div className="roleAssigned">Mafia</div>);
-      case 'doctor': return (<div className="roleAssigned">Doctor</div>);
-      case 'police': return (<div className="roleAssigned">Police</div>);
-      case 'villager': return (<div className="roleAssigned">Villager</div>);
+      case 'mafia':
+        return (
+          <div className="roleAssigned"><img src="/images/mafia.png" alt="Mafia" /></div>);
+      case 'doctor':
+        return (<div className="roleAssigned"><img src="/images/doctor.png" alt="Mafia" /></div>);
+      case 'police':
+        return (<div className="roleAssigned"><img src="/images/police.png" alt="Mafia" /></div>);
+      case 'villager':
+        return (<div className="roleAssigned"><img src="/images/villager.png" alt="Mafia" /></div>);
       default: return 'none. Why don\'t you have role? It\'s probably Adam\'s fault.';
     }
   }
@@ -130,7 +125,7 @@ class Lobby extends Component {
   // Stage 1: Assigning Role Processing
   renderStage1() {
     return (
-      <div>
+      <div className="stage1">
         <h3>Assigning Roles...</h3>
         <div>
           <div className="spinny-loady" />
@@ -151,7 +146,11 @@ class Lobby extends Component {
         <h3>Roles have been assigned!</h3>
         <h2>Your role is:</h2>
         <div>{this.renderRole()}</div>
-        <div>{this.tempRenderNextButton()}</div>
+        <span>Will automatically advance stage after 10 secs</span>
+        <div className="reactComment">{setTimeout(() => {
+          this.props.advanceStage();
+        }, 10000)}
+        </div>
       </div>
     );
   }
@@ -161,7 +160,7 @@ class Lobby extends Component {
     return (
       <div>
         <Players />
-        <div>{this.tempRenderNextButton()}</div>
+        <button onClick={this.tempOnPlayClicked}>Next</button>
       </div>
     );
   }
@@ -171,7 +170,6 @@ class Lobby extends Component {
     return (
       <div>
         <MafiaSelect />
-        <div>{this.tempRenderNextButton()}</div>
       </div>
     );
   }
@@ -181,7 +179,6 @@ class Lobby extends Component {
     return (
       <div>
         <DoctorSelect />
-        <div>{this.tempRenderNextButton()}</div>
       </div>
     );
   }
@@ -191,7 +188,6 @@ class Lobby extends Component {
     return (
       <div>
         <PoliceSelect />
-        <div>{this.backToStageButton()}</div>
       </div>
     );
   }
@@ -248,6 +244,5 @@ const mapStateToProps = state => ({
   game: state.game,
   users: state.users,
 });
-
 
 export default withRouter(connect(mapStateToProps, { createPlayers, createGame, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, advanceStage, updateStage })(Lobby));

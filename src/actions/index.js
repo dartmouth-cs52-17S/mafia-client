@@ -83,9 +83,9 @@ export function getPlayers(jwt, gameID) { // actionCreator
   };
 }
 
-export function killPlayer(jwt, id) { // actionCreator
+export function killPlayer(id) { // actionCreator
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/players/kill/${id}`, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
+    axios.put(`${ROOT_URL}/players/kill/${id}`).then((response) => {
       dispatch({ type: ActionTypes.KILL_PLAYER });
     }).catch((error) => {
       console.log(error);

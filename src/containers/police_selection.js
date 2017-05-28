@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { guessMafia, fetchPlayers } from '../actions';
+import { guessMafia, fetchPlayers, updateStage } from '../actions';
 
 class PoliceSelection extends Component {
   constructor(props) {
     super(props);
 
     this.state = {};
-    this.onGuessClick = this.onGuessClick.bind(this);
     this.renderSelection = this.renderSelection.bind(this);
   }
 
@@ -16,8 +15,12 @@ class PoliceSelection extends Component {
     this.props.fetchPlayers();
   }
 
-  onGuessClick(event) {
-    this.props.guessMafia(event.target.key);
+  onPoliceReveal() {
+    if (localStorage.getItem('role') === 'police') {
+      const police = document.querySelector('input[name = "police"]:checked').value;
+      if (police) { this.props.guessMafia(police); }
+    }
+    this.props.updateStage(3);
   }
 
   renderSelection() {
@@ -26,21 +29,44 @@ class PoliceSelection extends Component {
     } else if (localStorage.getItem('role') === 'police') {
       return (
        this.props.game.players.map((player) => {
-         return (
-           <div className="players_container">
-             <div className="playerName">{player.name}</div>
-             <button key={player._id} onClick={this.onGuessClick}> {player.name} </button>
-           </div>
-         );
+         if (player.status === true) {
+           return (
+             <div className="players_container">
+               <div>
+                 <input type="radio" name="police" value={player._id} />
+                 <div className="playerAliveName">{player.name}</div>
+               </div>
+             </div>
+           );
+         } else {
+           return (
+             <div className="players_container">
+               <div>
+                 <input type="radio" name="police" value={player._id} />
+                 <div className="playerDeadName">{player.name}</div>
+               </div>
+             </div>
+           );
+         }
        })
       );
     } else {
-      return <div className="wait">Waiting 4 da cop to inquire... mafia, you betta watch yo back</div>;
+      return (
+        <div className="wait">Waiting 4 da cop to inquire... mafia, you betta watch yo back
+        </div>
+      );
     }
   }
 
   render() {
-    return <div>{this.renderSelection()}</div>;
+    return (
+      <div>
+        {this.renderSelection()}
+        <div className="reactComment">
+          {setTimeout(() => { this.onPoliceReveal(); }, 7000)}
+        </div>
+      </div>
+    );
   }
 
 }
@@ -53,4 +79,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { guessMafia, fetchPlayers })(PoliceSelection));
+export default withRouter(connect(mapStateToProps, { guessMafia, fetchPlayers, updateStage })(PoliceSelection));
