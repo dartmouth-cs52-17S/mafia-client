@@ -17,7 +17,7 @@ class PoliceSelection extends Component {
   }
 
   onGuessClick(event) {
-    this.props.guessMafia(event.target.key);
+    this.props.guessMafia(event.target.value);
   }
 
   renderSelection() {
@@ -29,13 +29,13 @@ class PoliceSelection extends Component {
          return (
            <div className="players_container">
              <div className="playerName">{player.name}</div>
-             <button key={player._id} onClick={this.onGuessClick}> {player.name} </button>
+             <button value={player.id} onClick={this.onGuessClick}> {player.name} </button>
            </div>
          );
        })
       );
     } else {
-      return <div className="wait">Waiting 4 da cop to inquire... mafia, you betta watch yo back</div>;
+      return (<div className="wait">Waiting 4 da cop to inquire... mafia, you betta watch yo back</div>);
     }
   }
 

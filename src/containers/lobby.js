@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
-import axios from 'axios';
-import { createGame, createPlayers, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, advanceStage, updateStage, ROOT_URL } from '../actions';
+import { createGame, createPlayers, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, advanceStage, updateStage } from '../actions';
 import Chat from './chat';
 import { socketserver } from './app';
 import Players from './playersDisplay';
@@ -15,8 +14,6 @@ class Lobby extends Component {
   constructor(props) {
     super(props);
     this.socket = io.connect(socketserver);
-
-    this.usersInLobby = [];
 
     this.socket.on('connect', () => {
       if (window.location.pathname === '/lobby' || window.location.pathname === '/lobby/') {
@@ -44,17 +41,6 @@ class Lobby extends Component {
     this.backtoStage3 = this.backtoStage3.bind(this);
     this.tempRenderNextButton = this.tempRenderNextButton.bind(this);
     this.backToStageButton = this.backToStageButton.bind(this);
-  }
-
-  componentWillUpdate() {
-    if (this.props.game.players.length > 0) {
-      for (let index = 0; index < this.props.game.players.length; index += 1) {
-        axios.get(`${ROOT_URL}/user/${this.props.game.players[index]}`).then((response) => {
-          this.usersInLobby = this.usersInLobby.concat([response.data.name]);
-          console.log(this.usersInLobby);
-        });
-      }
-    }
   }
 
   // Switch Stages
@@ -97,7 +83,6 @@ class Lobby extends Component {
 
   // Stage 0:
   renderPlayers() {
-    console.log(this.props.game);
     return this.props.game.players.map((player) => {
       return (<li key={player.id}>{player.name}</li>);
     });

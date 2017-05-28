@@ -17,7 +17,7 @@ class DoctorSelection extends Component {
   }
 
   onHealClick(event) {
-    this.props.healPlayer(event.target.key);
+    this.props.healPlayer(event.target.value);
   }
 
   renderSelection() {
@@ -29,7 +29,7 @@ class DoctorSelection extends Component {
           return (
             <div className="players_container">
               <div className="playerName">{player.name}</div>
-              <button onClick={this.onHealClick} key={player.id}>{player.name}</button>
+              <button onClick={this.onHealClick} value={player.id}>{player.name}</button>
             </div>
           );
         })
@@ -41,7 +41,6 @@ class DoctorSelection extends Component {
   render() {
     return (
       <div className="RolesContainer">
-        <h2>You Are</h2>
         {this.renderSelection()}
       </div>
     );

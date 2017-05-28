@@ -18,7 +18,7 @@ class PlayersDisplay extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchGame();
+    this.props.fetchGame(this.props.match.params.id);
   }
 
   renderPlayerStatus() {

@@ -19,6 +19,7 @@ export const ActionTypes = {
   ADVANCE_STAGE: 'ADVANCE_STAGE',
   AUTH_ERROR: 'AUTH_ERROR',
   HEAL_PLAYER: 'HEAL_PLAYER',
+  GUESS_MAFIA: 'GUESS_MAFIA',
   UPDATE_STAGE: 'UPDATE_STAGE',
 };
 
@@ -27,7 +28,6 @@ export const ROOT_URL = RUNNING_LOCALLY ? 'http://localhost:9090/api' : 'https:/
 export function createPlayers(gameId, userIds) { // actionCreator
   return (dispatch) => {
     axios.post(`${ROOT_URL}/players`, { gameId, userIds }).then((response) => {
-      console.log(localStorage.getItem('userID'));
       response.data.forEach((fragment) => {
         if (`${fragment.user}` === localStorage.getItem('userID')) {
           localStorage.setItem('role', fragment.role);
@@ -104,25 +104,17 @@ export function healPlayer(id) {
 }
 
 export function guessMafia(id) {
+  console.log('guessMafia');
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/players/guess/${id}`).then((response) => {
-      dispatch({ type: ActionTypes.GUESS_MAFIA, payload: response });
+    axios.get(`${ROOT_URL}/player/${id}`).then((response) => {
+      console.log(response.data);
+      const payload = (response.data.role === 'mafia');
+      dispatch({ type: ActionTypes.GUESS_MAFIA, payload });
     }).catch((error) => {
       console.log(error);
     });
   };
 }
-
-
-// export function updatePost(id, post) { /* axios put */
-//   return (dispatch) => {
-//     axios.put(`${ROOT_URL}/posts/${id}`, post, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
-//       dispatch({ type: ActionTypes.UPDATE_POST, payload: response.data });
-//     }).catch((error) => {
-//       console.log('failed to update post');
-//     });
-//   };
-// }
 
 export function fetchGame(id) {
   return (dispatch) => {

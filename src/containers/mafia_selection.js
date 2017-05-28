@@ -17,7 +17,8 @@ class MafiaSelection extends Component {
   }
 
   onKillClick(event) {
-    this.props.killPlayer(event.target.key);
+    console.log(`${event.target.value} was chosen`);
+    this.props.killPlayer(event.target.value);
   }
 
   renderSelection() {
@@ -30,13 +31,13 @@ class MafiaSelection extends Component {
          return (
            <div className="players_container">
              <div className="playerName">{player.name}</div>
-             <button key={player._id} onClick={this.onKillClick}> {player.name} </button>
+             <button value={player.id} onClick={this.onKillClick}> {player.name} </button>
            </div>
          );
        })
       );
     } else {
-      return <div className="wait">Waiting 4 mafia 2 kill sum1...</div>;
+      return (<div className="wait">Waiting 4 mafia 2 kill sum1...</div>);
     }
   }
 
