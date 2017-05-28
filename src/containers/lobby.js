@@ -38,6 +38,7 @@ class Lobby extends Component {
     this.renderStage3 = this.renderStage3.bind(this);
     this.renderStage4 = this.renderStage4.bind(this);
     this.renderStages = this.renderStages.bind(this);
+    this.renderChat = this.renderChat.bind(this);
     this.refetchGame = this.refetchGame.bind(this);
     this.tempOnPlayClicked = this.tempOnPlayClicked.bind(this);
     this.backtoStage3 = this.backtoStage3.bind(this);
@@ -215,6 +216,15 @@ class Lobby extends Component {
     }
   }
 
+  renderChat() {
+    if (!this.props.match.params.gameID) {
+      return (<div>Chat is loading...</div>);
+    }
+    return (
+      <Chat gameID={this.props.match.params.gameID} reload={this.refetchGame} />
+    );
+  }
+
   render() {
     if (!this.props.game) {
       return <div>Loading</div>;
@@ -226,7 +236,7 @@ class Lobby extends Component {
             {this.renderStages()}
           </div>
           <div className="chat-section">
-            <Chat reload={this.refetchGame} gameID={this.props.match.params.gameID} />
+            {this.renderChat()}
           </div>
         </div>
       );
