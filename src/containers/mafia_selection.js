@@ -35,7 +35,7 @@ class MafiaSelection extends Component {
   }
 
   onTestClicked(event) {
-    this.props.advanceStage();
+    this.props.advanceStage(this.props.game.id);
   }
 
   renderSelection() {

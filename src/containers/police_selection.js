@@ -34,7 +34,7 @@ class PoliceSelection extends Component {
   }
 
   onTestClicked(event) {
-    this.props.updateStage(3);
+    this.props.updateStage(this.props.game.id, 3);
   }
 
   renderSelection() {

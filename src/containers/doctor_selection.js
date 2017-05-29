@@ -35,7 +35,7 @@ class DoctorSelection extends Component {
   }
 
   onTestClicked() {
-    this.props.advanceStage();
+    this.props.advanceStage(this.props.game.id);
   }
 
   renderSelection() {
