@@ -23,13 +23,12 @@ class PlayersDisplay extends Component {
 
   renderPlayerStatus() {
     // this just checks if data has been fetched and mapped to props yet
-    if (!this.props.game.players) {
+    if (!this.props.players) {
       return '';
     } else {
       return (
-      this.props.game.players.map((player) => {
-        console.log(JSON.stringify(player));
-        console.log(player.status);
+      this.props.players.map((player) => {
+        console.log(JSON.stringify(this.props.players));
         if (player.status === true) {
           return (
             <div className="playerStatusContainer">
@@ -61,7 +60,7 @@ class PlayersDisplay extends Component {
 const mapStateToProps = state => (
   {
     game: state.game,
-    players: state.game.players,
+    players: state.players.all,
   }
 );
 
