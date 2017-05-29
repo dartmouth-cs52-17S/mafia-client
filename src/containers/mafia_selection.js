@@ -26,7 +26,8 @@ class MafiaSelection extends Component {
       console.log(mafia);
       this.props.killPlayer(mafia);
     }
-    this.props.advanceStage();
+    this.props.advanceStage(this.props.game.id);
+    this.props.fetchGame(this.props.game.id);
   }
 
   onKillClicked(event) {
@@ -38,15 +39,12 @@ class MafiaSelection extends Component {
   }
 
   renderSelection() {
-    console.log(localStorage.getItem('role'));
-    console.log(JSON.stringify(this.props.players));
     if (!localStorage.getItem('role')) { // this just checks if data has been fetched and mapped to props yet
       return '';
     } else if (localStorage.getItem('role') === 'mafia') {
       return (
        this.props.players.map((player) => {
-         if (player.status === true) {
-           console.log(this.props.players);
+         if (player.status) {
            return (
              <div className="players_container">
                <div>

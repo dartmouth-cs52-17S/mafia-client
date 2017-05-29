@@ -28,12 +28,7 @@ class PlayersDisplay extends Component {
     } else {
       return (
       this.props.players.map((player) => {
-        console.log(JSON.stringify(player));
-        console.log(player.status);
-
-        console.log(JSON.stringify(this.props.players));
-
-        if (player.status === true) {
+        if (player.status) {
           return (
             <div className="playerStatusContainer">
               <div className="playerAliveName" key={player.id}>{player.name}</div>

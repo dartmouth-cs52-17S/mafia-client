@@ -25,7 +25,8 @@ class PoliceSelection extends Component {
       const police = document.querySelector('input[name="police"]:checked').value;
       this.props.guessMafia(police);
     }
-    this.props.updateStage(3);
+    this.props.updateStage(this.props.game.id, 3);
+    this.props.fetchGame(this.props.game.id);
   }
 
   onRevealClicked() {
@@ -42,7 +43,7 @@ class PoliceSelection extends Component {
     } else if (localStorage.getItem('role') === 'police') {
       return (
        this.props.players.map((player) => {
-         if (player.status === true) {
+         if (player.status) {
            return (
              <div className="players_container">
                <div>
