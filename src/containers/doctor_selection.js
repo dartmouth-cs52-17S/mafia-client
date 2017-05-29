@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import Nav from './nav';
 import { fetchGame, fetchPlayers, healPlayer, advanceStage } from '../actions';
 
 class DoctorSelection extends Component {
@@ -80,22 +79,16 @@ class DoctorSelection extends Component {
     console.log('Entered doctor selection');
     if (localStorage.getItem('role') === 'doctor') {
       return (
-        <div>
-          <Nav />
-          <div className="RolesContainer">
-            {this.renderSelection()}
-            <button onClick={this.onHealClicked}> Next </button>
-          </div>
+        <div className="RolesContainer">
+          {this.renderSelection()}
+          <button onClick={this.onHealClicked}> Next </button>
         </div>
       );
     } else {
       return (
         <div>
-          <Nav />
-          <div>
-            {this.renderSelection()}
-            <button onClick={this.onTestClicked}> Force-next </button>
-          </div>
+          {this.renderSelection()}
+          <button onClick={this.onTestClicked}> Force-next </button>
         </div>
       );
     }

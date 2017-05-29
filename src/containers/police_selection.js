@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
-import Nav from './nav';
 import { guessMafia, fetchGame, fetchPlayers, updateStage, advanceStage } from '../actions';
 
 class PoliceSelection extends Component {
@@ -80,21 +78,15 @@ class PoliceSelection extends Component {
     if (localStorage.getItem('role') === 'police') {
       return (
         <div>
-          <Nav />
-          <div>
-            <div> {this.renderSelection()} </div>
-            <button onClick={this.onRevealClicked}> Next </button>
-          </div>
+          <div> {this.renderSelection()} </div>
+          <button onClick={this.onRevealClicked}> Next </button>
         </div>
       );
     } else {
       return (
         <div>
-          <Nav />
-          <div>
-            <div> {this.renderSelection()} </div>
-            <button onClick={this.onTestClicked}> Force-next </button>
-          </div>
+          <div> {this.renderSelection()} </div>
+          <button onClick={this.onTestClicked}> Force-next </button>
         </div>
       );
     }

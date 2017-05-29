@@ -51,7 +51,6 @@ class PlayersDisplay extends Component {
   render() {
     return (
       <div>
-        <Nav />
         <div className="NarrationContainer">
           <h1>The Village</h1>
           <div className="playersStatusContainer">{this.renderPlayerStatus()}</div>
