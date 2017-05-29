@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 // import { withRouter, NavLink } from 'react-router-dom';
 
-import { fetchGame } from '../actions';
 import Nav from './nav';
+import { fetchGame, fetchPlayers } from '../actions';
 
 class PlayersDisplay extends Component {
 
@@ -19,18 +19,21 @@ class PlayersDisplay extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchGame();
+    this.props.fetchPlayers(this.props.game.id);
   }
 
   renderPlayerStatus() {
     // this just checks if data has been fetched and mapped to props yet
-    if (!this.props.game.players) {
+    if (!this.props.players) {
       return '';
     } else {
       return (
-      this.props.game.players.map((player) => {
+      this.props.players.map((player) => {
         console.log(JSON.stringify(player));
         console.log(player.status);
+
+        console.log(JSON.stringify(this.props.players));
+
         if (player.status === true) {
           return (
             <div className="playerStatusContainer">
@@ -38,6 +41,7 @@ class PlayersDisplay extends Component {
             </div>
           );
         } else {
+          console.log(player.status);
           return (
             <div className="playerStatusContainer">
               <div className="playerDeadName" key={player.id}>{player.name}</div>
@@ -65,8 +69,8 @@ class PlayersDisplay extends Component {
 const mapStateToProps = state => (
   {
     game: state.game,
-    players: state.game.players,
+    players: state.players.all,
   }
 );
 
-export default withRouter(connect(mapStateToProps, { fetchGame })(PlayersDisplay));
+export default withRouter(connect(mapStateToProps, { fetchGame, fetchPlayers })(PlayersDisplay));
