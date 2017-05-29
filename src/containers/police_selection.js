@@ -14,10 +14,6 @@ class PoliceSelection extends Component {
     this.onTestClicked = this.onTestClicked.bind(this);
   }
 
-  componentDidMount() {
-    this.props.fetch(this.props.game.id);
-  }
-
   onPoliceReveal() {
     if (localStorage.getItem('role') === 'police') {
       const police = document.querySelector('input[name="police"]:checked').value;

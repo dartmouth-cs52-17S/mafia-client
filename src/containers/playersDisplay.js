@@ -13,10 +13,6 @@ class PlayersDisplay extends Component {
     this.renderPlayerStatus = this.renderPlayerStatus.bind(this);
   }
 
-  componentDidMount() {
-    this.props.fetch(this.props.game.id);
-  }
-
   renderPlayerStatus() {
     // this just checks if data has been fetched and mapped to props yet
     if (!this.props.players) {

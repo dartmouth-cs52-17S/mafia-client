@@ -14,10 +14,6 @@ class DoctorSelection extends Component {
     this.onTestClicked = this.onTestClicked.bind(this);
   }
 
-  componentDidMount() {
-    this.props.fetch(this.props.game.id);
-  }
-
   onDoctorHeal() {
     if (localStorage.getItem('role') === 'doctor') {
       const doctor = document.querySelector('input[name="doctor"]:checked').value;

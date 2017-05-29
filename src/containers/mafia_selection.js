@@ -14,10 +14,6 @@ class MafiaSelection extends Component {
     this.onTestClicked = this.onTestClicked.bind(this);
   }
 
-  componentDidMount() {
-    this.props.fetchPlayers(this.props.game.id);
-  }
-
   onMafiaKill() {
     if (localStorage.getItem('role') === 'mafia') {
       const mafia = document.querySelector('input[name="mafia"]:checked').value;
