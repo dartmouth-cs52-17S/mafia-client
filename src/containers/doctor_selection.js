@@ -27,7 +27,8 @@ class DoctorSelection extends Component {
       const doctor = document.querySelector('input[name="doctor"]:checked').value;
       this.props.healPlayer(doctor);
     }
-    this.props.advanceStage();
+    this.props.advanceStage(this.props.game.id);
+    this.props.fetchGame(this.props.game.id);
   }
 
   onHealClicked() {
@@ -44,8 +45,7 @@ class DoctorSelection extends Component {
     } else if (localStorage.getItem('role') === 'doctor') {
       return (
         this.props.players.map((player) => {
-          console.log(player);
-          if (player.status === true) {
+          if (player.status) {
             return (
               <div className="players_container">
                 <div>
