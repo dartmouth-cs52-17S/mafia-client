@@ -74,6 +74,7 @@ export function createGame(jwt, history) {
 
 export function getPlayers(jwt, gameID) { // actionCreator
   return (dispatch) => {
+    console.log(`gameID is ${gameID}`);
     axios.put(`${ROOT_URL}/game/${gameID}`, null, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
     }).catch((error) => {
       console.log(error);
