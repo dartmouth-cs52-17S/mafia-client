@@ -19,17 +19,18 @@ class MafiaSelection extends Component {
     this.props.fetchPlayers(this.props.game.id);
   }
 
-  onMafiaKill() {
-    if (localStorage.getItem('role') === 'mafia') {
-      const mafia = document.querySelector('input[name="mafia"]:checked').value;
-      console.log(mafia);
-      this.props.killPlayer(mafia);
-    }
-    this.props.updateStage(this.props.game.id, 5);
-  }
 
   onKillClicked(event) {
     this.onMafiaKill();
+  }
+
+
+  onMafiaKill() {
+    if (localStorage.getItem('role') === 'mafia') {
+      const mafia = document.querySelector('input[name="mafia"]:checked').value;
+      this.props.killPlayer(mafia);
+    }
+    this.props.updateStage(this.props.game.id, 5);
   }
 
   onTestClicked(event) {
@@ -92,6 +93,7 @@ class MafiaSelection extends Component {
     }
   }
 }
+
 
 const mapStateToProps = state => (
   {
