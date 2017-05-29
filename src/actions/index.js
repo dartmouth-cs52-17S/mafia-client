@@ -132,7 +132,7 @@ export function fetchPlayers(gameID) {
     axios.get(`${ROOT_URL}/players/${gameID}`).then((response) => {
       // trim the payload to remove roles from the response
       const payload = response.data.map((fragment) => {
-        return { playerID: fragment.id, userID: fragment.user, gameID: fragment.game, isAlive: fragment.status, name: fragment.name };
+        return { playerID: fragment.id, userID: fragment.user, gameID: fragment.game, status: fragment.status, name: fragment.name };
       });
       dispatch({ type: ActionTypes.FETCH_PLAYERS, payload });
     }).catch((error) => {
@@ -183,14 +183,14 @@ export function authError(error) {
   };
 }
 
-export function advanceStage() {
+export function advanceStage(gameId) {
   return (dispatch) => {
-    dispatch({ type: ActionTypes.ADVANCE_STAGE });
+    axios.put(`${ROOT_URL}/game/stage/${gameId}`);
   };
 }
 
-export function updateStage(stage) {
+export function updateStage(gameId, stage) {
   return (dispatch) => {
-    dispatch({ type: ActionTypes.UPDATE_STAGE, payload: stage });
+    axios.put(`${ROOT_URL}/game/stage/${gameId}`, { stage });
   };
 }

@@ -46,17 +46,19 @@ class Lobby extends Component {
   onPlayClicked(event) {
     const playerIds = this.props.game.players.map((player) => { return player._id; });
     this.props.createPlayers(this.props.game.id, playerIds);
-    this.props.advanceStage();
+    this.props.advanceStage(this.props.game.id);
+    this.props.fetchGame(this.props.game.id);
     console.log(this.props.game.stage);
   }
 
 // must delete
   tempOnPlayClicked(event) {
-    this.props.advanceStage();
+    this.props.advanceStage(this.props.game.id);
+    this.props.fetchGame(this.props.game.id);
   }
 
   // backtoStage3() {
-  //   this.props.updateStage(3);
+  //   this.props.updateStage(this.props.game.id, 3);
   // }
 
   refetchGame() {
@@ -64,7 +66,7 @@ class Lobby extends Component {
   }
 
   renderPlayButton() {
-    if (this.props.game.players.length >= 1) {
+    if (this.props.game.players.length >= 1 && localStorage.getItem('userID') === this.props.game.creator) {
       return (<button onClick={this.onPlayClicked} id="render-butt">Play</button>);
     } else {
       return (<div />);
@@ -136,7 +138,8 @@ class Lobby extends Component {
         </div>
         <div className="reactComment">{setTimeout(() => {
           this.props.fetchPlayers(this.props.game.id);
-          this.props.advanceStage();
+          this.props.advanceStage(this.props.game.id);
+          this.props.fetchGame(this.props.game.id);
         }, 1000)}
         </div>
       </div>
@@ -152,7 +155,8 @@ class Lobby extends Component {
         <div>{this.renderRole()}</div>
         <span>Will automatically advance stage after 10 secs</span>
         <div className="reactComment">{setTimeout(() => {
-          this.props.advanceStage();
+          this.props.advanceStage(this.props.game.id);
+          this.props.fetchGame(this.props.game.id);
         }, 3000)}
         </div>
       </div>

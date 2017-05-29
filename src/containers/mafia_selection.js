@@ -24,7 +24,8 @@ class MafiaSelection extends Component {
       const mafia = document.querySelector('input[name="mafia"]:checked').value;
       this.props.killPlayer(mafia);
     }
-    this.props.advanceStage();
+    this.props.advanceStage(this.props.game.id);
+    this.props.fetchGame(this.props.game.id);
   }
 
   renderSelection() {
@@ -33,7 +34,7 @@ class MafiaSelection extends Component {
     } else if (localStorage.getItem('role') === 'mafia') {
       return (
        this.props.players.map((player) => {
-         if (player.isAlive) {
+         if (player.status) {
            return (
              <div className="players_container">
                <div>

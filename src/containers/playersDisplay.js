@@ -28,7 +28,7 @@ class PlayersDisplay extends Component {
     } else {
       return (
       this.props.players.map((player) => {
-        if (player.isAlive) {
+        if (player.status) {
           return (
             <div className="playerStatusContainer">
               <div className="playerAliveName" key={player.id}>{player.name}</div>
