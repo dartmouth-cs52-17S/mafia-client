@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 // import { withRouter, NavLink } from 'react-router-dom';
 
 import { fetchProfile } from '../actions';
+import Nav from './nav';
 
 class Profile extends Component {
 
@@ -92,12 +93,18 @@ class Profile extends Component {
     if (this.props.profile.username) {
       return (
         <div>
+          <Nav />
           {this.renderProfile()}
         </div>
       );
     } else {
       /* If not then maybe we'll add a lil spinny loady here */
-      return (<div>Loading Profile...</div>);
+      return (
+        <div>
+          <Nav />
+          <div>Loading Profile...</div>
+        </div>
+      );
     }
   }
 }
