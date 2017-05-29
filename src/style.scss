@@ -50,6 +50,10 @@ nav {
     background-color: #000000;
     padding: 5px;
   }
+
+  #signoutbutt:hover {
+    cursor: pointer;
+  }
 }
 
 .landing-page-container {
@@ -90,11 +94,18 @@ nav {
     border-radius: 10px;
     background-color: $mafia-red;
     box-shadow: 3px 3px 0 #ad0015;
+    opacity:0.1;
+    transition:opacity 1s linear;
 
     .signin-text {
       font-size: 4vh;
       color: white;
     }
+  }
+
+  .signin:hover {
+    opacity: 1;
+    cursor: pointer;
   }
 
   .signin:active {
@@ -353,6 +364,10 @@ nav {
     margin: 100px;
   }
 
+  #join-button:hover {
+    cursor: pointer;
+  }
+
   #join-button:active {
     box-shadow: 0 2px 0 #db4d4d;
     transform: translateY(3px);
@@ -369,6 +384,10 @@ nav {
   height: 5vh;
   position: absolute;
   top: 80vh;
+}
+
+#render-butt:hover {
+  cursor: pointer;
 }
 
 .reactComment {
