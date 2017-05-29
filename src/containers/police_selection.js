@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import Nav from './nav';
-import { guessMafia, fetchGame, fetchPlayers, updateStage, advanceStage } from '../actions';
+import { guessMafia } from '../actions';
 
 class PoliceSelection extends Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class PoliceSelection extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchPlayers(this.props.game.id);
+    this.props.fetch(this.props.game.id);
   }
 
   onPoliceReveal() {
@@ -107,4 +107,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { guessMafia, fetchGame, fetchPlayers, updateStage, advanceStage })(PoliceSelection));
+export default withRouter(connect(mapStateToProps, { guessMafia })(PoliceSelection));

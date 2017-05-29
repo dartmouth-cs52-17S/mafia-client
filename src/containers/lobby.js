@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
-import { createGame, createPlayers, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, advanceStage, updateStage } from '../actions';
+import { createGame, createPlayers, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame } from '../actions';
 import Chat from './chat';
 import { socketserver } from './app';
 import Players from './playersDisplay';
@@ -14,7 +14,13 @@ import Nav from './nav';
 class Lobby extends Component {
   constructor(props) {
     super(props);
-    this.socket = io.connect(socketserver);
+    this.socket = io(socketserver);
+
+    this.socket.on('fetchAll', () => {
+      console.log('fetchAll in client');
+      this.props.fetchPlayers(this.props.game.id);
+      this.props.fetchGame(this.props.game.id);
+    });
 
     this.socket.on('connect', () => {
       if (window.location.pathname === '/lobby' || window.location.pathname === '/lobby/') {
@@ -26,6 +32,11 @@ class Lobby extends Component {
       this.setState({});
       setTimeout(() => this.props.fetchGame(this.props.match.params.gameID), 1000);
     });
+
+    this.state = {
+      game: '',
+      players: [],
+    };
 
     this.renderPlayers = this.renderPlayers.bind(this);
     this.onPlayClicked = this.onPlayClicked.bind(this);
@@ -48,14 +59,14 @@ class Lobby extends Component {
   onPlayClicked(event) {
     const playerIds = this.props.game.players.map((player) => { return player._id; });
     this.props.createPlayers(this.props.game.id, playerIds);
-    this.props.advanceStage(this.props.game.id);
-    console.log(this.props.game.stage);
+    // this.props.advanceStage(this.props.game.id);
+    this.socket.emit('updateStage', { id: this.props.game.id, stage: 1 });
   }
 //  onPlayClicked, players are created.
 
 // must delete
   tempOnPlayClicked(event) {
-    this.props.advanceStage(this.props.game.id);
+    this.socket.emit('advanceStage', this.props.game.id, null);
   }
 
   // backtoStage3() {
@@ -63,7 +74,7 @@ class Lobby extends Component {
   // }
 
   refetchGame() {
-    this.props.fetchGame(this.props.match.params.gameID);
+    this.socket.emit('fetch', this.props.game.id);
   }
 
   renderPlayButton() {
@@ -138,8 +149,8 @@ class Lobby extends Component {
           <div className="spinny-loady" />
         </div>
         <div className="reactComment">{setTimeout(() => {
-          this.props.fetchPlayers(this.props.game.id);
-          this.props.advanceStage(this.props.game.id);
+          this.socket.emit('fetch', this.props.game.id);
+          this.socket.emit('updateStage', { id: this.props.game.id, stage: 2 });
         }, 2000)}
         </div>
       </div>
@@ -155,7 +166,7 @@ class Lobby extends Component {
         <div>{this.renderRole()}</div>
         <span>Will automatically advance stage after 10 secs</span>
         <div className="reactComment">{setTimeout(() => {
-          this.props.advanceStage(this.props.game.id);
+          this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 });
         }, 10000)}
         </div>
       </div>
@@ -166,7 +177,7 @@ class Lobby extends Component {
   renderStage3() {
     return (
       <div>
-        <Players />
+        <Players fetch={id => this.socket.emit('fetch', id)} />
         <button onClick={this.tempOnPlayClicked}>Next</button>
       </div>
     );
@@ -176,7 +187,7 @@ class Lobby extends Component {
   renderStage4() {
     return (
       <div>
-        <MafiaSelect />
+        <MafiaSelect fetch={id => this.socket.emit('fetch', id)} updateStage={(id, stage) => this.socket.emit('updateStage', { id, stage })} />
       </div>
     );
   }
@@ -185,7 +196,7 @@ class Lobby extends Component {
   renderStage5() {
     return (
       <div>
-        <DoctorSelect />
+        <DoctorSelect fetch={id => this.socket.emit('fetch', id)} updateStage={(id, stage) => this.socket.emit('updateStage', { id, stage })} />
       </div>
     );
   }
@@ -194,7 +205,7 @@ class Lobby extends Component {
   renderStage6() {
     return (
       <div>
-        <PoliceSelect />
+        <PoliceSelect fetch={id => this.socket.emit('fetch', id)} updateStage={(id, stage) => this.socket.emit('updateStage', { id, stage })} />
       </div>
     );
   }
@@ -255,4 +266,4 @@ const mapStateToProps = state => ({
   users: state.users,
 });
 
-export default withRouter(connect(mapStateToProps, { createPlayers, createGame, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, advanceStage, updateStage })(Lobby));
+export default withRouter(connect(mapStateToProps, { createPlayers, createGame, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame })(Lobby));
