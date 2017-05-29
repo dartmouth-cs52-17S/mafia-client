@@ -20,11 +20,13 @@ class DoctorSelection extends Component {
   }
 
   onDoctorHeal() {
-    if (localStorage.getItem('role') === 'doctor') {
+    if (document.querySelector('input[name="doctor"]:checked')) {
       const doctor = document.querySelector('input[name="doctor"]:checked').value;
       this.props.healPlayer(doctor);
+      this.props.updateStage(this.props.game.id, 6);
+    } else {
+      alert('Doctor must heal one person.');
     }
-    this.props.updateStage(this.props.game.id, 6);
   }
 
   onHealClicked(event) {

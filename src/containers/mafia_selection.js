@@ -25,11 +25,13 @@ class MafiaSelection extends Component {
 
 
   onMafiaKill() {
-    if (localStorage.getItem('role') === 'mafia') {
+    if (document.querySelector('input[name="mafia"]:checked')) {
       const mafia = document.querySelector('input[name="mafia"]:checked').value;
       this.props.killPlayer(mafia);
+      this.props.updateStage(this.props.game.id, 5);
+    } else {
+      alert('Mafia must kill one person.');
     }
-    this.props.updateStage(this.props.game.id, 5);
   }
 
   onTestClicked(event) {
