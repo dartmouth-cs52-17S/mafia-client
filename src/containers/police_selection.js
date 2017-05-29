@@ -12,7 +12,8 @@ class PoliceSelection extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchPlayers();
+    this.props.fetchPlayers(this.props.game.id);
+    // this.props.fetchGame();
     setTimeout(() => { this.onPoliceReveal(); }, 7000);
   }
 
@@ -31,12 +32,12 @@ class PoliceSelection extends Component {
       return '';
     } else if (localStorage.getItem('role') === 'police') {
       return (
-       this.props.game.players.map((player) => {
+       this.props.players.map((player) => {
          if (player.status === true) {
            return (
              <div className="players_container">
                <div>
-                 <input type="radio" name="police" value={player._id} />
+                 <input type="radio" name="police" value={player.id} />
                  <div className="playerAliveName">{player.name}</div>
                </div>
              </div>
@@ -45,7 +46,7 @@ class PoliceSelection extends Component {
            return (
              <div className="players_container">
                <div>
-                 <input type="radio" name="police" value={player._id} />
+                 <input type="radio" name="police" value={player.id} />
                  <div className="playerDeadName">{player.name}</div>
                </div>
              </div>
@@ -69,13 +70,11 @@ class PoliceSelection extends Component {
       </div>
     );
   }
-
 }
-
 
 const mapStateToProps = state => (
   {
-    players: state.game.players,
+    players: state.players.all,
     game: state.game,
   }
 );
