@@ -56,7 +56,6 @@ class DoctorSelection extends Component {
             return (
               <div className="players_container">
                 <div>
-                  <input type="radio" name="doctor" value={player.id} />
                   <div className="playerDeadName">{player.name}</div>
                 </div>
               </div>
