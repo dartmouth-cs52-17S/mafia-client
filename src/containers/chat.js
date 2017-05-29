@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
-// import Textarea from 'react-textarea-autosize';
+import uuid from 'uuid';
 import { socketserver } from './app';
 
 class Chat extends Component {
@@ -65,7 +65,9 @@ class Chat extends Component {
   renderMessages() {
     const messages = this.state.messages.map((message) => {
       return (
-        <div className="chat-outcome">
+        <div className="chat-outcome"
+          key={`${message.sender}${message.text}${uuid()}`}
+        >
           <div className="chat-sender">
             {`${message.sender} `}
           </div>
