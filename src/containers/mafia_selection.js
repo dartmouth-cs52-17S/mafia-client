@@ -24,6 +24,13 @@ class MafiaSelection extends Component {
     this.props.advanceStage();
   }
 
+  onKillClicked(event) {
+    const playerIds = this.props.game.players.map((player) => { return player._id; });
+    this.props.createPlayers(this.props.game.id, playerIds);
+    this.props.advanceStage();
+    console.log(this.props.game.stage);
+  }
+
   renderSelection() {
     console.log(localStorage.getItem('role'));
     if (!localStorage.getItem('role')) { // this just checks if data has been fetched and mapped to props yet

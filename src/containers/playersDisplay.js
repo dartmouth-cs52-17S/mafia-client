@@ -59,7 +59,7 @@ class PlayersDisplay extends Component {
 const mapStateToProps = state => (
   {
     game: state.game,
-    players: state.game.players,
+    players: state.players.all,
   }
 );
 
