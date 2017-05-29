@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { fetchPlayers, killPlayer, advanceStage } from '../actions';
+import Nav from './nav';
 
 class MafiaSelection extends Component {
   constructor(props) {
@@ -66,6 +67,7 @@ class MafiaSelection extends Component {
     console.log('Entered mafia selection');
     return (
       <div>
+        <Nav />
         {this.renderSelection()}
       </div>
     );

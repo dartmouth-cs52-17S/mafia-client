@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 // import { withRouter, NavLink } from 'react-router-dom';
 
 // import { fetchPlayer } from '../actions';
+import Nav from './nav';
 
 class Roles extends Component {
 
@@ -34,9 +35,12 @@ class Roles extends Component {
 
   render() {
     return (
-      <div className="RolesContainer">
-        <h2>You Are</h2>
-        {this.renderRole()}
+      <div>
+        <Nav />
+        <div className="RolesContainer">
+          <h2>You Are</h2>
+          {this.renderRole()}
+        </div>
       </div>
     );
   }

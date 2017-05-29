@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { fetchPlayers, healPlayer, advanceStage } from '../actions';
+import Nav from './nav';
 
 class DoctorSelection extends Component {
   constructor(props) {
@@ -67,8 +68,11 @@ class DoctorSelection extends Component {
   render() {
     console.log('Entered doctor selection');
     return (
-      <div className="RolesContainer">
-        {this.renderSelection()}
+      <div>
+        <Nav />
+        <div className="RolesContainer">
+          {this.renderSelection()}
+        </div>
       </div>
     );
   }

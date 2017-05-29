@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
+import Nav from './nav';
 
 class CreateOrJoinGame extends Component {
   constructor(props) {
@@ -11,19 +12,22 @@ class CreateOrJoinGame extends Component {
 
   render() {
     return (
-      <div className="join-container">
-        <Link to="/lobby">
-          <button id="join-button">
-            <i className="fa fa-sign-in" aria-hidden="true" /> <br />
-            Join Game
-          </button>
-        </Link>
-        <Link to="/lobby">
-          <button id="join-button">
-            <i className="fa fa-gamepad" aria-hidden="true" /> <br />
-            Create Game
-          </button>
-        </Link>
+      <div>
+        <Nav />
+        <div className="join-container">
+          <Link to="/lobby">
+            <button id="join-button">
+              <i className="fa fa-sign-in" aria-hidden="true" /> <br />
+              Join Game
+            </button>
+          </Link>
+          <Link to="/lobby">
+            <button id="join-button">
+              <i className="fa fa-gamepad" aria-hidden="true" /> <br />
+              Create Game
+            </button>
+          </Link>
+        </div>
       </div>
     );
   }

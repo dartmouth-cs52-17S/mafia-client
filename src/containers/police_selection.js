@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { guessMafia, fetchPlayers, updateStage } from '../actions';
+import Nav from './nav';
 
 class PoliceSelection extends Component {
   constructor(props) {
@@ -65,6 +66,7 @@ class PoliceSelection extends Component {
     console.log('Entered police selection');
     return (
       <div>
+        <Nav />
         {this.renderSelection()}
       </div>
     );
