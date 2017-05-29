@@ -242,7 +242,7 @@ class Lobby extends Component {
       <div>
         <h3>The people have spoken!</h3>
         <h5>The village has decided to kill...</h5>
-        <div>{this.props.players.deadMan}</div>
+        <div>{this.props.players.deadMan.name}</div>
       </div>
     );
   }
