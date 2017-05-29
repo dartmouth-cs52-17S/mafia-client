@@ -7,26 +7,24 @@ class PoliceSelection extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
-    this.renderSelection = this.renderSelection.bind(this);
-    this.onPoliceReveal = this.onPoliceReveal.bind(this);
+    this.state = { clicked: false };
     this.onRevealClicked = this.onRevealClicked.bind(this);
     this.onTestClicked = this.onTestClicked.bind(this);
+    this.onNextClicked = this.onNextClicked.bind(this);
   }
 
-  onPoliceReveal() {
+  onRevealClicked(event) {
     if (document.querySelector('input[name="police"]:checked')) {
       const police = document.querySelector('input[name="police"]:checked').value;
       this.props.guessMafia(police);
-      console.log(this.props.guessMafia(police));
-      this.props.updateStage(this.props.game.id, 7);
+      this.setState({ clicked: true });
     } else {
       alert('Police must reveal one person.');
     }
   }
 
-  onRevealClicked(event) {
-    this.onPoliceReveal();
+  onNextClicked(event) {
+    this.props.updateStage(this.props.game.id, 7);
   }
 
   onTestClicked(event) {
@@ -67,15 +65,37 @@ class PoliceSelection extends Component {
     }
   }
 
+  renderReveal() {
+    if (localStorage.getItem('correctGuess') === 'true') {
+      return (
+        <div> You have caught the mafia. </div>
+      );
+    } else {
+      return (
+        <div> You have caught an innocent villager. </div>
+      );
+    }
+  }
+
 
   render() {
     if (localStorage.getItem('role') === 'police') {
-      return (
-        <div>
-          <div> {this.renderSelection()} </div>
-          <button onClick={this.onRevealClicked}> Next </button>
-        </div>
-      );
+      if (this.state.clicked) {
+        return (
+          <div>
+            <div> {this.renderSelection()} </div>
+            <div> {this.renderReveal()}</div>
+            <button onClick={this.onNextClicked}> Next </button>
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            <div> {this.renderSelection()} </div>
+            <button onClick={this.onRevealClicked}> Reveal </button>
+          </div>
+        );
+      }
     } else {
       return (
         <div>
