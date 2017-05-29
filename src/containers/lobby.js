@@ -248,9 +248,14 @@ class Lobby extends Component {
   }
 
   renderStage10() {
-    if (this.props.checkEnd(this.props.game.id)) {
+    this.props.checkEnd(this.props.game.id);
+    this.props.fetchGame(this.props.game.id);
+    if (this.props.game.isOver) {
       return (
-        <div>Game Over</div>
+        <div>
+          <div>Game Over</div>
+          <div>Winner is {this.props.game.winner}</div>
+        </div>
       );
     } else {
       return (
