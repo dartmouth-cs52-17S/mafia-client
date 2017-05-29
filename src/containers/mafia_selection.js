@@ -14,15 +14,9 @@ class MafiaSelection extends Component {
     this.onTestClicked = this.onTestClicked.bind(this);
   }
 
-  componentDidMount() {
-    this.props.fetch(this.props.game.id);
-  }
-
-
   onKillClicked(event) {
     this.onMafiaKill();
   }
-
 
   onMafiaKill() {
     if (document.querySelector('input[name="mafia"]:checked')) {

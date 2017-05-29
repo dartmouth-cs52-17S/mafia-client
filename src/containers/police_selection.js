@@ -14,10 +14,6 @@ class PoliceSelection extends Component {
     this.onTestClicked = this.onTestClicked.bind(this);
   }
 
-  componentDidMount() {
-    this.props.fetch(this.props.game.id);
-  }
-
   onPoliceReveal() {
     if (document.querySelector('input[name="police"]:checked')) {
       const police = document.querySelector('input[name="police"]:checked').value;

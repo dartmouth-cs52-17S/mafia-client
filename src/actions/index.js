@@ -21,6 +21,7 @@ export const ActionTypes = {
   GUESS_MAFIA: 'GUESS_MAFIA',
   UPDATE_STAGE: 'UPDATE_STAGE',
   VOTE_KILL: 'VOTE_KILL',
+  VOTES_COUNTED: 'VOTES_COUNTED',
 };
 
 export const ROOT_URL = RUNNING_LOCALLY ? 'http://localhost:9090/api' : 'https://online-mafia.herokuapp.com/api';
@@ -109,6 +110,25 @@ export function voteKill(id) {
       dispatch({ type: ActionTypes.VOTE_KILL, payload: response });
     }).catch((error) => {
       console.log(error);
+    });
+  };
+}
+
+export function tallyVotes(gameID) {
+  console.log(`tallyVotes for players in game ${gameID}`);
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/players/${gameID}`).then((response) => {
+      console.log(response.data);
+      let deadMan;
+      let max = Number.MIN_SAFE_INTEGER;
+      response.data.forEach((player) => {
+        if (player.voteCount > max) {
+          max = player.voteCount;
+          deadMan = player;
+        }
+      });
+      console.log(deadMan);
+      dispatch({ type: ActionTypes.VOTES_COUNTED, payload: deadMan });
     });
   };
 }
