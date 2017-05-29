@@ -9,6 +9,7 @@ import Players from './playersDisplay';
 import DoctorSelect from './doctor_selection';
 import MafiaSelect from './mafia_selection';
 import PoliceSelect from './police_selection';
+import Nav from './nav';
 
 class Lobby extends Component {
   constructor(props) {
@@ -43,6 +44,7 @@ class Lobby extends Component {
   }
 
   // Switch Stages
+  // creates player objects based off of array of users
   onPlayClicked(event) {
     const playerIds = this.props.game.players.map((player) => { return player._id; });
     this.props.createPlayers(this.props.game.id, playerIds);
@@ -50,6 +52,7 @@ class Lobby extends Component {
     this.props.fetchGame(this.props.game.id);
     console.log(this.props.game.stage);
   }
+//  onPlayClicked, players are created.
 
 // must delete
   tempOnPlayClicked(event) {
@@ -67,16 +70,16 @@ class Lobby extends Component {
 
   renderPlayButton() {
     if (this.props.game.players.length >= 1 && localStorage.getItem('userID') === this.props.game.creator) {
-      return (<button onClick={this.onPlayClicked} id="render-butt">Play</button>);
+      return (<button onClick={this.onPlayClicked} id="render-butt" className="PlayButton">Play</button>);
     } else {
       return (<div />);
     }
   }
 
-  // Stage 0:
+  // Stage 0: users are stored in "players"
   renderPlayers() {
     return this.props.game.players.map((player) => {
-      return (<li key={player.id}>{player.name}</li>);
+      return (<li key={player.id}>{player.name}</li>); // this is actually a user id
     });
   }
 
@@ -118,7 +121,7 @@ class Lobby extends Component {
   // Stage 0: Show Players Connected, Waiting for Players
   renderStage0() {
     return (
-      <div>
+      <div className="stage0">
         <h3>Players Connected:</h3>
         <ul>
           {this.renderPlayers()}
@@ -234,13 +237,16 @@ class Lobby extends Component {
       return <div>Loading</div>;
     } else {
       return (
-        <div className="lobby-container">
-          <div className="StagesDisplay">
-            <h1>Stage: {this.props.game.stage}</h1>
-            {this.renderStages()}
-          </div>
-          <div className="chat-section">
-            {this.renderChat()}
+        <div>
+          <Nav />
+          <div className="lobby-container">
+            <div className="StagesDisplay">
+              <h1>Stage: {this.props.game.stage}</h1>
+              {this.renderStages()}
+            </div>
+            <div className="chat-section">
+              {this.renderChat()}
+            </div>
           </div>
         </div>
       );
