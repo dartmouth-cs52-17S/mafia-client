@@ -55,7 +55,7 @@ class PoliceSelection extends Component {
            return (
              <div className="players_container">
                <div>
-                 <input type="radio" name="police" value={player._id} />
+                 <input type="radio" name="police" value={player.id} />
                  <div className="playerDeadName">{player.name}</div>
                </div>
              </div>
@@ -90,13 +90,11 @@ class PoliceSelection extends Component {
       );
     }
   }
-
 }
-
 
 const mapStateToProps = state => (
   {
-    players: state.game.players,
+    players: state.players.all,
     game: state.game,
   }
 );

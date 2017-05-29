@@ -3,6 +3,7 @@ import { ActionTypes } from '../actions';
 const defaultState = {
   all: [],
   player: {},
+  status: true,
 };
 
 // const UserReducer = (state = defaultState, action) => {
@@ -15,7 +16,6 @@ const PlayerReducer = (state = defaultState, action) => {
     case ActionTypes.FETCH_PLAYER:
       return Object.assign({}, state, { player: action.payload });
     case ActionTypes.KILL_PLAYER:
-      console.log('it reaches here!');
       return Object.assign({}, state, { status: false });
     case ActionTypes.HEAL_PLAYER:
       console.log('it reaches here!');

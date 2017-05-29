@@ -39,6 +39,7 @@ class MafiaSelection extends Component {
 
   renderSelection() {
     console.log(localStorage.getItem('role'));
+    console.log(JSON.stringify(this.props.players));
     if (!localStorage.getItem('role')) { // this just checks if data has been fetched and mapped to props yet
       return '';
     } else if (localStorage.getItem('role') === 'mafia') {
@@ -58,6 +59,8 @@ class MafiaSelection extends Component {
            return (
              <div className="players_container">
                <div>
+
+                 <input type="radio" name="mafia" value={player.id} id="player" />
                  <div className="playerDeadName">{player.name}</div>
                </div>
              </div>
