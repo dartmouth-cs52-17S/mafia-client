@@ -3,9 +3,9 @@ import { ActionTypes } from '../actions';
 const initialState = {
   id: 'unassigned',
   players: [],
+  winner: '',
   creator: '',
   stage: 0,
-  winner: '',
 };
 
 const GameReducer = (state = initialState, action) => {
