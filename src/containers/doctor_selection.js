@@ -74,7 +74,6 @@ class DoctorSelection extends Component {
   render() {
     if (localStorage.getItem('role') === 'doctor') {
       return (
-
         <div>
           <div className="RolesContainer">
             {this.renderSelection()}

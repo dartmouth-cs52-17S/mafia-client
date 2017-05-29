@@ -55,7 +55,6 @@ class MafiaSelection extends Component {
            return (
              <div className="players_container">
                <div>
-
                  <input type="radio" name="mafia" value={player.id} id="player" />
                  <div className="playerDeadName">{player.name}</div>
                </div>
@@ -73,6 +72,7 @@ class MafiaSelection extends Component {
   }
 
   render() {
+    console.log('Entered mafia selection');
     if (localStorage.getItem('role') === 'mafia') {
       return (
         <div>
