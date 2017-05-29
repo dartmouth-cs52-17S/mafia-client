@@ -66,7 +66,6 @@ class DoctorSelection extends Component {
         })
       );
     } else {
-      console.log('whatuppppp');
       return (
         <div className="wait">Waiting for the doctor to save someone...
         </div>

@@ -20,6 +20,7 @@ export const ActionTypes = {
   AUTH_ERROR: 'AUTH_ERROR',
   HEAL_PLAYER: 'HEAL_PLAYER',
   UPDATE_STAGE: 'UPDATE_STAGE',
+  GUESS_MAFIA: 'GUESS_MAFIA',
 };
 
 export const ROOT_URL = RUNNING_LOCALLY ? 'http://localhost:9090/api' : 'https://online-mafia.herokuapp.com/api';
@@ -106,10 +107,11 @@ export function healPlayer(id) {
 
 export function guessMafia(id) {
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/players/guess/${id}`).then((response) => {
+    axios.get(`${ROOT_URL}/players/guess/${id}`).then((response) => {
       dispatch({ type: ActionTypes.GUESS_MAFIA, payload: response });
     }).catch((error) => {
       console.log(error);
+      console.log('guess Mafia is not working');
     });
   };
 }

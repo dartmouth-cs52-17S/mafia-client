@@ -24,6 +24,8 @@ class PoliceSelection extends Component {
       console.log(document.querySelector('input[name="police"]:checked').value);
       const police = document.querySelector('input[name="police"]:checked').value;
       this.props.guessMafia(police);
+      console.log('hello nitasha');
+      console.log(this.props.guessMafia(police));
     }
     this.props.updateStage(3);
   }
