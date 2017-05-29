@@ -22,7 +22,6 @@ class PoliceSelection extends Component {
     if (localStorage.getItem('role') === 'police') {
       const police = document.querySelector('input[name="police"]:checked').value;
       this.props.guessMafia(police);
-      console.log('hello nitasha');
       console.log(this.props.guessMafia(police));
     }
     this.props.updateStage(this.props.game.id, 3);
@@ -76,15 +75,21 @@ class PoliceSelection extends Component {
     if (localStorage.getItem('role') === 'police') {
       return (
         <div>
-          <div> {this.renderSelection()} </div>
-          <button onClick={this.onRevealClicked}> Next </button>
+
+          <div>
+            <div> {this.renderSelection()} </div>
+            <button onClick={this.onRevealClicked}> Next </button>
+          </div>
+
         </div>
       );
     } else {
       return (
         <div>
-          <div> {this.renderSelection()} </div>
-          <button onClick={this.onTestClicked}> Force-next </button>
+          <div>
+            <div> {this.renderSelection()} </div>
+            <button onClick={this.onTestClicked}> Force-next </button>
+          </div>
         </div>
       );
     }

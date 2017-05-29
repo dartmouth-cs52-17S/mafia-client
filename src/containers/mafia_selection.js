@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { killPlayer } from '../actions';
 
+
 class MafiaSelection extends Component {
   constructor(props) {
     super(props);
@@ -75,8 +76,10 @@ class MafiaSelection extends Component {
     if (localStorage.getItem('role') === 'mafia') {
       return (
         <div>
-          <div> {this.renderSelection()} </div>
-          <button onClick={this.onKillClicked}> Next </button>
+          <div>
+            <div> {this.renderSelection()} </div>
+            <button onClick={this.onKillClicked}> Next </button>
+          </div>
         </div>
       );
     } else {
