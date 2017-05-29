@@ -49,7 +49,6 @@ class Lobby extends Component {
     const playerIds = this.props.game.players.map((player) => { return player._id; });
     this.props.createPlayers(this.props.game.id, playerIds);
     this.props.advanceStage(this.props.game.id);
-    this.props.fetchGame(this.props.game.id);
     console.log(this.props.game.stage);
   }
 //  onPlayClicked, players are created.
@@ -57,7 +56,6 @@ class Lobby extends Component {
 // must delete
   tempOnPlayClicked(event) {
     this.props.advanceStage(this.props.game.id);
-    this.props.fetchGame(this.props.game.id);
   }
 
   // backtoStage3() {
@@ -142,8 +140,7 @@ class Lobby extends Component {
         <div className="reactComment">{setTimeout(() => {
           this.props.fetchPlayers(this.props.game.id);
           this.props.advanceStage(this.props.game.id);
-          this.props.fetchGame(this.props.game.id);
-        }, 1000)}
+        }, 2000)}
         </div>
       </div>
     );
@@ -159,8 +156,7 @@ class Lobby extends Component {
         <span>Will automatically advance stage after 10 secs</span>
         <div className="reactComment">{setTimeout(() => {
           this.props.advanceStage(this.props.game.id);
-          this.props.fetchGame(this.props.game.id);
-        }, 3000)}
+        }, 10000)}
         </div>
       </div>
     );

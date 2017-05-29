@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
-import Nav from './nav';
 import { fetchGame, fetchPlayers, killPlayer, advanceStage } from '../actions';
 
 class MafiaSelection extends Component {
@@ -29,7 +27,6 @@ class MafiaSelection extends Component {
       this.props.killPlayer(mafia);
     }
     this.props.advanceStage(this.props.game.id);
-    this.props.fetchGame(this.props.game.id);
   }
 
   onKillClicked(event) {
@@ -37,7 +34,7 @@ class MafiaSelection extends Component {
   }
 
   onTestClicked(event) {
-    this.props.advanceStage();
+    this.props.advanceStage(this.props.game.id);
   }
 
   renderSelection() {
@@ -81,7 +78,6 @@ class MafiaSelection extends Component {
     if (localStorage.getItem('role') === 'mafia') {
       return (
         <div>
-          <Nav />
           <div>
             <div> {this.renderSelection()} </div>
             <button onClick={this.onKillClicked}> Next </button>
@@ -91,7 +87,6 @@ class MafiaSelection extends Component {
     } else {
       return (
         <div>
-          <Nav />
           <div>
             <div> {this.renderSelection()} </div>
             <button onClick={this.onTestClicked}> Force-next </button>
