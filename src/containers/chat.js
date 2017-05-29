@@ -66,7 +66,12 @@ class Chat extends Component {
     const messages = this.state.messages.map((message) => {
       return (
         <div className="chat-outcome">
-          {`${message.sender}: ${message.text}`}
+          <div className="chat-sender">
+            {`${message.sender} `}
+          </div>
+          <div className="chat-message">
+            {`${message.text}`}
+          </div>
         </div>
       );
     });
