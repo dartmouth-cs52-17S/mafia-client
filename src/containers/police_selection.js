@@ -22,6 +22,8 @@ class PoliceSelection extends Component {
     if (localStorage.getItem('role') === 'police') {
       const police = document.querySelector('input[name="police"]:checked').value;
       this.props.guessMafia(police);
+      console.log('hello nitasha');
+      console.log(this.props.guessMafia(police));
     }
     this.props.updateStage(this.props.game.id, 3);
   }

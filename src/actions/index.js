@@ -110,6 +110,7 @@ export function guessMafia(id) {
       dispatch({ type: ActionTypes.GUESS_MAFIA, payload });
     }).catch((error) => {
       console.log(error);
+      console.log('guess Mafia is not working');
     });
   };
 }
