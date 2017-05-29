@@ -17,7 +17,6 @@ class Lobby extends Component {
     this.socket = io(socketserver);
 
     this.socket.on('fetchAll', () => {
-      console.log('fetchAll in client');
       this.props.fetchPlayers(this.props.game.id);
       this.props.fetchGame(this.props.game.id);
     });
@@ -48,7 +47,7 @@ class Lobby extends Component {
     this.renderStage4 = this.renderStage4.bind(this);
     this.renderStages = this.renderStages.bind(this);
     this.renderChat = this.renderChat.bind(this);
-    this.refetchGame = this.refetchGame.bind(this);
+    this.refetchAll = this.refetchAll.bind(this);
     this.tempOnPlayClicked = this.tempOnPlayClicked.bind(this);
     // this.backtoStage3 = this.backtoStage3.bind(this);
     // this.tempRenderNextButton = this.tempRenderNextButton.bind(this);
@@ -73,8 +72,9 @@ class Lobby extends Component {
   //   this.props.updateStage(this.props.game.id, 3);
   // }
 
-  refetchGame() {
-    this.socket.emit('fetch', this.props.game.id);
+  refetchAll() {
+    this.props.fetchPlayers(this.props.game.id);
+    this.props.fetchGame(this.props.game.id);
   }
 
   renderPlayButton() {
@@ -235,7 +235,7 @@ class Lobby extends Component {
       return (<div>Chat is loading...</div>);
     }
     return (
-      <Chat gameID={this.props.match.params.gameID} reload={this.refetchGame} />
+      <Chat gameID={this.props.match.params.gameID} reload={this.refetchAll} />
     );
   }
 

@@ -22,8 +22,6 @@ class PoliceSelection extends Component {
 
   onPoliceReveal() {
     if (localStorage.getItem('role') === 'police') {
-      console.log(document.querySelector('input[name="police"]:checked'));
-      console.log(document.querySelector('input[name="police"]:checked').value);
       const police = document.querySelector('input[name="police"]:checked').value;
       this.props.guessMafia(police);
     }
@@ -75,7 +73,6 @@ class PoliceSelection extends Component {
 
 
   render() {
-    console.log('Entered police selection');
     if (localStorage.getItem('role') === 'police') {
       return (
         <div>
