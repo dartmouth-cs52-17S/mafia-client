@@ -26,11 +26,11 @@ class DoctorSelection extends Component {
     this.props.updateStage(this.props.game.id, 6);
   }
 
-  onHealClicked() {
+  onHealClicked(event) {
     this.onDoctorHeal();
   }
 
-  onTestClicked() {
+  onTestClicked(event) {
     this.props.updateStage(this.props.game.id, 6);
   }
 

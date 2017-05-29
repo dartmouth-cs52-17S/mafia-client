@@ -72,7 +72,7 @@ class Lobby extends Component {
 
 // must delete
   tempOnPlayClicked(event) {
-    this.socket.emit('advanceStage', this.props.game.id, null);
+    this.socket.emit('updateStage', { id: this.props.game.id, stage: 4 });
   }
 
   // backtoStage3() {
@@ -174,7 +174,7 @@ class Lobby extends Component {
         <span>Will automatically advance stage after 10 secs</span>
         <div className="reactComment">{setTimeout(() => {
           this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 });
-        }, 10000)}
+        }, 2000)}
         </div>
       </div>
     );

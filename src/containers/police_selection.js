@@ -27,7 +27,7 @@ class PoliceSelection extends Component {
     this.props.updateStage(this.props.game.id, 7);
   }
 
-  onRevealClicked() {
+  onRevealClicked(event) {
     this.onPoliceReveal();
   }
 

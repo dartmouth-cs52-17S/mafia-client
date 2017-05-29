@@ -4,6 +4,7 @@ const defaultState = {
   all: [],
   player: {},
   status: true,
+  voteCount: 0,
 };
 
 // const UserReducer = (state = defaultState, action) => {
@@ -21,6 +22,8 @@ const PlayerReducer = (state = defaultState, action) => {
       return Object.assign({}, state, { status: true });
     case ActionTypes.GUESS_MAFIA:
       return Object.assign({}, state, { player: action.payload });
+    case ActionTypes.VOTE_KILL:
+      return Object.assign({}, state, { $inc: { voteCount: 1 } });
     default:
       return state;
   }
