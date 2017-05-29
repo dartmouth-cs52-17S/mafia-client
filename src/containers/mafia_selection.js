@@ -13,7 +13,8 @@ class MafiaSelection extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchPlayers();
+    this.props.fetchPlayers(this.props.game.id);
+    // this.props.fetchGame();
     setTimeout(() => { this.onMafiaKill(); }, 7000);
   }
 
@@ -37,7 +38,7 @@ class MafiaSelection extends Component {
            return (
              <div className="players_container">
                <div>
-                 <input type="radio" name="mafia" value={player._id} />
+                 <input type="radio" name="mafia" value={player.id} />
                  <div className="playerAliveName">{player.name}</div>
                </div>
              </div>
@@ -46,7 +47,7 @@ class MafiaSelection extends Component {
            return (
              <div className="players_container">
                <div>
-                 <input type="radio" name="mafia" value={player._id} id="player" />
+                 <input type="radio" name="mafia" value={player.id} id="player" />
                  <div className="playerDeadName">{player.name}</div>
                </div>
              </div>

@@ -132,7 +132,7 @@ export function fetchPlayers(gameID) {
     axios.get(`${ROOT_URL}/players/${gameID}`).then((response) => {
       // trim the payload to remove roles from the response
       const payload = response.data.map((fragment) => {
-        return { playerID: fragment.id, userID: fragment.user, gameID: fragment.game, isAlive: fragment.status, name: fragment.name };
+        return { id: fragment.id, userID: fragment.user, game: fragment.game, status: fragment.status, name: fragment.name };
       });
       dispatch({ type: ActionTypes.FETCH_PLAYERS, payload });
     }).catch((error) => {

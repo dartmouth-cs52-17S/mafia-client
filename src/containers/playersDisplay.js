@@ -23,7 +23,7 @@ class PlayersDisplay extends Component {
 
   renderPlayerStatus() {
     // this just checks if data has been fetched and mapped to props yet
-    if (!this.props.game.players) {
+    if (!this.props.players) {
       return '';
     } else {
       return (

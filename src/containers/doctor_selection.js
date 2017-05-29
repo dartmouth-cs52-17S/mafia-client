@@ -13,7 +13,8 @@ class DoctorSelection extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchPlayers();
+    this.props.fetchPlayers(this.props.game.id);
+    // this.props.fetchGame();
     setTimeout(() => { this.onDoctorHeal(); }, 7000);
   }
 
@@ -38,7 +39,7 @@ class DoctorSelection extends Component {
             return (
               <div className="players_container">
                 <div>
-                  <input type="radio" name="doctor" value={player._id} />
+                  <input type="radio" name="doctor" value={player.id} />
                   <div className="playerAliveName">{player.name}</div>
                 </div>
               </div>
@@ -47,7 +48,7 @@ class DoctorSelection extends Component {
             return (
               <div className="players_container">
                 <div>
-                  <input type="radio" name="doctor" value={player._id} />
+                  <input type="radio" name="doctor" value={player.id} />
                   <div className="playerDeadName">{player.name}</div>
                 </div>
               </div>
