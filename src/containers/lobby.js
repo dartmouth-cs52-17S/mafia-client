@@ -135,7 +135,7 @@ class Lobby extends Component {
         <div className="reactComment">{setTimeout(() => {
           this.props.fetchPlayers(this.props.game.id);
           this.props.advanceStage();
-        }, 3000)}
+        }, 1000)}
         </div>
       </div>
     );
@@ -151,7 +151,7 @@ class Lobby extends Component {
         <span>Will automatically advance stage after 10 secs</span>
         <div className="reactComment">{setTimeout(() => {
           this.props.advanceStage();
-        }, 10000)}
+        }, 3000)}
         </div>
       </div>
     );

@@ -14,12 +14,15 @@ class MafiaSelection extends Component {
 
   componentDidMount() {
     this.props.fetchPlayers();
+    setTimeout(() => { this.onMafiaKill(); }, 7000);
   }
 
   onMafiaKill() {
     if (localStorage.getItem('role') === 'mafia') {
-      const mafia = document.querySelector('input[name = "mafia"]:checked').value;
-      if (mafia) { this.props.killPlayer(mafia); }
+      console.log(document.querySelector('input[name="mafia"]:checked'));
+      console.log(document.querySelector('input[name="mafia"]:checked').value);
+      const mafia = document.querySelector('input[name="mafia"]:checked').value;
+      this.props.killPlayer(mafia);
     }
     this.props.advanceStage();
   }
@@ -67,12 +70,10 @@ class MafiaSelection extends Component {
     }
   }
   render() {
+    console.log('Entered mafia selection');
     return (
       <div>
         {this.renderSelection()}
-        <div className="reactComment">
-          {setTimeout(() => { this.onMafiaKill(); }, 7000)}
-        </div>
       </div>
     );
   }
@@ -81,7 +82,7 @@ class MafiaSelection extends Component {
 
 const mapStateToProps = state => (
   {
-    players: state.game.players,
+    players: state.players.all,
     game: state.game,
   }
 );
