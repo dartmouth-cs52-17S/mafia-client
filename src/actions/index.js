@@ -136,12 +136,10 @@ export function tallyVotes(gameID) {
 export function guessMafia(id) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/player/${id}`).then((response) => {
-      console.log(response.data);
       const payload = (response.data.role === 'mafia');
-      dispatch({ type: ActionTypes.GUESS_MAFIA, payload });
+      localStorage.setItem('correctGuess', payload);
     }).catch((error) => {
       console.log(error);
-      console.log('guess Mafia is not working');
     });
   };
 }
