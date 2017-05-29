@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
-import axios from 'axios';
-import { createGame, createPlayers, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, advanceStage, updateStage, ROOT_URL } from '../actions';
+import { createGame, createPlayers, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, advanceStage, updateStage } from '../actions';
 import Chat from './chat';
 import { socketserver } from './app';
 import Players from './playersDisplay';
@@ -15,8 +14,6 @@ class Lobby extends Component {
   constructor(props) {
     super(props);
     this.socket = io.connect(socketserver);
-
-    this.usersInLobby = [];
 
     this.socket.on('connect', () => {
       if (window.location.pathname === '/lobby' || window.location.pathname === '/lobby/') {
@@ -45,34 +42,25 @@ class Lobby extends Component {
     // this.tempRenderNextButton = this.tempRenderNextButton.bind(this);
   }
 
-  componentWillUpdate() {
-    if (this.props.game.players.length > 0) {
-      for (let index = 0; index < this.props.game.players.length; index += 1) {
-        axios.get(`${ROOT_URL}/user/${this.props.game.players[index]}`).then((response) => {
-          this.usersInLobby = this.usersInLobby.concat([response.data.name]);
-          console.log(this.usersInLobby);
-        });
-      }
-    }
-  }
-
   // Switch Stages
   // creates player objects based off of array of users
   onPlayClicked(event) {
     const playerIds = this.props.game.players.map((player) => { return player._id; });
     this.props.createPlayers(this.props.game.id, playerIds);
-    this.props.advanceStage();
+    this.props.advanceStage(this.props.game.id);
+    this.props.fetchGame(this.props.game.id);
     console.log(this.props.game.stage);
   }
 //  onPlayClicked, players are created.
 
 // must delete
   tempOnPlayClicked(event) {
-    this.props.advanceStage();
+    this.props.advanceStage(this.props.game.id);
+    this.props.fetchGame(this.props.game.id);
   }
 
   // backtoStage3() {
-  //   this.props.updateStage(3);
+  //   this.props.updateStage(this.props.game.id, 3);
   // }
 
   refetchGame() {
@@ -80,7 +68,7 @@ class Lobby extends Component {
   }
 
   renderPlayButton() {
-    if (this.props.game.players.length >= 1) {
+    if (this.props.game.players.length >= 1 && localStorage.getItem('userID') === this.props.game.creator) {
       return (<button onClick={this.onPlayClicked} id="render-butt">Play</button>);
     } else {
       return (<div />);
@@ -89,7 +77,6 @@ class Lobby extends Component {
 
   // Stage 0: users are stored in "players"
   renderPlayers() {
-    console.log(this.props.game);
     return this.props.game.players.map((player) => {
       return (<li key={player.id}>{player.name}</li>); // this is actually a user id
     });
@@ -100,13 +87,32 @@ class Lobby extends Component {
       // 0: mafia, 1: doctor, 3: police, 4-6: village
       case 'mafia':
         return (
-          <div className="roleAssigned"><img src="/images/mafia.png" alt="Mafia" /></div>);
+          <div className="roleAssigned">
+            <h3>The Mafia</h3>
+            <img src="/images/mafia.png" alt="Mafia" />
+          </div>
+        );
       case 'doctor':
-        return (<div className="roleAssigned"><img src="/images/doctor.png" alt="Mafia" /></div>);
+        return (
+          <div className="roleAssigned">
+            <h3>The Doctor</h3>
+            <img src="/images/doctor.png" alt="Doctor" />
+          </div>
+        );
       case 'police':
-        return (<div className="roleAssigned"><img src="/images/police.png" alt="Mafia" /></div>);
+        return (
+          <div className="roleAssigned">
+            <h3>The Police</h3>
+            <img src="/images/police.png" alt="Police" />
+          </div>
+        );
       case 'villager':
-        return (<div className="roleAssigned"><img src="/images/villager.png" alt="Mafia" /></div>);
+        return (
+          <div className="roleAssigned">
+            <h3>A Villager</h3>
+            <img src="/images/villager.png" alt="Villager" />
+          </div>
+        );
       default: return 'none. Why don\'t you have role? It\'s probably Adam\'s fault.';
     }
   }
@@ -134,7 +140,8 @@ class Lobby extends Component {
         </div>
         <div className="reactComment">{setTimeout(() => {
           this.props.fetchPlayers(this.props.game.id);
-          this.props.advanceStage();
+          this.props.advanceStage(this.props.game.id);
+          this.props.fetchGame(this.props.game.id);
         }, 1000)}
         </div>
       </div>
@@ -150,7 +157,8 @@ class Lobby extends Component {
         <div>{this.renderRole()}</div>
         <span>Will automatically advance stage after 10 secs</span>
         <div className="reactComment">{setTimeout(() => {
-          this.props.advanceStage();
+          this.props.advanceStage(this.props.game.id);
+          this.props.fetchGame(this.props.game.id);
         }, 3000)}
         </div>
       </div>
