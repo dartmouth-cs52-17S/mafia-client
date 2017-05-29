@@ -26,24 +26,30 @@ class Chat extends Component {
 
     this.state = {
       text: '',
-      messages: [],
+      chat: [],
     };
 
-    this.socket.on('message', (msg) => {
-      const newmessages = [...this.state.messages, msg];
-      this.setState({
-        messages: newmessages,
-      });
-    });
+    // this.socket.on('message', (msg) => {
+    //   const newmessages = [...this.state.messages, msg];
+    //   this.setState({
+    //     messages: newmessages,
+    //   });
+    // });
+    //
+    // this.socket.on('notif', (notif) => {
+    //   console.log(notif);
+    //   this.props.reload();
+    // });
 
-    this.socket.on('notif', (notif) => {
-      console.log(notif);
-      this.props.reload();
+    this.socket.on('newchat', (newchat) => {
+      this.setState({
+        chat: newchat,
+      });
     });
 
     this.onTextChange = this.onTextChange.bind(this);
     this.handleChatSubmit = this.handleChatSubmit.bind(this);
-    this.renderMessages = this.renderMessages.bind(this);
+    this.renderChat = this.renderChat.bind(this);
   }
 
   onTextChange(event) {
@@ -62,28 +68,35 @@ class Chat extends Component {
     });
   }
 
-  renderMessages() {
-    const messages = this.state.messages.map((message) => {
+  renderChat() {
+    const chatlines = this.state.chat.map((line) => {
+      if (line.type === 'message') {
+        return (
+          <div className="message"
+            key={`${line.sender}${line.text}${uuid()}`}
+          >
+            <div className="chat-sender">
+              {`${line.sender} `}
+            </div>
+            <div className="chat-message">
+              {line.text}
+            </div>
+          </div>
+        );
+      }
       return (
-        <div className="chat-outcome"
-          key={`${message.sender}${message.text}${uuid()}`}
-        >
-          <div className="chat-sender">
-            {`${message.sender} `}
-          </div>
-          <div className="chat-message">
-            {`${message.text}`}
-          </div>
+        <div className="notice" key={`${line.text}${uuid()}`}>
+          {line.text}
         </div>
       );
     });
-    return messages;
+    return chatlines;
   }
 
   render() {
     return (
       <div className="chat-render-container">
-        {this.renderMessages()}
+        {this.renderChat()}
         <form onSubmit={this.handleChatSubmit} className="chat-input">
           <input onChange={this.onTextChange} value={this.state.text} type="text" placeholder="Type a message..." id="text-area" />
         </form>
