@@ -283,7 +283,7 @@ nav {
   width: 20vw;
   height: 85vh;
 
-  .chat-outcome {
+  .message {
     padding-left: 10px;
     padding-bottom: 5px;
     display: flex;
@@ -298,6 +298,11 @@ nav {
     .chat-message {
       font-weight: 100;
     }
+  }
+
+  .notice {
+    padding-left: 10px;
+    padding-bottom: 5px;
   }
 
   .chat-input {
