@@ -77,20 +77,17 @@ class DoctorSelection extends Component {
     console.log('Entered doctor selection');
     if (localStorage.getItem('role') === 'doctor') {
       return (
-        <div>
-          <div className="RolesContainer">
-            {this.renderSelection()}
-            <button onClick={this.onHealClicked}> Next </button>
-          </div>
+
+        <div className="RolesContainer">
+          {this.renderSelection()}
+          <button onClick={this.onHealClicked}> Next </button>
         </div>
       );
     } else {
       return (
         <div>
-          <div>
-            {this.renderSelection()}
-            <button onClick={this.onTestClicked}> Force-next </button>
-          </div>
+          {this.renderSelection()}
+          <button onClick={this.onTestClicked}> Force-next </button>
         </div>
       );
     }

@@ -78,19 +78,16 @@ class PoliceSelection extends Component {
     if (localStorage.getItem('role') === 'police') {
       return (
         <div>
-          <div>
-            <div> {this.renderSelection()} </div>
-            <button onClick={this.onRevealClicked}> Next </button>
-          </div>
+          <div> {this.renderSelection()} </div>
+          <button onClick={this.onRevealClicked}> Next </button>
+
         </div>
       );
     } else {
       return (
         <div>
-          <div>
-            <div> {this.renderSelection()} </div>
-            <button onClick={this.onTestClicked}> Force-next </button>
-          </div>
+          <div> {this.renderSelection()} </div>
+          <button onClick={this.onTestClicked}> Force-next </button>
         </div>
       );
     }

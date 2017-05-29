@@ -79,19 +79,15 @@ class MafiaSelection extends Component {
     if (localStorage.getItem('role') === 'mafia') {
       return (
         <div>
-          <div>
-            <div> {this.renderSelection()} </div>
-            <button onClick={this.onKillClicked}> Next </button>
-          </div>
+          <div> {this.renderSelection()} </div>
+          <button onClick={this.onKillClicked}> Next </button>
         </div>
       );
     } else {
       return (
         <div>
-          <div>
-            <div> {this.renderSelection()} </div>
-            <button onClick={this.onTestClicked}> Force-next </button>
-          </div>
+          <div> {this.renderSelection()} </div>
+          <button onClick={this.onTestClicked}> Force-next </button>
         </div>
       );
     }

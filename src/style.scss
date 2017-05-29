@@ -286,6 +286,18 @@ nav {
   .chat-outcome {
     padding-left: 10px;
     padding-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    .chat-sender {
+      padding-right: 5px;
+      font-weight: 900;
+    }
+
+    .chat-message {
+      font-weight: 100;
+    }
   }
 
   .chat-input {
