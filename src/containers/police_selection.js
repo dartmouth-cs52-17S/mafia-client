@@ -13,12 +13,15 @@ class PoliceSelection extends Component {
 
   componentDidMount() {
     this.props.fetchPlayers();
+    setTimeout(() => { this.onPoliceReveal(); }, 7000);
   }
 
   onPoliceReveal() {
     if (localStorage.getItem('role') === 'police') {
-      const police = document.querySelector('input[name = "police"]:checked').value;
-      if (police) { this.props.guessMafia(police); }
+      console.log(document.querySelector('input[name="police"]:checked'));
+      console.log(document.querySelector('input[name="police"]:checked').value);
+      const police = document.querySelector('input[name="police"]:checked').value;
+      this.props.guessMafia(police);
     }
     this.props.updateStage(3);
   }
@@ -59,12 +62,10 @@ class PoliceSelection extends Component {
   }
 
   render() {
+    console.log('Entered police selection');
     return (
       <div>
         {this.renderSelection()}
-        <div className="reactComment">
-          {setTimeout(() => { this.onPoliceReveal(); }, 7000)}
-        </div>
       </div>
     );
   }
