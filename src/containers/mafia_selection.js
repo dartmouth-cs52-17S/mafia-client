@@ -24,7 +24,7 @@ class MafiaSelection extends Component {
       console.log(mafia);
       this.props.killPlayer(mafia);
     }
-    this.props.advance(this.props.game.id);
+    this.props.updateStage(this.props.game.id, 5);
   }
 
   onKillClicked(event) {
