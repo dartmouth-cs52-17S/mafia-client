@@ -16,7 +16,6 @@ export const ActionTypes = {
   FETCH_PLAYER: 'FETCH_PLAYER',
   GET_PLAYERS: 'GET_PLAYERS',
   CREATE_USER: 'CREATE_USER',
-  ADVANCE_STAGE: 'ADVANCE_STAGE',
   AUTH_ERROR: 'AUTH_ERROR',
   HEAL_PLAYER: 'HEAL_PLAYER',
   GUESS_MAFIA: 'GUESS_MAFIA',
@@ -121,7 +120,6 @@ export function guessMafia(id) {
 export function fetchGame(id) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/game/${id}`).then((response) => {
-      console.log(response.data);
       dispatch({ type: ActionTypes.FETCH_GAME, payload: response.data });
     }).catch((error) => {
       console.log(error);
@@ -187,12 +185,17 @@ export function authError(error) {
 
 export function advanceStage(gameId) {
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/game/stage/${gameId}`);
+    axios.put(`${ROOT_URL}/game/stage/${gameId}`, null).then((result) => {
+      console.log(result);
+      dispatch({ type: ActionTypes.UPDATE_STAGE, payload: result });
+    }).catch((err) => { console.log(err); });
   };
 }
 
 export function updateStage(gameId, stage) {
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/game/stage/${gameId}`, { stage });
+    axios.put(`${ROOT_URL}/game/stage/${gameId}`, { stage }).then((result) => {
+      dispatch({ type: ActionTypes.UPDATE_STAGE, payload: result });
+    }).catch((err) => { console.log(err); });
   };
 }

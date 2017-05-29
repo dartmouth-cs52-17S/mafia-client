@@ -71,7 +71,7 @@ class Lobby extends Component {
 
   renderPlayButton() {
     if (this.props.game.players.length >= 1 && localStorage.getItem('userID') === this.props.game.creator) {
-      return (<button onClick={this.onPlayClicked} id="render-butt">Play</button>);
+      return (<button onClick={this.onPlayClicked} id="render-butt" className="PlayButton">Play</button>);
     } else {
       return (<div />);
     }
@@ -122,7 +122,7 @@ class Lobby extends Component {
   // Stage 0: Show Players Connected, Waiting for Players
   renderStage0() {
     return (
-      <div>
+      <div className="stage0">
         <h3>Players Connected:</h3>
         <ul>
           {this.renderPlayers()}
