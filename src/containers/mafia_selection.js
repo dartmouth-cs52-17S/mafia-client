@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { killPlayer } from '../actions';
 
-
 class MafiaSelection extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +15,7 @@ class MafiaSelection extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchPlayers(this.props.game.id);
+    this.props.fetch(this.props.game.id);
   }
 
 
