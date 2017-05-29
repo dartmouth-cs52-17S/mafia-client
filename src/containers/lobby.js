@@ -237,7 +237,14 @@ class Lobby extends Component {
 
   renderChat() {
     if (!this.props.match.params.gameID) {
-      return (<div>Chat is loading...</div>);
+      return (
+        <div>
+          <div>Chat is loading...</div>
+          <div>
+            If loading continues for more than 10 seconds, try force reloading.
+          </div>
+        </div>
+      );
     }
     return (
       <Chat gameID={this.props.match.params.gameID} reload={this.refetchAll} />
