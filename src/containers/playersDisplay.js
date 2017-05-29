@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-// import { withRouter, NavLink } from 'react-router-dom';
-
-import Nav from './nav';
 import { fetchGame, fetchPlayers } from '../actions';
 
 class PlayersDisplay extends Component {
@@ -51,7 +48,6 @@ class PlayersDisplay extends Component {
   render() {
     return (
       <div>
-        <Nav />
         <div className="NarrationContainer">
           <h1>The Village</h1>
           <div className="playersStatusContainer">{this.renderPlayerStatus()}</div>
