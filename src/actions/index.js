@@ -75,7 +75,6 @@ export function createGame(jwt, history) {
 export function getPlayers(jwt, gameID) { // actionCreator
   return (dispatch) => {
     axios.put(`${ROOT_URL}/game/${gameID}`, null, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
-      console.log(`response is ${JSON.stringify(response.data)}`);
     }).catch((error) => {
       console.log(error);
     });
@@ -83,7 +82,6 @@ export function getPlayers(jwt, gameID) { // actionCreator
 }
 
 export function killPlayer(id) { // actionCreator
-  console.log('actionCreator');
   return (dispatch) => {
     axios.put(`${ROOT_URL}/players/kill/${id}`).then((response) => {
       dispatch({ type: ActionTypes.KILL_PLAYER });
@@ -104,7 +102,6 @@ export function healPlayer(id) {
 }
 
 export function guessMafia(id) {
-  console.log('guessMafia');
   return (dispatch) => {
     axios.get(`${ROOT_URL}/player/${id}`).then((response) => {
       console.log(response.data);

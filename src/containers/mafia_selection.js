@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { fetchGame, fetchPlayers, killPlayer, advanceStage } from '../actions';
+import { killPlayer } from '../actions';
 
 class MafiaSelection extends Component {
   constructor(props) {
@@ -20,14 +20,11 @@ class MafiaSelection extends Component {
 
   onMafiaKill() {
     if (localStorage.getItem('role') === 'mafia') {
-      console.log(document.querySelector('input[name="mafia"]:checked'));
-      console.log(document.querySelector('input[name="mafia"]:checked').value);
       const mafia = document.querySelector('input[name="mafia"]:checked').value;
       console.log(mafia);
       this.props.killPlayer(mafia);
     }
-    this.props.advanceStage(this.props.game.id);
-    this.props.fetchGame(this.props.game.id);
+    this.props.advance(this.props.game.id);
   }
 
   onKillClicked(event) {
@@ -35,7 +32,7 @@ class MafiaSelection extends Component {
   }
 
   onTestClicked(event) {
-    this.props.advanceStage(this.props.game.id);
+    this.props.updateStage(this.props.game.id, 5);
   }
 
   renderSelection() {
@@ -75,7 +72,6 @@ class MafiaSelection extends Component {
   }
 
   render() {
-    console.log('Entered mafia selection');
     if (localStorage.getItem('role') === 'mafia') {
       return (
         <div>
@@ -101,4 +97,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { fetchGame, fetchPlayers, killPlayer, advanceStage })(MafiaSelection));
+export default withRouter(connect(mapStateToProps, { killPlayer })(MafiaSelection));
