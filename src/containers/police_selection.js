@@ -24,7 +24,7 @@ class PoliceSelection extends Component {
       this.props.guessMafia(police);
       console.log(this.props.guessMafia(police));
     }
-    this.props.updateStage(this.props.game.id, 3);
+    this.props.updateStage(this.props.game.id, 7);
   }
 
   onRevealClicked() {
@@ -32,7 +32,7 @@ class PoliceSelection extends Component {
   }
 
   onTestClicked(event) {
-    this.props.updateStage(this.props.game.id, 3);
+    this.props.updateStage(this.props.game.id, 7);
   }
 
   renderSelection() {

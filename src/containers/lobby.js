@@ -9,6 +9,7 @@ import Players from './playersDisplay';
 import DoctorSelect from './doctor_selection';
 import MafiaSelect from './mafia_selection';
 import PoliceSelect from './police_selection';
+import Voting from './voting';
 import Nav from './nav';
 
 class Lobby extends Component {
@@ -211,6 +212,14 @@ class Lobby extends Component {
     );
   }
 
+  renderStage7() {
+    return (
+      <div>
+        <Voting fetch={id => this.socket.emit('fetch', id)} updateStage={(id, stage) => this.socket.emit('updateStage', { id, stage })} />
+      </div>
+    );
+  }
+
   renderStages() {
     switch (this.props.game.stage) {
       case 0:
@@ -227,6 +236,8 @@ class Lobby extends Component {
         return <div>{this.renderStage5()}</div>;
       case 6:
         return <div>{this.renderStage6()}</div>;
+      case 7:
+        return <div>{this.renderStage7()}</div>;
       default: return '';
     }
   }

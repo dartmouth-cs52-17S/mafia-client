@@ -23,7 +23,6 @@ class DoctorSelection extends Component {
       const doctor = document.querySelector('input[name="doctor"]:checked').value;
       this.props.healPlayer(doctor);
     }
-
     this.props.updateStage(this.props.game.id, 6);
   }
 
