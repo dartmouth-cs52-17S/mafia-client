@@ -17,6 +17,7 @@ class Lobby extends Component {
     this.socket = io(socketserver);
 
     this.socket.on('fetchAll', () => {
+      console.log('fetchAll');
       this.props.fetchPlayers(this.props.game.id);
       this.props.fetchGame(this.props.game.id);
     });
@@ -24,9 +25,13 @@ class Lobby extends Component {
     this.socket.on('connect', () => {
       if (window.location.pathname === '/lobby' || window.location.pathname === '/lobby/') {
         this.props.createGame(localStorage.getItem('token'), this.props.history)
-        .then(this.props.getPlayers(localStorage.getItem('token'), this.props.match.params.gameID));
+        .then(() => {
+          this.props.getPlayers(localStorage.getItem('token'), this.props.match.params.gameID);
+          this.socket.emit('join', this.props.match.params.gameID);
+        });
       } else {
         this.props.getPlayers(localStorage.getItem('token'), this.props.match.params.gameID);
+        this.socket.emit('join', this.props.match.params.gameID);
       }
       this.setState({});
       setTimeout(() => this.props.fetchGame(this.props.match.params.gameID), 1000);
