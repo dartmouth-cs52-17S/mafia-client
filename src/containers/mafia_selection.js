@@ -14,17 +14,16 @@ class MafiaSelection extends Component {
     this.onTestClicked = this.onTestClicked.bind(this);
   }
 
+  onKillClicked(event) {
+    this.onMafiaKill();
+  }
+
   onMafiaKill() {
     if (localStorage.getItem('role') === 'mafia') {
       const mafia = document.querySelector('input[name="mafia"]:checked').value;
-      console.log(mafia);
       this.props.killPlayer(mafia);
     }
     this.props.updateStage(this.props.game.id, 5);
-  }
-
-  onKillClicked(event) {
-    this.onMafiaKill();
   }
 
   onTestClicked(event) {
@@ -50,7 +49,6 @@ class MafiaSelection extends Component {
            return (
              <div className="players_container">
                <div>
-
                  <input type="radio" name="mafia" value={player.id} id="player" />
                  <div className="playerDeadName">{player.name}</div>
                </div>
@@ -68,11 +66,14 @@ class MafiaSelection extends Component {
   }
 
   render() {
+    console.log('Entered mafia selection');
     if (localStorage.getItem('role') === 'mafia') {
       return (
         <div>
-          <div> {this.renderSelection()} </div>
-          <button onClick={this.onKillClicked}> Next </button>
+          <div>
+            <div> {this.renderSelection()} </div>
+            <button onClick={this.onKillClicked}> Next </button>
+          </div>
         </div>
       );
     } else {
@@ -85,6 +86,7 @@ class MafiaSelection extends Component {
     }
   }
 }
+
 
 const mapStateToProps = state => (
   {

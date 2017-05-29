@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { healPlayer } from '../actions';
 
+
 class DoctorSelection extends Component {
   constructor(props) {
     super(props);
@@ -22,11 +23,11 @@ class DoctorSelection extends Component {
     this.props.updateStage(this.props.game.id, 6);
   }
 
-  onHealClicked() {
+  onHealClicked(event) {
     this.onDoctorHeal();
   }
 
-  onTestClicked() {
+  onTestClicked(event) {
     this.props.updateStage(this.props.game.id, 6);
   }
 
@@ -69,16 +70,20 @@ class DoctorSelection extends Component {
   render() {
     if (localStorage.getItem('role') === 'doctor') {
       return (
-        <div className="RolesContainer">
-          {this.renderSelection()}
-          <button onClick={this.onHealClicked}> Next </button>
+        <div>
+          <div className="RolesContainer">
+            {this.renderSelection()}
+            <button onClick={this.onHealClicked}> Next </button>
+          </div>
         </div>
       );
     } else {
       return (
         <div>
-          {this.renderSelection()}
-          <button onClick={this.onTestClicked}> Force-next </button>
+          <div>
+            {this.renderSelection()}
+            <button onClick={this.onTestClicked}> Force-next </button>
+          </div>
         </div>
       );
     }
