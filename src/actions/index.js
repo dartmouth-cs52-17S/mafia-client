@@ -19,6 +19,7 @@ export const ActionTypes = {
   ADVANCE_STAGE: 'ADVANCE_STAGE',
   AUTH_ERROR: 'AUTH_ERROR',
   HEAL_PLAYER: 'HEAL_PLAYER',
+  GUESS_MAFIA: 'GUESS_MAFIA',
   UPDATE_STAGE: 'UPDATE_STAGE',
 };
 
@@ -26,8 +27,7 @@ export const ROOT_URL = RUNNING_LOCALLY ? 'http://localhost:9090/api' : 'https:/
 
 export function createPlayers(gameId, userIds) { // actionCreator
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/players`, { gameId, userIds }).then((response) => {
-      console.log(localStorage.getItem('userID'));
+    axios.post(`${ROOT_URL}/players/${gameId}`, { gameId, userIds }).then((response) => {
       response.data.forEach((fragment) => {
         if (`${fragment.user}` === localStorage.getItem('userID')) {
           localStorage.setItem('role', fragment.role);
@@ -84,6 +84,7 @@ export function getPlayers(jwt, gameID) { // actionCreator
 }
 
 export function killPlayer(id) { // actionCreator
+  console.log('actionCreator');
   return (dispatch) => {
     axios.put(`${ROOT_URL}/players/kill/${id}`).then((response) => {
       dispatch({ type: ActionTypes.KILL_PLAYER });
@@ -104,25 +105,17 @@ export function healPlayer(id) {
 }
 
 export function guessMafia(id) {
+  console.log('guessMafia');
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/players/guess/${id}`).then((response) => {
-      dispatch({ type: ActionTypes.GUESS_MAFIA, payload: response });
+    axios.get(`${ROOT_URL}/player/${id}`).then((response) => {
+      console.log(response.data);
+      const payload = (response.data.role === 'mafia');
+      dispatch({ type: ActionTypes.GUESS_MAFIA, payload });
     }).catch((error) => {
       console.log(error);
     });
   };
 }
-
-
-// export function updatePost(id, post) { /* axios put */
-//   return (dispatch) => {
-//     axios.put(`${ROOT_URL}/posts/${id}`, post, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
-//       dispatch({ type: ActionTypes.UPDATE_POST, payload: response.data });
-//     }).catch((error) => {
-//       console.log('failed to update post');
-//     });
-//   };
-// }
 
 export function fetchGame(id) {
   return (dispatch) => {
@@ -140,7 +133,7 @@ export function fetchPlayers(gameID) {
     axios.get(`${ROOT_URL}/players/${gameID}`).then((response) => {
       // trim the payload to remove roles from the response
       const payload = response.data.map((fragment) => {
-        return { playerID: fragment.id, userID: fragment.user, gameID: fragment.game, isAlive: fragment.status, name: fragment.name };
+        return { id: fragment.id, userID: fragment.user, gameID: fragment.game, status: fragment.status, name: fragment.name };
       });
       dispatch({ type: ActionTypes.FETCH_PLAYERS, payload });
     }).catch((error) => {
@@ -148,8 +141,6 @@ export function fetchPlayers(gameID) {
     });
   };
 }
-// !! for above method
-
 
 export function fetchPlayer(id) {
   return (dispatch) => {
@@ -193,38 +184,14 @@ export function authError(error) {
   };
 }
 
-export function addUserToGame(fbid) {
+export function advanceStage(gameId) {
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/games`, { fbid })
-    .then((response) => {
-      dispatch({ type: ActionTypes.ADD_USER, payload: response });
-    });
+    axios.put(`${ROOT_URL}/game/stage/${gameId}`);
   };
 }
 
-export function advanceStage() {
+export function updateStage(gameId, stage) {
   return (dispatch) => {
-    dispatch({ type: ActionTypes.ADVANCE_STAGE });
+    axios.put(`${ROOT_URL}/game/stage/${gameId}`, { stage });
   };
 }
-
-export function updateStage(stage) {
-  return (dispatch) => {
-    dispatch({ type: ActionTypes.UPDATE_STAGE, payload: stage });
-  };
-}
-
-// export function addUserToGame(fbid) {
-//   return (dispatch) => {
-//     axios.put(`${ROOT_URL}/games`, { fbid })
-//     .then((response) => {
-//       dispatch({ type: ActionTypes.ADD_USER, payload: response });
-//     });
-//   };
-// }
-
-// export function getNameFromFBID(fbid) {
-//   axios.post(`${ROOT_URL}/getNameFromFBID`, { fbid }).then((response) => {
-//     // dispatch({ type: ActionTypes.ADD_USER, payload: response });
-//   });
-// }
