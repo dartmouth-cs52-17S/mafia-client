@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
 import { fetchGame, fetchPlayers, killPlayer, advanceStage } from '../actions';
 
 class MafiaSelection extends Component {
@@ -57,7 +56,6 @@ class MafiaSelection extends Component {
            return (
              <div className="players_container">
                <div>
-
                  <input type="radio" name="mafia" value={player.id} id="player" />
                  <div className="playerDeadName">{player.name}</div>
                </div>

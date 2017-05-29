@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+
 // import { withRouter, NavLink } from 'react-router-dom';
 
-
-import { fetchGame, fetchPlayers } from '../actions';
 
 class PlayersDisplay extends Component {
 
@@ -20,7 +18,7 @@ class PlayersDisplay extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchPlayers(this.props.game.id);
+    this.props.fetch(this.props.game.id);
   }
 
   renderPlayerStatus() {
@@ -32,15 +30,15 @@ class PlayersDisplay extends Component {
       this.props.players.map((player) => {
         if (player.status) {
           return (
-            <div className="playerStatusContainer">
-              <div className="playerAliveName" key={player.id}>{player.name}</div>
+            <div key={player.id} className="playerStatusContainer">
+              <div className="playerAliveName">{player.name}</div>
             </div>
           );
         } else {
           console.log(player.status);
           return (
-            <div className="playerStatusContainer">
-              <div className="playerDeadName" key={player.id}>{player.name}</div>
+            <div key={player.id} className="playerStatusContainer">
+              <div className="playerDeadName">{player.name}</div>
             </div>
           );
         }
@@ -68,4 +66,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { fetchGame, fetchPlayers })(PlayersDisplay));
+export default withRouter(connect(mapStateToProps, null)(PlayersDisplay));

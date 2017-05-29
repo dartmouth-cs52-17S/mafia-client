@@ -16,12 +16,7 @@ const GameReducer = (state = initialState, action) => {
         players: action.payload.data.players,
       });
     case ActionTypes.UPDATE_GAME:
-      console.log(state.players);
-      console.log(typeof state.players);
-      console.log(action.payload);
-      console.log(typeof action.payload);
       if (state.players === action.payload) {
-        console.log('hi');
         return state;
       } else {
         return Object.assign({}, state, { players: action.payload.players });

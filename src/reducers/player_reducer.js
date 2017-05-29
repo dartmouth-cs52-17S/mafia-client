@@ -18,7 +18,6 @@ const PlayerReducer = (state = defaultState, action) => {
     case ActionTypes.KILL_PLAYER:
       return Object.assign({}, state, { status: false });
     case ActionTypes.HEAL_PLAYER:
-      console.log('it reaches here!');
       return Object.assign({}, state, { status: true });
     case ActionTypes.GUESS_MAFIA:
       return Object.assign({}, state, { player: action.payload });

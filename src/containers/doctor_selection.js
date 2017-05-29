@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { fetchGame, fetchPlayers, healPlayer, advanceStage } from '../actions';
+import { healPlayer } from '../actions';
 
 class DoctorSelection extends Component {
   constructor(props) {
@@ -15,18 +15,16 @@ class DoctorSelection extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchPlayers(this.props.game.id);
+    this.props.fetch(this.props.game.id);
   }
 
   onDoctorHeal() {
-    console.log('doctorheal');
     if (localStorage.getItem('role') === 'doctor') {
-      console.log(document.querySelector('input[name="doctor"]:checked'));
-      console.log(document.querySelector('input[name="doctor"]:checked').value);
       const doctor = document.querySelector('input[name="doctor"]:checked').value;
       this.props.healPlayer(doctor);
     }
-    this.props.advanceStage(this.props.game.id);
+
+    this.props.updateStage(this.props.game.id, 6);
   }
 
   onHealClicked() {
@@ -34,7 +32,7 @@ class DoctorSelection extends Component {
   }
 
   onTestClicked() {
-    this.props.advanceStage(this.props.game.id);
+    this.props.updateStage(this.props.game.id, 6);
   }
 
   renderSelection() {
@@ -74,7 +72,6 @@ class DoctorSelection extends Component {
 
 
   render() {
-    console.log('Entered doctor selection');
     if (localStorage.getItem('role') === 'doctor') {
       return (
 
@@ -101,4 +98,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { fetchGame, fetchPlayers, healPlayer, advanceStage })(DoctorSelection));
+export default withRouter(connect(mapStateToProps, { healPlayer })(DoctorSelection));

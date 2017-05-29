@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { guessMafia, fetchGame, fetchPlayers, updateStage, advanceStage } from '../actions';
+import { guessMafia } from '../actions';
 
 class PoliceSelection extends Component {
   constructor(props) {
@@ -15,13 +15,11 @@ class PoliceSelection extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchPlayers(this.props.game.id);
+    this.props.fetch(this.props.game.id);
   }
 
   onPoliceReveal() {
     if (localStorage.getItem('role') === 'police') {
-      console.log(document.querySelector('input[name="police"]:checked'));
-      console.log(document.querySelector('input[name="police"]:checked').value);
       const police = document.querySelector('input[name="police"]:checked').value;
       this.props.guessMafia(police);
       console.log(this.props.guessMafia(police));
@@ -74,7 +72,6 @@ class PoliceSelection extends Component {
 
 
   render() {
-    console.log('Entered police selection');
     if (localStorage.getItem('role') === 'police') {
       return (
         <div>
@@ -101,4 +98,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { guessMafia, fetchGame, fetchPlayers, updateStage, advanceStage })(PoliceSelection));
+export default withRouter(connect(mapStateToProps, { guessMafia })(PoliceSelection));
