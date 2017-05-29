@@ -19,15 +19,14 @@ class MafiaSelection extends Component {
   }
 
   onMafiaKill() {
-    if (localStorage.getItem('role') === 'mafia') {
-      console.log(document.querySelector('input[name="mafia"]:checked'));
-      console.log(document.querySelector('input[name="mafia"]:checked').value);
+    if (document.querySelector('input[name="mafia"]:checked')) {
       const mafia = document.querySelector('input[name="mafia"]:checked').value;
-      console.log(mafia);
       this.props.killPlayer(mafia);
+      this.props.advanceStage(this.props.game.id);
+      this.props.fetchGame(this.props.game.id);
+    } else {
+      alert('You are a mafia. You must kill one person. Choose wisely.');
     }
-    this.props.advanceStage(this.props.game.id);
-    this.props.fetchGame(this.props.game.id);
   }
 
   onKillClicked(event) {
@@ -57,8 +56,6 @@ class MafiaSelection extends Component {
            return (
              <div className="players_container">
                <div>
-
-                 <input type="radio" name="mafia" value={player.id} id="player" />
                  <div className="playerDeadName">{player.name}</div>
                </div>
              </div>
