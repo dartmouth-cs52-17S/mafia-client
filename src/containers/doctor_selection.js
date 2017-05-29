@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import Nav from './nav';
 import { fetchGame, fetchPlayers, healPlayer, advanceStage } from '../actions';
 
 class DoctorSelection extends Component {
@@ -28,7 +27,6 @@ class DoctorSelection extends Component {
       this.props.healPlayer(doctor);
     }
     this.props.advanceStage(this.props.game.id);
-    this.props.fetchGame(this.props.game.id);
   }
 
   onHealClicked() {
@@ -36,7 +34,7 @@ class DoctorSelection extends Component {
   }
 
   onTestClicked() {
-    this.props.advanceStage();
+    this.props.advanceStage(this.props.game.id);
   }
 
   renderSelection() {
@@ -80,7 +78,6 @@ class DoctorSelection extends Component {
     if (localStorage.getItem('role') === 'doctor') {
       return (
         <div>
-          <Nav />
           <div className="RolesContainer">
             {this.renderSelection()}
             <button onClick={this.onHealClicked}> Next </button>
@@ -90,7 +87,6 @@ class DoctorSelection extends Component {
     } else {
       return (
         <div>
-          <Nav />
           <div>
             {this.renderSelection()}
             <button onClick={this.onTestClicked}> Force-next </button>

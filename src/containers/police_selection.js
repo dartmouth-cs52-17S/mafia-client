@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
-import Nav from './nav';
 import { guessMafia, fetchGame, fetchPlayers, updateStage, advanceStage } from '../actions';
 
 class PoliceSelection extends Component {
@@ -26,11 +24,9 @@ class PoliceSelection extends Component {
       console.log(document.querySelector('input[name="police"]:checked').value);
       const police = document.querySelector('input[name="police"]:checked').value;
       this.props.guessMafia(police);
-      console.log('hello nitasha');
       console.log(this.props.guessMafia(police));
     }
     this.props.updateStage(this.props.game.id, 3);
-    this.props.fetchGame(this.props.game.id);
   }
 
   onRevealClicked() {
@@ -38,7 +34,7 @@ class PoliceSelection extends Component {
   }
 
   onTestClicked(event) {
-    this.props.updateStage(3);
+    this.props.updateStage(this.props.game.id, 3);
   }
 
   renderSelection() {
@@ -82,7 +78,6 @@ class PoliceSelection extends Component {
     if (localStorage.getItem('role') === 'police') {
       return (
         <div>
-          <Nav />
           <div>
             <div> {this.renderSelection()} </div>
             <button onClick={this.onRevealClicked}> Next </button>
@@ -92,7 +87,6 @@ class PoliceSelection extends Component {
     } else {
       return (
         <div>
-          <Nav />
           <div>
             <div> {this.renderSelection()} </div>
             <button onClick={this.onTestClicked}> Force-next </button>
