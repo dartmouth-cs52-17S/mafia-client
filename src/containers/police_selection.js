@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { guessMafia, fetchPlayers, updateStage } from '../actions';
+import { guessMafia, fetchGame, fetchPlayers, updateStage, advanceStage } from '../actions';
 
 class PoliceSelection extends Component {
   constructor(props) {
@@ -9,12 +9,13 @@ class PoliceSelection extends Component {
 
     this.state = {};
     this.renderSelection = this.renderSelection.bind(this);
+    this.onPoliceReveal = this.onPoliceReveal.bind(this);
+    this.onRevealClicked = this.onRevealClicked.bind(this);
+    this.onTestClicked = this.onTestClicked.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchPlayers(this.props.game.id);
-    // this.props.fetchGame();
-    setTimeout(() => { this.onPoliceReveal(); }, 7000);
   }
 
   onPoliceReveal() {
@@ -24,6 +25,14 @@ class PoliceSelection extends Component {
       const police = document.querySelector('input[name="police"]:checked').value;
       this.props.guessMafia(police);
     }
+    this.props.updateStage(3);
+  }
+
+  onRevealClicked() {
+    this.onPoliceReveal();
+  }
+
+  onTestClicked(event) {
     this.props.updateStage(3);
   }
 
@@ -62,13 +71,24 @@ class PoliceSelection extends Component {
     }
   }
 
+
   render() {
     console.log('Entered police selection');
-    return (
-      <div>
-        {this.renderSelection()}
-      </div>
-    );
+    if (localStorage.getItem('role') === 'police') {
+      return (
+        <div>
+          <div> {this.renderSelection()} </div>
+          <button onClick={this.onRevealClicked}> Next </button>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <div> {this.renderSelection()} </div>
+          <button onClick={this.onTestClicked}> Force-next </button>
+        </div>
+      );
+    }
   }
 }
 
@@ -79,4 +99,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { guessMafia, fetchPlayers, updateStage })(PoliceSelection));
+export default withRouter(connect(mapStateToProps, { guessMafia, fetchGame, fetchPlayers, updateStage, advanceStage })(PoliceSelection));

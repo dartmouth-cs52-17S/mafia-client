@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { fetchPlayers, killPlayer, advanceStage } from '../actions';
+import { fetchGame, fetchPlayers, killPlayer, advanceStage } from '../actions';
 
 class MafiaSelection extends Component {
   constructor(props) {
@@ -10,12 +10,12 @@ class MafiaSelection extends Component {
     this.state = {};
     this.renderSelection = this.renderSelection.bind(this);
     this.onMafiaKill = this.onMafiaKill.bind(this);
+    this.onKillClicked = this.onKillClicked.bind(this);
+    this.onTestClicked = this.onTestClicked.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchPlayers(this.props.game.id);
-    // this.props.fetchGame();
-    setTimeout(() => { this.onMafiaKill(); }, 7000);
   }
 
   onMafiaKill() {
@@ -23,8 +23,17 @@ class MafiaSelection extends Component {
       console.log(document.querySelector('input[name="mafia"]:checked'));
       console.log(document.querySelector('input[name="mafia"]:checked').value);
       const mafia = document.querySelector('input[name="mafia"]:checked').value;
+      console.log(mafia);
       this.props.killPlayer(mafia);
     }
+    this.props.advanceStage();
+  }
+
+  onKillClicked(event) {
+    this.onMafiaKill();
+  }
+
+  onTestClicked(event) {
     this.props.advanceStage();
   }
 
@@ -47,6 +56,7 @@ class MafiaSelection extends Component {
            return (
              <div className="players_container">
                <div>
+
                  <input type="radio" name="mafia" value={player.id} id="player" />
                  <div className="playerDeadName">{player.name}</div>
                </div>
@@ -62,16 +72,26 @@ class MafiaSelection extends Component {
       );
     }
   }
+
   render() {
     console.log('Entered mafia selection');
-    return (
-      <div>
-        {this.renderSelection()}
-      </div>
-    );
+    if (localStorage.getItem('role') === 'mafia') {
+      return (
+        <div>
+          <div> {this.renderSelection()} </div>
+          <button onClick={this.onKillClicked}> Next </button>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <div> {this.renderSelection()} </div>
+          <button onClick={this.onTestClicked}> Force-next </button>
+        </div>
+      );
+    }
   }
 }
-
 
 const mapStateToProps = state => (
   {
@@ -80,4 +100,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { fetchPlayers, killPlayer, advanceStage })(MafiaSelection));
+export default withRouter(connect(mapStateToProps, { fetchGame, fetchPlayers, killPlayer, advanceStage })(MafiaSelection));
