@@ -20,6 +20,7 @@ export const ActionTypes = {
   HEAL_PLAYER: 'HEAL_PLAYER',
   GUESS_MAFIA: 'GUESS_MAFIA',
   UPDATE_STAGE: 'UPDATE_STAGE',
+  VOTE_KILL: 'VOTE_KILL',
 };
 
 export const ROOT_URL = RUNNING_LOCALLY ? 'http://localhost:9090/api' : 'https://online-mafia.herokuapp.com/api';
@@ -102,6 +103,16 @@ export function healPlayer(id) {
   };
 }
 
+export function voteKill(id) {
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/players/heal/${id}`).then((response) => {
+      dispatch({ type: ActionTypes.VOTE_KILL, payload: response });
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
+
 export function guessMafia(id) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/player/${id}`).then((response) => {
@@ -110,6 +121,7 @@ export function guessMafia(id) {
       dispatch({ type: ActionTypes.GUESS_MAFIA, payload });
     }).catch((error) => {
       console.log(error);
+      console.log('guess Mafia is not working');
     });
   };
 }

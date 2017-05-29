@@ -9,6 +9,7 @@ import Players from './playersDisplay';
 import DoctorSelect from './doctor_selection';
 import MafiaSelect from './mafia_selection';
 import PoliceSelect from './police_selection';
+import Voting from './voting';
 import Nav from './nav';
 
 class Lobby extends Component {
@@ -62,6 +63,7 @@ class Lobby extends Component {
   // creates player objects based off of array of users
   onPlayClicked(event) {
     const playerIds = this.props.game.players.map((player) => { return player._id; });
+    console.log(playerIds);
     this.props.createPlayers(this.props.game.id, playerIds);
     // this.props.advanceStage(this.props.game.id);
     this.socket.emit('updateStage', { id: this.props.game.id, stage: 1 });
@@ -70,7 +72,7 @@ class Lobby extends Component {
 
 // must delete
   tempOnPlayClicked(event) {
-    this.socket.emit('advanceStage', this.props.game.id, null);
+    this.socket.emit('updateStage', { id: this.props.game.id, stage: 4 });
   }
 
   // backtoStage3() {
@@ -172,7 +174,7 @@ class Lobby extends Component {
         <span>Will automatically advance stage after 10 secs</span>
         <div className="reactComment">{setTimeout(() => {
           this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 });
-        }, 10000)}
+        }, 2000)}
         </div>
       </div>
     );
@@ -215,6 +217,14 @@ class Lobby extends Component {
     );
   }
 
+  renderStage7() {
+    return (
+      <div>
+        <Voting fetch={id => this.socket.emit('fetch', id)} updateStage={(id, stage) => this.socket.emit('updateStage', { id, stage })} />
+      </div>
+    );
+  }
+
   renderStages() {
     switch (this.props.game.stage) {
       case 0:
@@ -231,6 +241,8 @@ class Lobby extends Component {
         return <div>{this.renderStage5()}</div>;
       case 6:
         return <div>{this.renderStage6()}</div>;
+      case 7:
+        return <div>{this.renderStage7()}</div>;
       default: return '';
     }
   }

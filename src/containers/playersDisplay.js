@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+
+// import { withRouter, NavLink } from 'react-router-dom';
+
+
 class PlayersDisplay extends Component {
 
   constructor(props) {
