@@ -47,6 +47,7 @@ class Lobby extends Component {
   // creates player objects based off of array of users
   onPlayClicked(event) {
     const playerIds = this.props.game.players.map((player) => { return player._id; });
+    console.log(playerIds);
     this.props.createPlayers(this.props.game.id, playerIds);
     this.props.advanceStage(this.props.game.id);
     this.props.fetchGame(this.props.game.id);
