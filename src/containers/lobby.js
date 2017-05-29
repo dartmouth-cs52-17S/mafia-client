@@ -9,6 +9,7 @@ import Players from './playersDisplay';
 import DoctorSelect from './doctor_selection';
 import MafiaSelect from './mafia_selection';
 import PoliceSelect from './police_selection';
+import Nav from './nav';
 
 class Lobby extends Component {
   constructor(props) {
@@ -236,13 +237,16 @@ class Lobby extends Component {
       return <div>Loading</div>;
     } else {
       return (
-        <div className="lobby-container">
-          <div className="StagesDisplay">
-            <h1>Stage: {this.props.game.stage}</h1>
-            {this.renderStages()}
-          </div>
-          <div className="chat-section">
-            {this.renderChat()}
+        <div>
+          <Nav />
+          <div className="lobby-container">
+            <div className="StagesDisplay">
+              <h1>Stage: {this.props.game.stage}</h1>
+              {this.renderStages()}
+            </div>
+            <div className="chat-section">
+              {this.renderChat()}
+            </div>
           </div>
         </div>
       );
