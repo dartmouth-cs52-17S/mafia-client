@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { guessMafia, fetchPlayers, updateStage } from '../actions';
+import { guessMafia, fetchGame, fetchPlayers, updateStage, advanceStage } from '../actions';
 
 class PoliceSelection extends Component {
   constructor(props) {
@@ -9,11 +9,13 @@ class PoliceSelection extends Component {
 
     this.state = {};
     this.renderSelection = this.renderSelection.bind(this);
+    this.onPoliceReveal = this.onPoliceReveal.bind(this);
+    this.onRevealClicked = this.onRevealClicked.bind(this);
+    this.onTestClicked = this.onTestClicked.bind(this);
   }
 
   componentDidMount() {
-    this.props.fetchPlayers();
-    setTimeout(() => { this.onPoliceReveal(); }, 7000);
+    this.props.fetchPlayers(this.props.game.id);
   }
 
   onPoliceReveal() {
@@ -27,6 +29,14 @@ class PoliceSelection extends Component {
     this.props.fetchGame(this.props.game.id);
   }
 
+  onRevealClicked() {
+    this.onPoliceReveal();
+  }
+
+  onTestClicked(event) {
+    this.props.updateStage(3);
+  }
+
   renderSelection() {
     if (!localStorage.getItem('role')) { // this just checks if data has been fetched and mapped to props yet
       return '';
@@ -37,7 +47,7 @@ class PoliceSelection extends Component {
            return (
              <div className="players_container">
                <div>
-                 <input type="radio" name="police" value={player._id} />
+                 <input type="radio" name="police" value={player.id} />
                  <div className="playerAliveName">{player.name}</div>
                </div>
              </div>
@@ -46,7 +56,7 @@ class PoliceSelection extends Component {
            return (
              <div className="players_container">
                <div>
-                 <input type="radio" name="police" value={player._id} />
+                 <input type="radio" name="police" value={player.id} />
                  <div className="playerDeadName">{player.name}</div>
                </div>
              </div>
@@ -62,17 +72,26 @@ class PoliceSelection extends Component {
     }
   }
 
+
   render() {
     console.log('Entered police selection');
-    return (
-      <div>
-        {this.renderSelection()}
-      </div>
-    );
+    if (localStorage.getItem('role') === 'police') {
+      return (
+        <div>
+          <div> {this.renderSelection()} </div>
+          <button onClick={this.onRevealClicked}> Next </button>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <div> {this.renderSelection()} </div>
+          <button onClick={this.onTestClicked}> Force-next </button>
+        </div>
+      );
+    }
   }
-
 }
-
 
 const mapStateToProps = state => (
   {
@@ -81,4 +100,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { guessMafia, fetchPlayers, updateStage })(PoliceSelection));
+export default withRouter(connect(mapStateToProps, { guessMafia, fetchGame, fetchPlayers, updateStage, advanceStage })(PoliceSelection));

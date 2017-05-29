@@ -43,6 +43,7 @@ class Lobby extends Component {
   }
 
   // Switch Stages
+  // creates player objects based off of array of users
   onPlayClicked(event) {
     const playerIds = this.props.game.players.map((player) => { return player._id; });
     this.props.createPlayers(this.props.game.id, playerIds);
@@ -50,6 +51,7 @@ class Lobby extends Component {
     this.props.fetchGame(this.props.game.id);
     console.log(this.props.game.stage);
   }
+//  onPlayClicked, players are created.
 
 // must delete
   tempOnPlayClicked(event) {
@@ -73,10 +75,10 @@ class Lobby extends Component {
     }
   }
 
-  // Stage 0:
+  // Stage 0: users are stored in "players"
   renderPlayers() {
     return this.props.game.players.map((player) => {
-      return (<li key={player.id}>{player.name}</li>);
+      return (<li key={player.id}>{player.name}</li>); // this is actually a user id
     });
   }
 
