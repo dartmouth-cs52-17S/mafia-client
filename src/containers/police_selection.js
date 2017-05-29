@@ -19,12 +19,14 @@ class PoliceSelection extends Component {
   }
 
   onPoliceReveal() {
-    if (localStorage.getItem('role') === 'police') {
+    if (document.querySelector('input[name="police"]:checked')) {
       const police = document.querySelector('input[name="police"]:checked').value;
       this.props.guessMafia(police);
       console.log(this.props.guessMafia(police));
+      this.props.updateStage(this.props.game.id, 7);
+    } else {
+      alert('Police must reveal one person.');
     }
-    this.props.updateStage(this.props.game.id, 7);
   }
 
   onRevealClicked(event) {
@@ -54,7 +56,6 @@ class PoliceSelection extends Component {
            return (
              <div className="players_container">
                <div>
-                 <input type="radio" name="police" value={player.id} />
                  <div className="playerDeadName">{player.name}</div>
                </div>
              </div>
