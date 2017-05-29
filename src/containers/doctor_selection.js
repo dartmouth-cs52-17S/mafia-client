@@ -14,12 +14,16 @@ class DoctorSelection extends Component {
 
   componentDidMount() {
     this.props.fetchPlayers();
+    setTimeout(() => { this.onDoctorHeal(); }, 7000);
   }
 
   onDoctorHeal() {
+    console.log('doctorheal');
     if (localStorage.getItem('role') === 'doctor') {
-      const doctor = document.querySelector('input[name = "doctor"]:checked').value;
-      if (doctor) { this.props.healPlayer(doctor); }
+      console.log(document.querySelector('input[name="doctor"]:checked'));
+      console.log(document.querySelector('input[name="doctor"]:checked').value);
+      const doctor = document.querySelector('input[name="doctor"]:checked').value;
+      this.props.healPlayer(doctor);
     }
     this.props.advanceStage();
   }
@@ -52,6 +56,7 @@ class DoctorSelection extends Component {
         })
       );
     } else {
+      console.log('whatuppppp');
       return (
         <div className="wait">Waiting for the doctor to save someone...
         </div>
@@ -59,12 +64,10 @@ class DoctorSelection extends Component {
     }
   }
   render() {
+    console.log('Entered doctor selection');
     return (
       <div className="RolesContainer">
         {this.renderSelection()}
-        <div className="reactComment">
-          {setTimeout(() => { this.onDoctorHeal(); }, 7000)}
-        </div>
       </div>
     );
   }
