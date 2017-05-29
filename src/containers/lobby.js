@@ -167,7 +167,7 @@ class Lobby extends Component {
   // Stage 2: Dislay Assigned Roles to Individual Player
   renderStage2() {
     return (
-      <div>
+      <div className="stage2">
         <h3>Roles have been assigned!</h3>
         <h2>Your role is:</h2>
         <div>{this.renderRole()}</div>
