@@ -6,6 +6,15 @@ body {
   margin: 0;
 }
 
+#loader {
+  margin: 100px;
+  margin-top: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+}
+
 // text and image
 h1 {
   font-family: 'Open Sans';
@@ -275,6 +284,11 @@ nav {
 }
 
 // Chat
+.chat-load {
+  text-align: center;
+  padding-top: 30px;
+}
+
 .chat-render-container {
   background-color: #D8D8D8;
   // background-color: #979797;
