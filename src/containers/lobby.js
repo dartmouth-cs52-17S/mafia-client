@@ -52,6 +52,9 @@ class Lobby extends Component {
     this.renderStage2 = this.renderStage2.bind(this);
     this.renderStage3 = this.renderStage3.bind(this);
     this.renderStage4 = this.renderStage4.bind(this);
+    // this.renderStage5 = this.renderStage5.bind(this);
+    // this.renderStage6 = this.rederStage6.bind(this);
+    // this.renderStage7 = this.rederStage7.bind(this);
     this.renderStages = this.renderStages.bind(this);
     this.renderChat = this.renderChat.bind(this);
     this.refetchAll = this.refetchAll.bind(this);
@@ -243,28 +246,36 @@ class Lobby extends Component {
         <h3>The people have spoken!</h3>
         <h5>The village has decided to kill...</h5>
         <div>{this.props.players.deadMan.name}</div>
+        <div className="reactComment">{setTimeout(() => {
+          this.socket.emit('updateStage', { id: this.props.game.id, stage: 10 });
+        }, 2000)}
+        </div>
       </div>
     );
   }
 
   renderStage10() {
-    this.props.checkEnd(this.props.game.id);
-    this.props.fetchGame(this.props.game.id);
-    if (this.props.game.isOver) {
-      return (
-        <div>
-          <div>Game Over</div>
-          <div>Winner is {this.props.game.winner}</div>
-        </div>
-      );
-    } else {
-      return (
-        <div className="reactComment">{setTimeout(() => {
-          this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 });
+    return (
+      <div>
+        {this.props.checkEnd(this.props.game.id)}
+        {this.props.fetchGame(this.props.game.id)}
+        {setTimeout(() => {
+          if (this.props.game.isOver) {
+            return (
+              <div>
+                <div>Game Over</div>
+                <div>Winner is {this.props.game.winner}</div>
+              </div>
+            );
+          } else {
+            return (
+              <div className="reactComment">{this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 })}
+              </div>
+            );
+          }
         }, 2000)}
-        </div>
-      );
-    }
+      </div>
+    );
   }
 
   renderStages() {
