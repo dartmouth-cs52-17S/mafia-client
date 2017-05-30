@@ -4,7 +4,6 @@ const defaultState = {
   all: [],
   player: {},
   deadMan: 'Nobody! (what nice villagers)',
-
 };
 
 // const UserReducer = (state = defaultState, action) => {
