@@ -25,12 +25,12 @@ class PoliceSelection extends Component {
   }
 
   onNextClicked(event) {
-    this.props.updateStage(this.props.game.id, 7);
+    this.props.updateStage(this.props.game.id, 8);
   }
 
   onTestClicked(event) {
     this.props.checkSelection(this.props.game.id);
-    this.props.updateStage(this.props.game.id, 7);
+    this.props.updateStage(this.props.game.id, 8);
   }
 
   renderSelection() {

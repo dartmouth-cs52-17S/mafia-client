@@ -68,6 +68,9 @@ class Lobby extends Component {
       case 3:
         break;
       case 4:
+        setTimeout(() => {
+          this.socket.emit('updateStage', { id: this.props.game.id, stage: 5 });
+        }, 2000);
         break;
       case 5:
         break;
@@ -76,9 +79,6 @@ class Lobby extends Component {
       case 7:
         break;
       case 8:
-        setTimeout(() => {
-          this.socket.emit('updateStage', { id: this.props.game.id, stage: 9 });
-        }, 2000);
         break;
       case 9:
         setTimeout(() => {
@@ -86,10 +86,15 @@ class Lobby extends Component {
         }, 2000);
         break;
       case 10:
+        setTimeout(() => {
+          this.socket.emit('updateStage', { id: this.props.game.id, stage: 11 });
+        }, 2000);
+        break;
+      case 11:
         this.props.checkEnd(this.props.game.id);
         this.props.fetchGame(this.props.game.id);
         setTimeout(() => {
-          this.socket.emit('updateStage', { id: this.props.game.id, stage: 11 });
+          this.socket.emit('updateStage', { id: this.props.game.id, stage: 12 });
         }, 2000);
         break;
       default:
@@ -224,8 +229,15 @@ class Lobby extends Component {
     );
   }
 
-  // Stage 4: Mafia Kill
+  // Stage 4: Night falls
   renderStage4() {
+    return (
+      <div>The Night Falls</div>
+    );
+  }
+
+  // Stage 5: Mafia Kill
+  renderStage5() {
     return (
       <div>
         <MafiaSelect fetch={id => this.socket.emit('fetch', id)} updateStage={(id, stage) => this.socket.emit('updateStage', { id, stage })} />
@@ -233,8 +245,8 @@ class Lobby extends Component {
     );
   }
 
-  // Stage 5: Doctor Heal
-  renderStage5() {
+  // Stage 6: Doctor Heal
+  renderStage6() {
     return (
       <div>
         <DoctorSelect fetch={id => this.socket.emit('fetch', id)} updateStage={(id, stage) => this.socket.emit('updateStage', { id, stage })} />
@@ -242,8 +254,8 @@ class Lobby extends Component {
     );
   }
 
-  // Stage 6: Police Reveal
-  renderStage6() {
+  // Stage 7: Police Reveal
+  renderStage7() {
     return (
       <div>
         <PoliceSelect fetch={id => this.socket.emit('fetch', id)} updateStage={(id, stage) => this.socket.emit('updateStage', { id, stage })} />
@@ -251,7 +263,7 @@ class Lobby extends Component {
     );
   }
 
-  renderStage7() {
+  renderStage8() {
     return (
       <div>
         <Voting fetch={id => this.socket.emit('fetch', id)} updateStage={(id, stage) => this.socket.emit('updateStage', { id, stage })} />
@@ -259,24 +271,10 @@ class Lobby extends Component {
     );
   }
 
-  renderStage8() {
-    return (
-      <div>
-        <CountVotes />
-        <div className="reactComment">{setTimeout(() => {
-          this.socket.emit('updateStage', { id: this.props.game.id, stage: 9 });
-        }, 2000)}
-        </div>
-      </div>
-    );
-  }
-
   renderStage9() {
     return (
       <div>
-        <h3>The people have spoken!</h3>
-        <h5>The village has decided to kill...</h5>
-        <div>{this.props.players.deadMan.name}</div>
+        <CountVotes />
         <div className="reactComment">{setTimeout(() => {
           this.socket.emit('updateStage', { id: this.props.game.id, stage: 10 });
         }, 2000)}
@@ -288,12 +286,26 @@ class Lobby extends Component {
   renderStage10() {
     return (
       <div>
-        <div className="spinny-loady" />
+        <h3>The people have spoken!</h3>
+        <h5>The village has decided to kill...</h5>
+        <div>{this.props.players.deadMan.name}</div>
+        <div className="reactComment">{setTimeout(() => {
+          this.socket.emit('updateStage', { id: this.props.game.id, stage: 11 });
+        }, 2000)}
+        </div>
       </div>
     );
   }
 
   renderStage11() {
+    return (
+      <div>
+        <div className="spinny-loady" />
+      </div>
+    );
+  }
+
+  renderStage12() {
     if (this.props.game.isOver) {
       return (
         <div>
@@ -338,6 +350,8 @@ class Lobby extends Component {
         return <div>{this.renderStage10()}</div>;
       case 11:
         return <div>{this.renderStage11()}</div>;
+      case 12:
+        return <div>{this.renderStage12()}</div>;
       default: return '';
     }
   }
