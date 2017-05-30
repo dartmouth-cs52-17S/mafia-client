@@ -28,11 +28,13 @@ h1 {
 }
 
 ul {
+  display:flex;
   list-style-type: none;
   margin: 0px;
   padding: 0px;
   display: flex;
   justify-content: center;
+  flex-direction: column;
 }
 
 li{
@@ -97,7 +99,7 @@ nav {
     }
 
     img:hover{
-      opacity: .88;
+      opacity: 1;
     }
   }
 
@@ -422,7 +424,8 @@ nav {
       font-size: 30px;
       border: 1px solid black;
       padding: 20px;
-      background-color: #0051E9;
+      background-color: #ffcb03;
+      // background-color: #0051E9;
       border-radius: 5px;
     }
   }
@@ -449,22 +452,26 @@ nav {
     background-color: $mafia-red;
     border-radius: 40px;
     border: none;
-    width: 17vw;
-    height:40vh;
+    width: 20vw;
+    height:46vh;
     color: #ffffff;
     font-size: 5vh;
     margin: 100px;
     outline: none;
+    opacity: .5;
+    transition:opacity 1s ease-in-out;
+    box-shadow: 3px 3px 0 #ad0015;
   }
 
   #join-button:active {
-    box-shadow: 0 2px 0 #db4d4d;
+    box-shadow: 0 3px 0 #ad0015;
     transform: translateY(3px);
     outline: none;
   }
 
   #join-button:hover {
     cursor: pointer;
+    opacity: 1;
   }
 }
 
@@ -474,8 +481,8 @@ nav {
   color: #ffffff;
   font-size: 4vh;
   border-radius: 10px;
-  width: 15vw;
-  height: 10vh;
+  width: 13vw;
+  height: 8vh;
   position: absolute;
   top: 80vh;
   outline: none;
@@ -491,10 +498,20 @@ nav {
 
 .playerAliveName {
   color: white;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content:center;
+  text-align:center;
+  width: auto;
+
 }
 
 .playerDeadName {
   color: $mafia-red;
+  font-size: 20px;
 }
 
 .stage{
@@ -502,17 +519,12 @@ nav {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  // color: black;
   color: white;
-}
 
-.wait{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 30px;
+  h1{
   text-align: center;
+
+  }
 }
 
 .VotingContainer{
@@ -563,6 +575,7 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: row;
 }
 
 .card{
@@ -597,18 +610,139 @@ nav {
   }
 
 .next-butt{
-  font-size: 15px;
-  color: black;
-  border: 4px solid #ffffff;
-  height: 5vh;
-  width: 7vw;
+  margin-top: 20px;
+  font-size: 20px;
+  color: white;
+  border: 4px solid white;
+  height: 7vh;
+  width: 10vw;
   padding: 5px;
   outline: none;
   border-radius: 3px;
-  background-color: white;
+  background-color: #12c311;
 }
 
 .joingameUpper {
   display: flex;
   justify-content: flex-start;
+  margin-left: 30px;
+}
+
+.gamelinks {
+  height: 80vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#gamelink {
+  width: 20vw;
+  height: 30vh;
+  margin: 20px;
+  background-color: $mafia-red;
+  border: 4px solid $mafia-red;
+  border-radius: 30px;
+  color: #ffffff;
+  font-size: 20px;
+  text-align: center;
+  padding-left: 10px;
+  opacity: .5;
+  transition:opacity 1s ease-in-out;
+}
+
+#gamelink:hover{
+  opacity: 1;
+}
+
+.waiting-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 75vh;
+  .waiting {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    text-align: center;
+  }
+}
+
+
+@keyframes blink {
+    0% {
+      opacity: .2;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      opacity: .2;
+    }
+}
+
+.waiting span {
+    animation-name: blink;
+    animation-duration: 1.4s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+}
+
+.waiting span:nth-child(2) {
+    animation-delay: .2s;
+}
+
+.waiting span:nth-child(3) {
+    animation-delay: .4s;
+}
+
+.stage3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 5px solid white;
+  border-radius: 40px;
+  padding-top: 20px;
+  padding-left: 300px;
+  padding-right: 300px;
+  padding-bottom: 100px;
+}
+
+.stage12 {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  justify-content: center;
+
+  #gameover {
+    font-size: 130px;
+    color: $mafia-red;
+    font-weight: bold;
+    font-family: monospace;
+  }
+  .stage12-butt {
+    display: flex;
+    justify-content: center;
+
+    #quit-butt {
+      border: none;
+      background: none;
+      color: white;
+      font-size: 25px;
+    }
+
+    #quit-butt:hover{
+      text-shadow: 2px 2px $mafia-red;
+      cursor: pointer;
+    }
+
+    #quit-butt:active {
+      transform: translateX(2px) translateY(3px);
+    }
+  }
+}
+
+.stageTitle{
+  width: 100%;
 }

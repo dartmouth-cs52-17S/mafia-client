@@ -27,8 +27,8 @@ class JoinGame extends Component {
     const gamelinks = this.props.games.all.map((game) => {
       return (
         <Link to={`/lobby/${game.id}`}>
-          <button id="join-button">
-            players: {this.renderNames(game)}
+          <button id="gamelink">
+            Players: {this.renderNames(game)}
           </button>
         </Link>
       );
@@ -43,7 +43,9 @@ class JoinGame extends Component {
           <ul className="joingameUpper">
             <li><Link to={'/home'}><i className="fa fa-chevron-left" aria-hidden="true" /> Back</Link></li>
           </ul>
-          {gamelinks}
+          <div className="gamelinks">
+            {gamelinks}
+          </div>
         </div>
       );
     }
