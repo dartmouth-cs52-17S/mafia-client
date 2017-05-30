@@ -199,7 +199,7 @@ class Lobby extends Component {
   // Stage 0: Show Players Connected, Waiting for Players
   renderStage0() {
     return (
-      <div className="stage">
+      <div>
         <h3>Players Connected:</h3>
         <ul>
           {this.renderPlayers()}
@@ -212,7 +212,7 @@ class Lobby extends Component {
   // Stage 1: Assigning Role Processing
   renderStage1() {
     return (
-      <div className="stage">
+      <div>
         <h3>Assigning Roles...</h3>
         <div>
           <div className="spinny-loady" />
@@ -236,7 +236,7 @@ class Lobby extends Component {
   // Stage 3:Display all players
   renderStage3() {
     return (
-      <div className="stage">
+      <div className="stage3">
         <Players fetch={id => this.socket.emit('fetch', id)} />
         <button className="next-butt" onClick={this.tempOnPlayClicked}>Next</button>
       </div>
@@ -279,7 +279,7 @@ class Lobby extends Component {
 
   renderStage8() {
     return (
-      <div className="stage">
+      <div>
         <h3>It is Day Time</h3>
         <Voting />
       </div>
@@ -314,11 +314,13 @@ class Lobby extends Component {
 
   renderStage12() {
     return (
-      <div>
-        <div>Game Over</div>
+      <div className="stage12">
+        <div id="gameover">GAME OVER</div>
         <div>Winner is {this.props.game.winner}</div>
-        <button onClick={this.onQuitClicked}>Quit Game</button>
-        <button>Restart Game</button>
+        <div className="stage12-butt">
+          <button onClick={this.onQuitClicked} id="quit-butt">Quit?</button>
+          <button onClick={this.onReplayClicked} id="quit-butt">Replay?</button>
+        </div>
       </div>
     );
   }

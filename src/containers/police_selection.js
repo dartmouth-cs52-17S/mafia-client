@@ -58,7 +58,11 @@ class PoliceSelection extends Component {
       );
     } else {
       return (
-        <div className="wait">Waiting 4 da cop to inquire... mafia, you betta watch yo back
+        <div className="waiting-container">
+          <div className="waiting">
+          Waiting for the police to reveal<span>.</span><span>.</span><span>.</span>
+          </div>
+          <img src="/images/reveal.svg" alt="reveal" />
         </div>
       );
     }
@@ -67,11 +71,18 @@ class PoliceSelection extends Component {
   renderReveal() {
     if (localStorage.getItem('correctGuess') === 'true') {
       return (
-        <div> You have caught the mafia. </div>
+        <div>
+          You have caught the mafia.
+          <img src="/images/mafia.png" alt="Mafia" />
+        </div>
+
       );
     } else {
       return (
-        <div> You have caught an innocent villager. </div>
+        <div>
+          You have caught an innocent villager.
+          <img src="/images/villager.png" alt="Villager" />
+        </div>
       );
     }
   }
