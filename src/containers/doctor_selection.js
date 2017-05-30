@@ -65,7 +65,7 @@ class DoctorSelection extends Component {
           <div className="waiting">
             Waiting for the doctor to heal<span>.</span><span>.</span><span>.</span>
           </div>
-          <img src="/images/heal.svg" alt="heal" />
+          <img src="/images/heal.svg" alt="heal" className="doctor-select" />
         </div>
       );
     }
@@ -76,6 +76,9 @@ class DoctorSelection extends Component {
     if (localStorage.getItem('role') === 'doctor') {
       return (
         <div>
+          <div className="waiting">
+            Choose a player to heal<span>.</span><span>.</span><span>.</span>
+          </div>
           {this.renderSelection()}
           <button onClick={this.onHealClicked}> Next </button>
         </div>
@@ -83,11 +86,10 @@ class DoctorSelection extends Component {
       );
     } else {
       return (
-        <div>
-          {this.renderSelection()}
+        <div className="stage">
+          <div className="stage"> {this.renderSelection()} </div>
           <button onClick={this.onTestClicked}> Force-next </button>
         </div>
-
       );
     }
   }

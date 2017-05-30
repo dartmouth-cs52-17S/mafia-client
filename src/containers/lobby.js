@@ -47,7 +47,6 @@ class Lobby extends Component {
     this.refetchAll = this.refetchAll.bind(this);
     this.tempOnPlayClicked = this.tempOnPlayClicked.bind(this);
     this.onQuitClicked = this.onQuitClicked.bind(this);
-    this.onReplayClicked = this.onReplayClicked.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -63,7 +62,7 @@ class Lobby extends Component {
         case 2:
           setTimeout(() => {
             this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 });
-          }, 2000);
+          }, 6000);
           break;
         case 3:
           break;
@@ -123,9 +122,9 @@ class Lobby extends Component {
     this.props.history.push('/');
   }
 
-  onReplayClicked(event) {
-    this.socket.emit('updateStage', { id: this.props.game.id, stage: 2 });
-  }
+  // onReplayClicked(event) {
+  //   this.socket.emit('updateStage', { id: this.props.game.id, stage: 1 });
+  // }
 
   // DELETE BEFORE DEMO
   tempOnPlayClicked(event) {
@@ -200,6 +199,7 @@ class Lobby extends Component {
   renderStage0() {
     return (
       <div className="stage">
+        <img src="/images/users.svg" alt="users" id="mafia-select" />
         <h3>Players Connected:</h3>
         <ul className="stage">
           {this.renderPlayers()}
@@ -225,10 +225,9 @@ class Lobby extends Component {
   renderStage2() {
     return (
       <div className="card">
-        <h3>Roles have been assigned!</h3>
         <h2>Your role is:</h2>
         <div>{this.renderRole()}</div>
-        <span>Will automatically advance stage after 10 secs</span>
+        <a>Will automatically advance stage</a>
       </div>
     );
   }
@@ -247,7 +246,7 @@ class Lobby extends Component {
   renderStage4() {
     return (
       <div className="nightFall">
-        <h1 className="goodnight">Nighty Night...</h1>
+        <h1 className="goodnight">Nightfall...</h1>
       </div>
     );
   }
@@ -255,7 +254,7 @@ class Lobby extends Component {
   // Stage 5: Mafia Kill
   renderStage5() {
     return (
-      <div className="night">
+      <div className="night stage">
         <MafiaSelect
           fetch={id => this.socket.emit('fetch', id)}
           updateStage={(id, stage) =>
@@ -336,7 +335,6 @@ class Lobby extends Component {
         <div>{this.props.game.winner}</div>
         <div className="stage12-butt">
           <button onClick={this.onQuitClicked} id="quit-butt">Quit?</button>
-          <button onClick={this.onReplayClicked} id="quit-butt">Replay?</button>
         </div>
       </div>
     );

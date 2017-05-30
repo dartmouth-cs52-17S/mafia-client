@@ -16,7 +16,7 @@ class CountVotes extends Component {
 
   render() {
     return (
-      <div>
+      <div className="stage">
         <h3>Tallying the Votes...</h3>
         <div>
           <div className="spinny-loady" />

@@ -64,7 +64,7 @@ class MafiaSelection extends Component {
           <div className="waiting">
           Waiting for Mafia to kill<span>.</span><span>.</span><span>.</span>
           </div>
-          <img src="/images/kill.svg" alt="kill" />
+          <img src="/images/kill.svg" alt="kill" className="doctor-select" />
         </div>
       );
     }
@@ -75,6 +75,10 @@ class MafiaSelection extends Component {
     if (localStorage.getItem('role') === 'mafia') {
       return (
         <div className="stage">
+          <img src="/images/mafia-select.svg" alt="select" id="mafia-select" />
+          <div className="waiting">
+            Choose a player to kill<span>.</span><span>.</span><span>.</span>
+          </div>
           <div className="stage"> {this.renderSelection()} </div>
           <button onClick={this.onKillClicked}> Next </button>
         </div>
