@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
-import { createGame, createPlayers, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, checkEnd, deleteGame } from '../actions';
+import { createGame, createPlayers, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, checkEnd, deleteGame, updateStage } from '../actions';
 import Chat from './chat';
 import { socketserver } from './app';
 import Players from './playersDisplay';
@@ -49,6 +49,7 @@ class Lobby extends Component {
     this.refetchAll = this.refetchAll.bind(this);
     this.tempOnPlayClicked = this.tempOnPlayClicked.bind(this);
     this.onQuitClicked = this.onQuitClicked.bind(this);
+    this.onReplayClicked = this.onReplayClicked.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -116,6 +117,10 @@ class Lobby extends Component {
   onQuitClicked(event) {
     this.props.deleteGame(this.props.game.id);
     this.props.history.push('/');
+  }
+
+  onReplayClicked(event) {
+    this.socket.emit('updateStage', { id: this.props.game.id, stage: 2 });
   }
 
 // must delete
@@ -312,14 +317,23 @@ class Lobby extends Component {
 
   renderStage12() {
     if (this.props.game.isOver) {
-      return (
-        <div>
-          <div>Game Over</div>
-          <div>Winner is {this.props.game.winner}</div>
-          <button onClick={this.onQuitClicked}>Quit Game</button>
-          <button>Restart Game</button>
-        </div>
-      );
+      if (localStorage.getItem('userID') === this.props.game.creator) {
+        return (
+          <div>
+            <div>Game Over</div>
+            <div>Winner is {this.props.game.winner}</div>
+            <button onClick={this.onQuitClicked}>Quit Game</button>
+            <button onClick={this.onReplayClicked}>Replay Game</button>
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            <div>Game Over</div>
+            <div>Winner is {this.props.game.winner}</div>
+          </div>
+        );
+      }
     } else {
       return (
         <div className="reactComment">
@@ -405,4 +419,4 @@ const mapStateToProps = state => ({
   players: state.players,
 });
 
-export default withRouter(connect(mapStateToProps, { createPlayers, createGame, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, checkEnd, deleteGame })(Lobby));
+export default withRouter(connect(mapStateToProps, { createPlayers, createGame, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, checkEnd, deleteGame, updateStage })(Lobby));
