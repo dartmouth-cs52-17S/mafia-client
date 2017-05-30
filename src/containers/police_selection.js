@@ -44,7 +44,7 @@ class PoliceSelection extends Component {
          if (player.status) {
            return (
              <div className="players_container">
-               <div>
+               <div className="option">
                  <input type="radio" name="police" value={player.id} />
                  <div className="playerAliveName">{player.name}</div>
                </div>
@@ -53,11 +53,10 @@ class PoliceSelection extends Component {
          } else {
            return (
              <div className="players_container">
-               <div>
-                 <input type="radio" name="police" value={player.id} />
-                 <div className="playerDeadName">{player.name}</div>
-               </div>
+
+               <div className="playerDeadName">{player.name}</div>
              </div>
+
            );
          }
        })
@@ -74,18 +73,16 @@ class PoliceSelection extends Component {
   render() {
     if (localStorage.getItem('role') === 'police') {
       return (
-        <div>
+        <div className="stage">
           <div> {this.renderSelection()} </div>
           <button onClick={this.onRevealClicked}> Next </button>
         </div>
       );
     } else {
       return (
-        <div>
-          <div>
-            <div> {this.renderSelection()} </div>
-            <button onClick={this.onTestClicked}> Force-next </button>
-          </div>
+        <div className="stage">
+          <div> {this.renderSelection()} </div>
+          <button onClick={this.onTestClicked}> Force-next </button>
         </div>
       );
     }
