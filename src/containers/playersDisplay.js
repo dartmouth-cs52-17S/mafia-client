@@ -45,9 +45,10 @@ class PlayersDisplay extends Component {
   render() {
     return (
       <div>
-        <div className="stage">
+        <div className="village">
+          <img src="/images/village.svg" alt="Village" />
           <h1>The Village</h1>
-          <div className="playersStatusContainer">{this.renderPlayerStatus()}</div>
+          <div>{this.renderPlayerStatus()}</div>
         </div>
       </div>
     );

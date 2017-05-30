@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { killPlayer } from '../actions';
+import { killPlayer, mafiaChoose, updateStage } from '../actions';
 
 class MafiaSelection extends Component {
   constructor(props) {
@@ -60,7 +60,11 @@ class MafiaSelection extends Component {
       );
     } else {
       return (
-        <div className="wait">Waiting for Mafia to make a move...
+        <div className="waiting-container">
+          <div className="waiting">
+          Waiting for Mafia to kill<span>.</span><span>.</span><span>.</span>
+          </div>
+          <img src="/images/kill.svg" alt="kill" />
         </div>
       );
     }
@@ -70,12 +74,10 @@ class MafiaSelection extends Component {
     console.log('Entered mafia selection');
     if (localStorage.getItem('role') === 'mafia') {
       return (
-
         <div className="stage">
           <div className="stage"> {this.renderSelection()} </div>
           <button onClick={this.onKillClicked}> Next </button>
         </div>
-
       );
     } else {
       return (
@@ -96,4 +98,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { killPlayer })(MafiaSelection));
+export default withRouter(connect(mapStateToProps, { killPlayer, mafiaChoose, updateStage })(MafiaSelection));

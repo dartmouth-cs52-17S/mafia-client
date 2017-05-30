@@ -61,7 +61,11 @@ class DoctorSelection extends Component {
       );
     } else {
       return (
-        <div className="wait">Waiting for the doctor to save someone...
+        <div className="waiting-container">
+          <div className="waiting">
+          Waiting for the doctor to heal<span>.</span><span>.</span><span>.</span>
+          </div>
+          <img src="/images/heal.svg" alt="heal" />
         </div>
       );
     }
@@ -71,7 +75,7 @@ class DoctorSelection extends Component {
   render() {
     if (localStorage.getItem('role') === 'doctor') {
       return (
-        <div className="stage">
+        <div>
           {this.renderSelection()}
           <button onClick={this.onHealClicked}> Next </button>
         </div>
@@ -79,7 +83,7 @@ class DoctorSelection extends Component {
       );
     } else {
       return (
-        <div className="stage">
+        <div>
           {this.renderSelection()}
           <button onClick={this.onTestClicked}> Force-next </button>
         </div>
