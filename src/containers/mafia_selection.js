@@ -33,7 +33,7 @@ class MafiaSelection extends Component {
   }
 
   renderSelection() {
-    if (!localStorage.getItem('role')) { // this just checks if data has been fetched and mapped to props yet
+    if (!localStorage.getItem('role')) {
       return '';
     } else if (localStorage.getItem('role') === 'mafia') {
       return (

@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { voteKill } from '../actions';
-// import { withRouter, NavLink } from 'react-router-dom';
 
+import { voteKill } from '../actions';
 
 class Voting extends Component {
 
@@ -13,7 +11,6 @@ class Voting extends Component {
 
     this.state = { clicked: false };
 
-    // binding
     this.renderPlayerStatus = this.renderPlayerStatus.bind(this);
     this.onSubmitVote = this.onSubmitVote.bind(this);
     this.onTestClicked = this.onTestClicked.bind(this);
@@ -34,7 +31,6 @@ class Voting extends Component {
   }
 
   renderPlayerStatus() {
-    // this just checks if data has been fetched and mapped to props yet
     if (!this.props.players) {
       return '';
     } else {

@@ -34,7 +34,7 @@ class DoctorSelection extends Component {
   }
 
   renderSelection() {
-    if (!localStorage.getItem('role')) { // this just checks if data has been fetched and mapped to props yet
+    if (!localStorage.getItem('role')) {
       return '';
     } else if (localStorage.getItem('role') === 'doctor') {
       return (
@@ -63,7 +63,7 @@ class DoctorSelection extends Component {
       return (
         <div className="waiting-container">
           <div className="waiting">
-          Waiting for the doctor to heal<span>.</span><span>.</span><span>.</span>
+            Waiting for the doctor to heal<span>.</span><span>.</span><span>.</span>
           </div>
           <img src="/images/heal.svg" alt="heal" />
         </div>

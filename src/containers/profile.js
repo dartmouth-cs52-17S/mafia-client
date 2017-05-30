@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-// import { withRouter, NavLink } from 'react-router-dom';
 
 import { fetchProfile } from '../actions';
 import Nav from './nav';
@@ -14,7 +12,6 @@ class Profile extends Component {
 
     this.state = {};
 
-    // binding
     this.renderProfile = this.renderProfile.bind(this);
     this.playedMostAs = this.playedMostAs.bind(this);
     this.renderBadges = this.renderBadges.bind(this);
@@ -24,9 +21,8 @@ class Profile extends Component {
     this.props.fetchProfile(this.props.match.params.userID);
   }
 
-  // individual section
   playedMostAs() {
-    if (!this.props.profile.username) { // this just checks if data has been fetched and mapped to props yet
+    if (!this.props.profile.username) {
       return '';
     } else {
       const mafia = this.props.profile.roundsAsMafia;
@@ -58,7 +54,6 @@ class Profile extends Component {
     }
   }
 
-  // Render the profile page
   renderProfile() {
     return (
       <div className="ProfilePage">
@@ -89,7 +84,6 @@ class Profile extends Component {
 
 
   render() {
-    /* check if profile has been mapped to props yet */
     if (this.props.profile.username) {
       return (
         <div>
@@ -98,10 +92,10 @@ class Profile extends Component {
         </div>
       );
     } else {
-      /* If not then maybe we'll add a lil spinny loady here */
       return (
         <div>
           <Nav />
+          <div className="spinny-loady" />
           <div>Loading Profile...</div>
         </div>
       );

@@ -11,8 +11,6 @@ const UserReducer = (state = defaultState, action) => {
       return Object.assign({}, state, { all: action.payload });
     case ActionTypes.CREATE_USER:
       return Object.assign({}, state, state.all.push(action.payload));
-    // case ActionTypes.FETCH_USER:
-    //   return Object.assign({}, state, { user: action.payload });
     default:
       return state;
   }
