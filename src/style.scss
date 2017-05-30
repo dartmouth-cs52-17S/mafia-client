@@ -291,29 +291,34 @@ nav {
   width: 20vw;
   height: 85vh;
 
-  .message {
-    padding-left: 10px;
-    padding-bottom: 5px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+  .all-chats {
+    overflow: scroll;
+    
+    .message {
+      padding-left: 10px;
+      padding-bottom: 5px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      flex-wrap: wrap;
 
-    .chat-sender {
-      padding-right: 5px;
-      font-weight: 900;
-      color: $mafia-red;
+      .chat-sender {
+        padding-right: 5px;
+        font-weight: 900;
+        color: $mafia-red;
+      }
+
+      .chat-message {
+        font-weight: 100;
+      }
     }
 
-    .chat-message {
-      font-weight: 100;
+    .notice {
+      text-align: center;
+      padding-left: 10px;
+      padding-bottom: 5px;
+      font-size: 13px;
     }
-  }
-
-  .notice {
-    text-align: center;
-    padding-left: 10px;
-    padding-bottom: 5px;
-    font-size: 13px;
   }
 
   .chat-input {
