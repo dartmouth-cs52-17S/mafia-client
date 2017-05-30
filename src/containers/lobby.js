@@ -263,9 +263,7 @@ class Lobby extends Component {
       );
     } else {
       return (
-        <div className="reactComment">{setTimeout(() => {
-          this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 });
-        }, 2000)}
+        <div className="reactComment">{this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 })}
         </div>
       );
     }
