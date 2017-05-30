@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
-import { createGame, createPlayers, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame } from '../actions';
+import { createGame, createPlayers, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, checkEnd } from '../actions';
 import Chat from './chat';
 import { socketserver } from './app';
 import Players from './playersDisplay';
@@ -11,6 +11,7 @@ import MafiaSelect from './mafia_selection';
 import PoliceSelect from './police_selection';
 import Voting from './voting';
 import Nav from './nav';
+import CountVotes from './count_votes';
 
 class Lobby extends Component {
   constructor(props) {
@@ -159,7 +160,6 @@ class Lobby extends Component {
           <div className="spinny-loady" />
         </div>
         <div className="reactComment">{setTimeout(() => {
-          this.socket.emit('fetch', this.props.game.id);
           this.socket.emit('updateStage', { id: this.props.game.id, stage: 2 });
         }, 2000)}
         </div>
@@ -170,7 +170,7 @@ class Lobby extends Component {
   // Stage 2: Dislay Assigned Roles to Individual Player
   renderStage2() {
     return (
-      <div>
+      <div className="stage2">
         <h3>Roles have been assigned!</h3>
         <h2>Your role is:</h2>
         <div>{this.renderRole()}</div>
@@ -228,6 +228,50 @@ class Lobby extends Component {
     );
   }
 
+  renderStage8() {
+    return (
+      <div>
+        <CountVotes />
+        <div className="reactComment">{setTimeout(() => {
+          this.socket.emit('updateStage', { id: this.props.game.id, stage: 9 });
+        }, 2000)}
+        </div>
+      </div>
+    );
+  }
+
+  renderStage9() {
+    return (
+      <div>
+        <h3>The people have spoken!</h3>
+        <h5>The village has decided to kill...</h5>
+        <div>{this.props.players.deadMan.name}</div>
+        <div className="reactComment">{setTimeout(() => {
+          this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 });
+        }, 2000)}
+        </div>
+      </div>
+    );
+  }
+
+  renderStage10() {
+    this.props.checkEnd(this.props.game.id);
+    this.props.fetchGame(this.props.game.id);
+    if (this.props.game.isOver) {
+      return (
+        <div>
+          <div>Game Over</div>
+          <div>Winner is {this.props.game.winner}</div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="reactComment">{this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 })}
+        </div>
+      );
+    }
+  }
+
   renderStages() {
     switch (this.props.game.stage) {
       case 0:
@@ -246,13 +290,26 @@ class Lobby extends Component {
         return <div>{this.renderStage6()}</div>;
       case 7:
         return <div>{this.renderStage7()}</div>;
+      case 8:
+        return <div>{this.renderStage8()}</div>;
+      case 9:
+        return <div>{this.renderStage9()}</div>;
+      case 10:
+        return <div>{this.renderStage10()}</div>;
       default: return '';
     }
   }
 
   renderChat() {
     if (!this.props.match.params.gameID) {
-      return (<div>Chat is loading...</div>);
+      return (
+        <div>
+          <div>Chat is loading...</div>
+          <div>
+            If loading continues for more than 10 seconds, try force reloading.
+          </div>
+        </div>
+      );
     }
     return (
       <Chat gameID={this.props.match.params.gameID} reload={this.refetchAll} />
@@ -284,6 +341,7 @@ class Lobby extends Component {
 const mapStateToProps = state => ({
   game: state.game,
   users: state.users,
+  players: state.players,
 });
 
-export default withRouter(connect(mapStateToProps, { createPlayers, createGame, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame })(Lobby));
+export default withRouter(connect(mapStateToProps, { createPlayers, createGame, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, checkEnd })(Lobby));

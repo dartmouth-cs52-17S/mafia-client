@@ -38,7 +38,6 @@ class App extends Component {
     return (
       <Router>
         <div>
-          {/* <Nav />*/}
           <Switch>
             <Route exact path="/" component={LandingPage} />
             <Route path="/home" component={CreateOrJoinGame} />
@@ -46,7 +45,6 @@ class App extends Component {
             <Route exact path="/lobby" component={Lobby} />
             <Route path="/directions" component={Directions} />
             <Route path="/profile/:userID" component={Profile} />
-
             {/* <Route path="/chat" component={Chat} /> */}
             <Route component={FallBack} />
           </Switch>

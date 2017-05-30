@@ -3,6 +3,7 @@ import { ActionTypes } from '../actions';
 const initialState = {
   id: 'unassigned',
   players: [],
+  winner: '',
   creator: '',
   stage: 0,
 };
@@ -27,6 +28,8 @@ const GameReducer = (state = initialState, action) => {
       return Object.assign({}, state, state.players.push(action.payload.data.name));
     case ActionTypes.UPDATE_STAGE:
       return Object.assign({}, state, { stage: action.payload.data.currentGameStage });
+    case ActionTypes.DECLARE_WINNER:
+      return Object.assign({}, state, { winner: action.payload });
     default:
       return state;
   }

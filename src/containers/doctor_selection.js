@@ -15,16 +15,14 @@ class DoctorSelection extends Component {
     this.onTestClicked = this.onTestClicked.bind(this);
   }
 
-  componentDidMount() {
-    this.props.fetch(this.props.game.id);
-  }
-
   onDoctorHeal() {
-    if (localStorage.getItem('role') === 'doctor') {
+    if (document.querySelector('input[name="doctor"]:checked')) {
       const doctor = document.querySelector('input[name="doctor"]:checked').value;
       this.props.doctorChoose(this.props.game.id, doctor);
+      this.props.updateStage(this.props.game.id, 6);
+    } else {
+      alert('Doctor must heal one person.');
     }
-    this.props.updateStage(this.props.game.id, 6);
   }
 
   onHealClicked(event) {
@@ -56,6 +54,7 @@ class DoctorSelection extends Component {
                 <div>
                   <input type="radio" name="doctor" value={player.id} />
                   <div className="playerAliveName">{player.name}</div>
+
                 </div>
               </div>
             );

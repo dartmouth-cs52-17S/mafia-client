@@ -25,7 +25,7 @@ class Voting extends Component {
   }
 
   onTestClicked(event) {
-    this.props.updateStage(this.props.game.id, 3);
+    this.props.updateStage(this.props.game.id, 8);
   }
 
   onSubmitVote() {

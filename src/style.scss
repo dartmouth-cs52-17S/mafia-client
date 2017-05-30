@@ -50,6 +50,10 @@ nav {
     background-color: #000000;
     padding: 5px;
   }
+
+  #signoutbutt:hover {
+    cursor: pointer;
+  }
 }
 
 .landing-page-container {
@@ -100,6 +104,10 @@ nav {
   .signin:active {
     box-shadow: 0 3px 0 #ad0015;
     transform: translateY(3px);
+  }
+
+  .signin:hover {
+    cursor: pointer;
   }
 }
 
@@ -283,7 +291,7 @@ nav {
   width: 20vw;
   height: 85vh;
 
-  .chat-outcome {
+  .message {
     padding-left: 10px;
     padding-bottom: 5px;
     display: flex;
@@ -293,11 +301,19 @@ nav {
     .chat-sender {
       padding-right: 5px;
       font-weight: 900;
+      color: $mafia-red;
     }
 
     .chat-message {
       font-weight: 100;
     }
+  }
+
+  .notice {
+    text-align: center;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    font-size: 13px;
   }
 
   .chat-input {
@@ -314,7 +330,7 @@ nav {
       height: 3vh;
       width: 20vw;
       padding-left: 10px;
-      font-size: 20px;
+      font-size: 18px;
     }
   }
 }
@@ -370,6 +386,10 @@ nav {
     box-shadow: 0 2px 0 #db4d4d;
     transform: translateY(3px);
   }
+
+  #join-button:hover {
+    cursor: pointer;
+  }
 }
 
 #render-butt {
@@ -382,6 +402,10 @@ nav {
   height: 5vh;
   position: absolute;
   top: 80vh;
+}
+
+#render-butt:hover {
+  cursor: pointer;
 }
 
 .reactComment {
@@ -409,4 +433,8 @@ nav {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.stage2 {
+  cursor: progress;
 }

@@ -21,6 +21,8 @@ export const ActionTypes = {
   GUESS_MAFIA: 'GUESS_MAFIA',
   UPDATE_STAGE: 'UPDATE_STAGE',
   VOTE_KILL: 'VOTE_KILL',
+  VOTES_COUNTED: 'VOTES_COUNTED',
+  DECLARE_WINNER: 'DECLARE_WINNER',
 };
 
 export const ROOT_URL = RUNNING_LOCALLY ? 'http://localhost:9090/api' : 'https://online-mafia.herokuapp.com/api';
@@ -113,15 +115,32 @@ export function voteKill(id) {
   };
 }
 
+export function tallyVotes(gameID) {
+  console.log(`tallyVotes for players in game ${gameID}`);
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/players/${gameID}`).then((response) => {
+      console.log(response.data);
+      let deadMan;
+      let max = Number.MIN_SAFE_INTEGER;
+      response.data.forEach((player) => {
+        if (player.voteCount > max) {
+          max = player.voteCount;
+          deadMan = player;
+        }
+      });
+      console.log(deadMan);
+      dispatch({ type: ActionTypes.VOTES_COUNTED, payload: deadMan });
+    });
+  };
+}
+
 export function guessMafia(id) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/player/${id}`).then((response) => {
-      console.log(response.data);
       const payload = (response.data.role === 'mafia');
-      dispatch({ type: ActionTypes.GUESS_MAFIA, payload });
+      localStorage.setItem('correctGuess', payload);
     }).catch((error) => {
       console.log(error);
-      console.log('guess Mafia is not working');
     });
   };
 }
@@ -144,6 +163,31 @@ export function fetchPlayers(gameID) {
         return { id: fragment.id, userID: fragment.user, gameID: fragment.game, status: fragment.status, name: fragment.name };
       });
       dispatch({ type: ActionTypes.FETCH_PLAYERS, payload });
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
+
+export function checkEnd(gameID) {
+  return (dispatch) => {
+    let winner;
+    axios.get(`${ROOT_URL}/players/${gameID}`).then((response) => {
+      const survivor = response.data.filter((player) => { return (player.status === true); },
+    );
+      console.log(survivor);
+      // update backend
+      if (survivor.length === 2) {
+        axios.put(`${ROOT_URL}/game/end/${gameID}`);
+        if (survivor.every((player) => { return player.role !== 'mafia'; })) {
+          winner = 'villagers';
+        } else if (survivor.some((player) => { return player.role !== 'doctor'; })) {
+          winner = 'mafia';
+        } else {
+          winner = 'tie';
+        }
+      }
+      dispatch({ type: ActionTypes.DECLARE_WINNER, payload: winner });
     }).catch((error) => {
       console.log(error);
     });
