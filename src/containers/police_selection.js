@@ -8,6 +8,7 @@ class PoliceSelection extends Component {
     super(props);
 
     this.state = { clicked: false };
+
     this.onRevealClicked = this.onRevealClicked.bind(this);
     this.onTestClicked = this.onTestClicked.bind(this);
     this.onNextClicked = this.onNextClicked.bind(this);

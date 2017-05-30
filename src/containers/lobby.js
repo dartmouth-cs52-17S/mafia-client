@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
-import { createGame, createPlayers, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, checkEnd } from '../actions';
+import { createGame, createPlayers, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, checkEnd, resetVotes } from '../actions';
 import Chat from './chat';
 import { socketserver } from './app';
 import Players from './playersDisplay';
@@ -35,7 +35,6 @@ class Lobby extends Component {
         this.props.getPlayers(localStorage.getItem('token'), this.props.match.params.gameID);
         this.socket.emit('join', this.props.match.params.gameID);
       }
-      this.setState({});
       setTimeout(() => this.props.fetchGame(this.props.match.params.gameID), 1000);
     });
 
@@ -64,48 +63,60 @@ class Lobby extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    switch (nextProps.game.stage) {
-      case 0:
-        break;
-      case 1:
-        setTimeout(() => {
-          this.socket.emit('updateStage', { id: this.props.game.id, stage: 2 });
-        }, 2000);
-        break;
-      case 2:
-        setTimeout(() => {
-          this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 });
-        }, 2000);
-        break;
-      case 3:
-        break;
-      case 4:
-        break;
-      case 5:
-        break;
-      case 6:
-        break;
-      case 7:
-        break;
-      case 8:
-        setTimeout(() => {
-          this.socket.emit('updateStage', { id: this.props.game.id, stage: 9 });
-        }, 2000);
-        break;
-      case 9:
-        setTimeout(() => {
-          this.socket.emit('updateStage', { id: this.props.game.id, stage: 10 });
-        }, 2000);
-        break;
-      case 10:
-        this.props.checkEnd(this.props.game.id);
-        this.props.fetchGame(this.props.game.id);
-        setTimeout(() => {
-          this.socket.emit('updateStage', { id: this.props.game.id, stage: 11 });
-        }, 2000);
-        break;
-      default:
-        break;
+    if (this.props.game.stage !== nextProps.game.stage) {
+      switch (nextProps.game.stage) {
+        case 0:
+          break;
+        case 1:
+          setTimeout(() => {
+            this.socket.emit('updateStage', { id: this.props.game.id, stage: 2 });
+          }, 2000);
+          break;
+        case 2:
+          setTimeout(() => {
+            this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 });
+          }, 2000);
+          break;
+        case 3:
+          break;
+        case 4:
+          break;
+        case 5:
+          break;
+        case 6:
+          break;
+        case 7:
+          console.log('THE SHIT');
+          setTimeout(() => {
+            console.log('WHAT THE FUCKING FUCK');
+            this.socket.emit('updateStage', { id: this.props.game.id, stage: 8 });
+          }, 8000);
+          break;
+        case 8:
+          setTimeout(() => {
+            this.socket.emit('updateStage', { id: this.props.game.id, stage: 9 });
+          }, 2000);
+          break;
+        case 9:
+          this.props.resetVotes(this.props.game.id);
+          setTimeout(() => {
+            this.socket.emit('updateStage', { id: this.props.game.id, stage: 10 });
+          }, 2000);
+          break;
+        case 10:
+          this.props.checkEnd(this.props.game.id);
+          setTimeout(() => {
+            this.socket.emit('updateStage', { id: this.props.game.id, stage: 11 });
+          }, 1000);
+          break;
+        case 11:
+          if (!nextProps.game.isOver) {
+            this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 });
+          }
+          break;
+        default:
+          break;
+      }
     }
   }
 
@@ -235,7 +246,7 @@ class Lobby extends Component {
   renderStage4() {
     return (
       <div>
-        <MafiaSelect fetch={id => this.socket.emit('fetch', id)} updateStage={(id, stage) => this.socket.emit('updateStage', { id, stage })} />
+        <MafiaSelect fetch={id => this.socket.emit('fetch', id)} updateStage={(id, stage) => this.socket.emit('updateStage', { id, stage: 5 })} />
       </div>
     );
   }
@@ -244,7 +255,7 @@ class Lobby extends Component {
   renderStage5() {
     return (
       <div>
-        <DoctorSelect fetch={id => this.socket.emit('fetch', id)} updateStage={(id, stage) => this.socket.emit('updateStage', { id, stage })} />
+        <DoctorSelect fetch={id => this.socket.emit('fetch', id)} updateStage={id => this.socket.emit('updateStage', { id, stage: 6 })} />
       </div>
     );
   }
@@ -253,7 +264,7 @@ class Lobby extends Component {
   renderStage6() {
     return (
       <div>
-        <PoliceSelect fetch={id => this.socket.emit('fetch', id)} updateStage={(id, stage) => this.socket.emit('updateStage', { id, stage })} />
+        <PoliceSelect fetch={id => this.socket.emit('fetch', id)} updateStage={id => this.socket.emit('updateStage', { id, stage: 7 })} />
       </div>
     );
   }
@@ -261,7 +272,7 @@ class Lobby extends Component {
   renderStage7() {
     return (
       <div>
-        <Voting fetch={id => this.socket.emit('fetch', id)} updateStage={(id, stage) => this.socket.emit('updateStage', { id, stage })} />
+        <Voting fetch={id => this.socket.emit('fetch', id)} updateStage={id => this.socket.emit('updateStage', { id, stage: 8 })} />
       </div>
     );
   }
@@ -284,10 +295,6 @@ class Lobby extends Component {
         <h3>The people have spoken!</h3>
         <h5>The village has decided to kill...</h5>
         <div>{this.props.players.deadMan.name}</div>
-        <div className="reactComment">{setTimeout(() => {
-          this.socket.emit('updateStage', { id: this.props.game.id, stage: 10 });
-        }, 2000)}
-        </div>
       </div>
     );
   }
@@ -301,20 +308,12 @@ class Lobby extends Component {
   }
 
   renderStage11() {
-    if (this.props.game.isOver) {
-      return (
-        <div>
-          <div>Game Over</div>
-          <div>Winner is {this.props.game.winner}</div>
-        </div>
-      );
-    } else {
-      return (
-        <div className="reactComment">
-          {this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 })}
-        </div>
-      );
-    }
+    return (
+      <div>
+        <div>Game Over</div>
+        <div>Winner is {this.props.game.winner}</div>
+      </div>
+    );
   }
 
   renderStages() {
@@ -391,4 +390,4 @@ const mapStateToProps = state => ({
   players: state.players,
 });
 
-export default withRouter(connect(mapStateToProps, { createPlayers, createGame, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, checkEnd })(Lobby));
+export default withRouter(connect(mapStateToProps, { createPlayers, createGame, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, checkEnd, resetVotes })(Lobby));
