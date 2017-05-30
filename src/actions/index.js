@@ -22,6 +22,7 @@ export const ActionTypes = {
   UPDATE_STAGE: 'UPDATE_STAGE',
   VOTE_KILL: 'VOTE_KILL',
   VOTES_COUNTED: 'VOTES_COUNTED',
+  DECLARE_WINNER: 'DECLARE_WINNER',
 };
 
 export const ROOT_URL = RUNNING_LOCALLY ? 'http://localhost:9090/api' : 'https://online-mafia.herokuapp.com/api';
@@ -106,7 +107,7 @@ export function healPlayer(id) {
 
 export function voteKill(id) {
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/players/heal/${id}`).then((response) => {
+    axios.put(`${ROOT_URL}/player/vote/${id}`).then((response) => {
       dispatch({ type: ActionTypes.VOTE_KILL, payload: response });
     }).catch((error) => {
       console.log(error);
@@ -147,6 +148,7 @@ export function guessMafia(id) {
 export function fetchGame(id) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/game/${id}`).then((response) => {
+      console.log(response.data);
       dispatch({ type: ActionTypes.FETCH_GAME, payload: response.data });
     }).catch((error) => {
       console.log(error);
@@ -162,6 +164,31 @@ export function fetchPlayers(gameID) {
         return { id: fragment.id, userID: fragment.user, gameID: fragment.game, status: fragment.status, name: fragment.name };
       });
       dispatch({ type: ActionTypes.FETCH_PLAYERS, payload });
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
+
+export function checkEnd(gameID) {
+  return (dispatch) => {
+    let winner;
+    axios.get(`${ROOT_URL}/players/${gameID}`).then((response) => {
+      const survivor = response.data.filter((player) => { return (player.status === true); },
+    );
+      console.log(survivor);
+      // update backend
+      if (survivor.length <= 2) {
+        axios.put(`${ROOT_URL}/game/end/${gameID}`);
+        if (survivor.every((player) => { return player.role !== 'mafia'; })) {
+          winner = 'villagers';
+        } else if (survivor.some((player) => { return player.role !== 'doctor'; })) {
+          winner = 'mafia';
+        } else {
+          winner = 'tie';
+        }
+      }
+      dispatch({ type: ActionTypes.DECLARE_WINNER, payload: winner });
     }).catch((error) => {
       console.log(error);
     });
@@ -224,5 +251,30 @@ export function updateStage(gameId, stage) {
     axios.put(`${ROOT_URL}/game/stage/${gameId}`, { stage }).then((result) => {
       dispatch({ type: ActionTypes.UPDATE_STAGE, payload: result });
     }).catch((err) => { console.log(err); });
+  };
+}
+
+export function mafiaChoose(gameId, selection) {
+  console.log(selection);
+  console.log('mafiaChoose');
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/game/selection/${gameId}`, { type: 'mafiaSelection', selection })
+    .catch((err) => { console.log(err); });
+  };
+}
+
+export function doctorChoose(gameId, selection) {
+  return (dispatch) => {
+    console.log('doctorChoose');
+    axios.put(`${ROOT_URL}/game/selection/${gameId}`, { type: 'doctorSelection', selection })
+    .catch((err) => { console.log(err); });
+  };
+}
+
+export function checkSelection(gameId) {
+  console.log('checkSelection');
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/game/check/${gameId}`)
+    .catch((err) => { console.log(err); });
   };
 }
