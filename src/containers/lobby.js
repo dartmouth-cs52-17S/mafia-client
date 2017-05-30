@@ -359,8 +359,8 @@ class Lobby extends Component {
   renderChat() {
     if (!this.props.match.params.gameID) {
       return (
-        <div>
-          <div>Chat is loading...</div>
+        <div className="chat-load">
+          <div className="spinny-loady" />
           <div>
             If loading continues for more than 10 seconds, try force reloading.
           </div>
