@@ -388,6 +388,26 @@ nav {
  // background-color: #D8D8D8;
 
  // background-color: #979797;
+  .StagesSec{
+    width:100vw;
+    margin: 0px;
+    // margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .StagesDisplay {
+      width: 80vw;
+      margin-left: 10px;
+      margin: 0px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      align-content: center;
+      // justify-content: space-between;
+      // .chat-section{
+      //   left:75vw;
+      //   position: absolute;
+      // }
 
   .StagesDisplay {
     width: 80vw;
@@ -553,6 +573,25 @@ nav {
   cursor: progress;
 }
 
+.night{
+  background-color: black;
+  color:white;
+  width: 100vw;
+  height: 88vh;
+  padding: 10px;
+
+}
+
+.nightFall{
+  height: 90vh;
+  width: 100vw;
+  animation: pulse 4s infinite;
+  }
+
+  @keyframes pulse{
+    0% { background-color: white; }
+    100% { background-color: black; }
+  }
 
 .next-butt{
   font-size: 15px;

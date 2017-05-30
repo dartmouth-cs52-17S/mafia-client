@@ -197,7 +197,6 @@ export function checkEnd(gameID) {
     axios.get(`${ROOT_URL}/players/${gameID}`).then((response) => {
       const survivor = response.data.filter((player) => { return (player.status === true); },
     );
-      console.log(survivor);
       // update backend
       if (survivor.length <= 2) {
         axios.put(`${ROOT_URL}/game/end/${gameID}`);

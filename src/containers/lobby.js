@@ -70,7 +70,7 @@ class Lobby extends Component {
       case 4:
         setTimeout(() => {
           this.socket.emit('updateStage', { id: this.props.game.id, stage: 5 });
-        }, 2000);
+        }, 5000);
         break;
       case 5:
         break;
@@ -236,14 +236,14 @@ class Lobby extends Component {
   // Stage 4: Night falls
   renderStage4() {
     return (
-      <div>The Night Falls</div>
+      <div className="nightFall">The Night Falls</div>
     );
   }
 
   // Stage 5: Mafia Kill
   renderStage5() {
     return (
-      <div>
+      <div className="night">
         <MafiaSelect fetch={id => this.socket.emit('fetch', id)} updateStage={(id, stage) => this.socket.emit('updateStage', { id, stage })} />
       </div>
     );
@@ -252,7 +252,7 @@ class Lobby extends Component {
   // Stage 6: Doctor Heal
   renderStage6() {
     return (
-      <div className="stage">
+      <div className="night stage">
         <DoctorSelect fetch={id => this.socket.emit('fetch', id)} updateStage={(id, stage) => this.socket.emit('updateStage', { id, stage })} />
       </div>
     );
@@ -261,7 +261,7 @@ class Lobby extends Component {
   // Stage 7: Police Reveal
   renderStage7() {
     return (
-      <div className="stage">
+      <div className="night stage">
         <PoliceSelect fetch={id => this.socket.emit('fetch', id)} updateStage={(id, stage) => this.socket.emit('updateStage', { id, stage })} />
       </div>
     );
@@ -270,6 +270,7 @@ class Lobby extends Component {
   renderStage8() {
     return (
       <div className="stage">
+        <p3>It is Day Time</p3>
         <Voting fetch={id => this.socket.emit('fetch', id)} updateStage={(id, stage) => this.socket.emit('updateStage', { id, stage })} />
       </div>
     );
@@ -384,12 +385,12 @@ class Lobby extends Component {
         <div>
           <Nav />
           <div className="lobby-container">
-            <div className="StagesDisplay">
-              <h1>Stage: {this.props.game.stage}</h1>
-              {this.renderStages()}
-            </div>
-            <div className="chat-section">
-              {this.renderChat()}
+            {console.log(this.props.game.stage)}
+            <div className="StagesSec">
+              <div className="StagesDisplay">{this.renderStages()}</div>
+              <div className="chat-section">
+                {this.renderChat()}
+              </div>
             </div>
           </div>
         </div>
