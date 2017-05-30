@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { killPlayer } from '../actions';
+import { mafiaChoose } from '../actions';
 
 class MafiaSelection extends Component {
   constructor(props) {
@@ -27,7 +27,8 @@ class MafiaSelection extends Component {
   onMafiaKill() {
     if (localStorage.getItem('role') === 'mafia') {
       const mafia = document.querySelector('input[name="mafia"]:checked').value;
-      this.props.killPlayer(mafia);
+      // this.props.killPlayer(mafia);
+      this.props.mafiaChoose(this.props.game.id, mafia);
     }
     this.props.updateStage(this.props.game.id, 5);
   }
@@ -101,4 +102,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { killPlayer })(MafiaSelection));
+export default withRouter(connect(mapStateToProps, { mafiaChoose })(MafiaSelection));

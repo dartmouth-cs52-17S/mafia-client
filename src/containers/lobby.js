@@ -51,6 +51,9 @@ class Lobby extends Component {
     this.renderStage2 = this.renderStage2.bind(this);
     this.renderStage3 = this.renderStage3.bind(this);
     this.renderStage4 = this.renderStage4.bind(this);
+    // this.renderStage5 = this.renderStage5.bind(this);
+    // this.renderStage6 = this.rederStage6.bind(this);
+    // this.renderStage7 = this.rederStage7.bind(this);
     this.renderStages = this.renderStages.bind(this);
     this.renderChat = this.renderChat.bind(this);
     this.refetchAll = this.refetchAll.bind(this);

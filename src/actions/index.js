@@ -105,7 +105,7 @@ export function healPlayer(id) {
 
 export function voteKill(id) {
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/players/heal/${id}`).then((response) => {
+    axios.put(`${ROOT_URL}/player/vote/${id}`).then((response) => {
       dispatch({ type: ActionTypes.VOTE_KILL, payload: response });
     }).catch((error) => {
       console.log(error);
@@ -206,5 +206,30 @@ export function updateStage(gameId, stage) {
     axios.put(`${ROOT_URL}/game/stage/${gameId}`, { stage }).then((result) => {
       dispatch({ type: ActionTypes.UPDATE_STAGE, payload: result });
     }).catch((err) => { console.log(err); });
+  };
+}
+
+export function mafiaChoose(gameId, selection) {
+  console.log(selection);
+  console.log('mafiaChoose');
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/game/selection/${gameId}`, { type: 'mafiaSelection', selection })
+    .catch((err) => { console.log(err); });
+  };
+}
+
+export function doctorChoose(gameId, selection) {
+  return (dispatch) => {
+    console.log('doctorChoose');
+    axios.put(`${ROOT_URL}/game/selection/${gameId}`, { type: 'doctorSelection', selection })
+    .catch((err) => { console.log(err); });
+  };
+}
+
+export function checkSelection(gameId) {
+  console.log('checkSelection');
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/game/check/${gameId}`)
+    .catch((err) => { console.log(err); });
   };
 }
