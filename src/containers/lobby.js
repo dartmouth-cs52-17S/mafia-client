@@ -31,7 +31,7 @@ class Lobby extends Component {
           this.props.getPlayers(localStorage.getItem('token'), this.props.match.params.gameID);
           this.socket.emit('join', this.props.match.params.gameID);
         });
-      } else {
+      } else if (this.props.game.players.length < 6) {
         this.props.getPlayers(localStorage.getItem('token'), this.props.match.params.gameID);
         this.socket.emit('join', this.props.match.params.gameID);
       }
