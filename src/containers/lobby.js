@@ -44,23 +44,69 @@ class Lobby extends Component {
       players: [],
     };
 
-    this.renderPlayers = this.renderPlayers.bind(this);
+    // this.renderPlayers = this.renderPlayers.bind(this);
     this.onPlayClicked = this.onPlayClicked.bind(this);
-    this.renderPlayButton = this.renderPlayButton.bind(this);
-    this.renderStage0 = this.renderStage0.bind(this);
-    this.renderStage1 = this.renderStage1.bind(this);
-    this.renderStage2 = this.renderStage2.bind(this);
-    this.renderStage3 = this.renderStage3.bind(this);
-    this.renderStage4 = this.renderStage4.bind(this);
+    // this.renderPlayButton = this.renderPlayButton.bind(this);
+    // this.renderStage0 = this.renderStage0.bind(this);
+    // this.renderStage1 = this.renderStage1.bind(this);
+    // this.renderStage2 = this.renderStage2.bind(this);
+    // this.renderStage3 = this.renderStage3.bind(this);
+    // this.renderStage4 = this.renderStage4.bind(this);
     // this.renderStage5 = this.renderStage5.bind(this);
     // this.renderStage6 = this.rederStage6.bind(this);
     // this.renderStage7 = this.rederStage7.bind(this);
-    this.renderStages = this.renderStages.bind(this);
-    this.renderChat = this.renderChat.bind(this);
+    // this.renderStages = this.renderStages.bind(this);
+    // this.renderChat = this.renderChat.bind(this);
     this.refetchAll = this.refetchAll.bind(this);
     this.tempOnPlayClicked = this.tempOnPlayClicked.bind(this);
     // this.backtoStage3 = this.backtoStage3.bind(this);
     // this.tempRenderNextButton = this.tempRenderNextButton.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    switch (nextProps.game.stage) {
+      case 0:
+        break;
+      case 1:
+        setTimeout(() => {
+          this.socket.emit('updateStage', { id: this.props.game.id, stage: 2 });
+        }, 2000);
+        break;
+      case 2:
+        setTimeout(() => {
+          this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 });
+        }, 2000);
+        break;
+      case 3:
+        break;
+      case 4:
+        break;
+      case 5:
+        break;
+      case 6:
+        break;
+      case 7:
+        break;
+      case 8:
+        setTimeout(() => {
+          this.socket.emit('updateStage', { id: this.props.game.id, stage: 9 });
+        }, 2000);
+        break;
+      case 9:
+        setTimeout(() => {
+          this.socket.emit('updateStage', { id: this.props.game.id, stage: 10 });
+        }, 2000);
+        break;
+      case 10:
+        this.props.checkEnd(this.props.game.id);
+        this.props.fetchGame(this.props.game.id);
+        setTimeout(() => {
+          this.socket.emit('updateStage', { id: this.props.game.id, stage: 11 });
+        }, 2000);
+        break;
+      default:
+        break;
+    }
   }
 
   // Switch Stages
@@ -159,10 +205,6 @@ class Lobby extends Component {
         <div>
           <div className="spinny-loady" />
         </div>
-        <div className="reactComment">{setTimeout(() => {
-          this.socket.emit('updateStage', { id: this.props.game.id, stage: 2 });
-        }, 2000)}
-        </div>
       </div>
     );
   }
@@ -175,10 +217,6 @@ class Lobby extends Component {
         <h2>Your role is:</h2>
         <div>{this.renderRole()}</div>
         <span>Will automatically advance stage after 10 secs</span>
-        <div className="reactComment">{setTimeout(() => {
-          this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 });
-        }, 2000)}
-        </div>
       </div>
     );
   }
@@ -257,25 +295,26 @@ class Lobby extends Component {
   renderStage10() {
     return (
       <div>
-        {this.props.checkEnd(this.props.game.id)}
-        {this.props.fetchGame(this.props.game.id)}
-        {setTimeout(() => {
-          if (this.props.game.isOver) {
-            return (
-              <div>
-                <div>Game Over</div>
-                <div>Winner is {this.props.game.winner}</div>
-              </div>
-            );
-          } else {
-            return (
-              <div className="reactComment">{this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 })}
-              </div>
-            );
-          }
-        }, 2000)}
+        <div className="spinny-loady" />
       </div>
     );
+  }
+
+  renderStage11() {
+    if (this.props.game.isOver) {
+      return (
+        <div>
+          <div>Game Over</div>
+          <div>Winner is {this.props.game.winner}</div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="reactComment">
+          {this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 })}
+        </div>
+      );
+    }
   }
 
   renderStages() {
@@ -302,6 +341,8 @@ class Lobby extends Component {
         return <div>{this.renderStage9()}</div>;
       case 10:
         return <div>{this.renderStage10()}</div>;
+      case 11:
+        return <div>{this.renderStage11()}</div>;
       default: return '';
     }
   }
