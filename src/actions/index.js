@@ -9,7 +9,7 @@ export const ActionTypes = {
   FETCH_GAME: 'FETCH_GAME',
   FETCH_GAMES: 'FETCH_GAMES',
   CREATE_GAME: 'CREATE_GAME',
-  UPDATE_GAME: 'UPDATE_GAME',
+  DELETE_GAME: 'DELETE_GAME',
   AUTH_USER: 'AUTH_USER',
   ADD_USER: 'ADD_USER',
   DEAUTH_USER: 'DEAUTH_USER',
@@ -72,6 +72,16 @@ export function createGame(jwt, history) {
         console.log(error);
         reject(error);
       });
+    });
+  };
+}
+
+export function deleteGame(gameID) {
+  return (dispatch) => {
+    axios.delete(`${ROOT_URL}/game/delete/${gameID}`).then((response) => {
+      dispatch({ type: ActionTypes.DELETE_GAME });
+    }).catch((error) => {
+      console.log(error);
     });
   };
 }

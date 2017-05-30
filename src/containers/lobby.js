@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
-import { createGame, createPlayers, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, checkEnd } from '../actions';
+import { createGame, createPlayers, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, checkEnd, deleteGame } from '../actions';
 import Chat from './chat';
 import { socketserver } from './app';
 import Players from './playersDisplay';
@@ -46,21 +46,9 @@ class Lobby extends Component {
 
     // this.renderPlayers = this.renderPlayers.bind(this);
     this.onPlayClicked = this.onPlayClicked.bind(this);
-    // this.renderPlayButton = this.renderPlayButton.bind(this);
-    // this.renderStage0 = this.renderStage0.bind(this);
-    // this.renderStage1 = this.renderStage1.bind(this);
-    // this.renderStage2 = this.renderStage2.bind(this);
-    // this.renderStage3 = this.renderStage3.bind(this);
-    // this.renderStage4 = this.renderStage4.bind(this);
-    // this.renderStage5 = this.renderStage5.bind(this);
-    // this.renderStage6 = this.rederStage6.bind(this);
-    // this.renderStage7 = this.rederStage7.bind(this);
-    // this.renderStages = this.renderStages.bind(this);
-    // this.renderChat = this.renderChat.bind(this);
     this.refetchAll = this.refetchAll.bind(this);
     this.tempOnPlayClicked = this.tempOnPlayClicked.bind(this);
-    // this.backtoStage3 = this.backtoStage3.bind(this);
-    // this.tempRenderNextButton = this.tempRenderNextButton.bind(this);
+    this.onQuitClicked = this.onQuitClicked.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -125,6 +113,11 @@ class Lobby extends Component {
   }
 //  onPlayClicked, players are created.
 
+  onQuitClicked(event) {
+    this.props.deleteGame(this.props.game.id);
+    this.props.history.push('/');
+  }
+
 // must delete
   tempOnPlayClicked(event) {
     this.socket.emit('updateStage', { id: this.props.game.id, stage: 4 });
@@ -160,28 +153,28 @@ class Lobby extends Component {
       case 'mafia':
         return (
           <div className="roleAssigned">
-            <h3>The Mafia</h3>
+            <h3 className="mafia-text">Mafia</h3>
             <img src="/images/mafia.png" alt="Mafia" />
           </div>
         );
       case 'doctor':
         return (
           <div className="roleAssigned">
-            <h3>The Doctor</h3>
+            <h3 className="doctor-text">Doctor</h3>
             <img src="/images/doctor.png" alt="Doctor" />
           </div>
         );
       case 'police':
         return (
           <div className="roleAssigned">
-            <h3>The Police</h3>
+            <h3 className="police-text">Police</h3>
             <img src="/images/police.png" alt="Police" />
           </div>
         );
       case 'villager':
         return (
           <div className="roleAssigned">
-            <h3>A Villager</h3>
+            <h3 className="villager-text">Villager</h3>
             <img src="/images/villager.png" alt="Villager" />
           </div>
         );
@@ -192,7 +185,7 @@ class Lobby extends Component {
   // Stage 0: Show Players Connected, Waiting for Players
   renderStage0() {
     return (
-      <div className="stage0">
+      <div className="stage">
         <h3>Players Connected:</h3>
         <ul>
           {this.renderPlayers()}
@@ -205,7 +198,7 @@ class Lobby extends Component {
   // Stage 1: Assigning Role Processing
   renderStage1() {
     return (
-      <div className="stage1">
+      <div className="stage">
         <h3>Assigning Roles...</h3>
         <div>
           <div className="spinny-loady" />
@@ -217,11 +210,15 @@ class Lobby extends Component {
   // Stage 2: Dislay Assigned Roles to Individual Player
   renderStage2() {
     return (
-      <div className="stage2">
+      <div className="card">
         <h3>Roles have been assigned!</h3>
         <h2>Your role is:</h2>
         <div>{this.renderRole()}</div>
         <span>Will automatically advance stage after 10 secs</span>
+        <div className="reactComment">{setTimeout(() => {
+          this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 });
+        }, 7000)}
+        </div>
       </div>
     );
   }
@@ -229,9 +226,9 @@ class Lobby extends Component {
   // Stage 3:Display all players
   renderStage3() {
     return (
-      <div>
+      <div className="stage">
         <Players fetch={id => this.socket.emit('fetch', id)} />
-        <button onClick={this.tempOnPlayClicked}>Next</button>
+        <button className="next-butt" onClick={this.tempOnPlayClicked}>Next</button>
       </div>
     );
   }
@@ -255,7 +252,7 @@ class Lobby extends Component {
   // Stage 6: Doctor Heal
   renderStage6() {
     return (
-      <div className="night">
+      <div className="night stage">
         <DoctorSelect fetch={id => this.socket.emit('fetch', id)} updateStage={(id, stage) => this.socket.emit('updateStage', { id, stage })} />
       </div>
     );
@@ -264,7 +261,7 @@ class Lobby extends Component {
   // Stage 7: Police Reveal
   renderStage7() {
     return (
-      <div className="night">
+      <div className="night stage">
         <PoliceSelect fetch={id => this.socket.emit('fetch', id)} updateStage={(id, stage) => this.socket.emit('updateStage', { id, stage })} />
       </div>
     );
@@ -272,7 +269,7 @@ class Lobby extends Component {
 
   renderStage8() {
     return (
-      <div>
+      <div className="stage">
         <p3>It is Day Time</p3>
         <Voting fetch={id => this.socket.emit('fetch', id)} updateStage={(id, stage) => this.socket.emit('updateStage', { id, stage })} />
       </div>
@@ -319,6 +316,8 @@ class Lobby extends Component {
         <div>
           <div>Game Over</div>
           <div>Winner is {this.props.game.winner}</div>
+          <button onClick={this.onQuitClicked}>Quit Game</button>
+          <button>Restart Game</button>
         </div>
       );
     } else {
@@ -333,21 +332,21 @@ class Lobby extends Component {
   renderStages() {
     switch (this.props.game.stage) {
       case 0:
-        return <div>{this.renderStage0()}</div>;
+        return <div className="stage">{this.renderStage0()}</div>;
       case 1:
-        return <div>{this.renderStage1()}</div>;
+        return <div className="stage">{this.renderStage1()}</div>;
       case 2:
-        return <div>{this.renderStage2()}</div>;
+        return <div className="stage">{this.renderStage2()}</div>;
       case 3:
-        return <div>{this.renderStage3()}</div>;
+        return <div className="stage">{this.renderStage3()}</div>;
       case 4:
-        return <div>{this.renderStage4()}</div>;
+        return <div className="stage">{this.renderStage4()}</div>;
       case 5:
-        return <div>{this.renderStage5()}</div>;
+        return <div className="stage">{this.renderStage5()}</div>;
       case 6:
-        return <div>{this.renderStage6()}</div>;
+        return <div className="stage">{this.renderStage6()}</div>;
       case 7:
-        return <div>{this.renderStage7()}</div>;
+        return <div className="stage">{this.renderStage7()}</div>;
       case 8:
         return <div>{this.renderStage8()}</div>;
       case 9:
@@ -365,8 +364,8 @@ class Lobby extends Component {
   renderChat() {
     if (!this.props.match.params.gameID) {
       return (
-        <div>
-          <div>Chat is loading...</div>
+        <div className="chat-load">
+          <div className="spinny-loady" />
           <div>
             If loading continues for more than 10 seconds, try force reloading.
           </div>
@@ -406,4 +405,4 @@ const mapStateToProps = state => ({
   players: state.players,
 });
 
-export default withRouter(connect(mapStateToProps, { createPlayers, createGame, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, checkEnd })(Lobby));
+export default withRouter(connect(mapStateToProps, { createPlayers, createGame, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, checkEnd, deleteGame })(Lobby));

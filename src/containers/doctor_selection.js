@@ -42,7 +42,7 @@ class DoctorSelection extends Component {
           if (player.status) {
             return (
               <div className="players_container">
-                <div>
+                <div className="option">
                   <input type="radio" name="doctor" value={player.id} />
                   <div className="playerAliveName">{player.name}</div>
                 </div>
@@ -51,10 +51,8 @@ class DoctorSelection extends Component {
           } else {
             return (
               <div className="players_container">
-                <div>
-                  <input type="radio" name="doctor" value={player.id} />
-                  <div className="playerAliveName">{player.name}</div>
-
+                <div className="option">
+                  <div className="playerDeadName">{player.name}</div>
                 </div>
               </div>
             );
@@ -73,21 +71,19 @@ class DoctorSelection extends Component {
   render() {
     if (localStorage.getItem('role') === 'doctor') {
       return (
-        <div>
-          <div className="RolesContainer">
-            {this.renderSelection()}
-            <button onClick={this.onHealClicked}> Next </button>
-          </div>
+        <div className="stage">
+          {this.renderSelection()}
+          <button onClick={this.onHealClicked}> Next </button>
         </div>
+
       );
     } else {
       return (
-        <div>
-          <div>
-            {this.renderSelection()}
-            <button onClick={this.onTestClicked}> Force-next </button>
-          </div>
+        <div className="stage">
+          {this.renderSelection()}
+          <button onClick={this.onTestClicked}> Force-next </button>
         </div>
+
       );
     }
   }

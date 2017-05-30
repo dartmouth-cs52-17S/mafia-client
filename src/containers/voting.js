@@ -43,7 +43,7 @@ class Voting extends Component {
       this.props.players.map((player) => {
         if (player.status) {
           return (
-            <div className="playerStatusContainer">
+            <div className="option">
               <input type="radio" name="vote" value={player.id} />
               <div className="playerAliveName" key={player.id}>{player.name}</div>
             </div>
@@ -63,13 +63,11 @@ class Voting extends Component {
 
   render() {
     return (
-      <div>
-        <div className="VotingContainer">
-          <h1>Voting</h1>
-          <div className="playersStatusContainer">{this.renderPlayerStatus()}</div>
-          <button onClick={this.onSubmitVote}> Submit </button>
-          <button onClick={this.onTestClicked}> Force-next </button>
-        </div>
+      <div className="VotingContainer">
+        <h1>Voting</h1>
+        <div className="playersStatusContainer">{this.renderPlayerStatus()}</div>
+        <button onClick={this.onSubmitVote}> Submit </button>
+        <button onClick={this.onTestClicked}> Force-next </button>
       </div>
     );
   }
