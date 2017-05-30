@@ -419,15 +419,6 @@ nav {
     flex-direction: column;
     align-items: center;
     align-content: center;
-
-    h1{
-      font-size: 30px;
-      border: 1px solid black;
-      padding: 20px;
-      background-color: #ffcb03;
-      // background-color: #0051E9;
-      border-radius: 5px;
-    }
   }
 
 }
@@ -598,11 +589,22 @@ nav {
 
 }
 
-.nightFall{
+.nightFall {
   height: 90vh;
   width: 100vw;
-  animation: pulse 4s infinite;
+  animation: pulse 3s infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+
+  .goodnight {
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    color: black;
   }
+}
 
   @keyframes pulse {
     0% { background-color: white; }

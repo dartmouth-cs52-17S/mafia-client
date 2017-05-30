@@ -246,7 +246,9 @@ class Lobby extends Component {
   // Stage 4: Night falls
   renderStage4() {
     return (
-      <div className="nightFall">The Night Falls</div>
+      <div className="nightFall">
+        <h1 className="goodnight">Nighty Night...</h1>
+      </div>
     );
   }
 
@@ -316,7 +318,7 @@ class Lobby extends Component {
     return (
       <div className="stage12">
         <div id="gameover">GAME OVER</div>
-        <div>Winner is {this.props.game.winner}</div>
+        <div>{this.props.game.winner}</div>
         <div className="stage12-butt">
           <button onClick={this.onQuitClicked} id="quit-butt">Quit?</button>
           <button onClick={this.onReplayClicked} id="quit-butt">Replay?</button>
