@@ -11,8 +11,7 @@ class Voting extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-    };
+    this.state = { clicked: false };
 
     // binding
     this.renderPlayerStatus = this.renderPlayerStatus.bind(this);
@@ -31,7 +30,7 @@ class Voting extends Component {
   onSubmitVote() {
     const selection = document.querySelector('input[name="vote"]:checked').value;
     this.props.voteKill(selection);
-    this.props.updateStage(this.props.game.id, 9);
+    this.setState({ clicked: true });
   }
 
   renderPlayerStatus() {
@@ -62,14 +61,31 @@ class Voting extends Component {
   }
 
   render() {
-    return (
-      <div className="VotingContainer">
-        <h1>Voting</h1>
-        <div className="playersStatusContainer">{this.renderPlayerStatus()}</div>
-        <button onClick={this.onSubmitVote}> Submit </button>
-        <button onClick={this.onTestClicked}> Force-next </button>
-      </div>
-    );
+    if (!this.state.clicked) {
+      return (
+        <div>
+          <div className="VotingContainer">
+            <h1>Voting: Who do you think is the mafia?</h1>
+            <div className="playersStatusContainer">{this.renderPlayerStatus()}</div>
+            <button onClick={this.onSubmitVote}> Submit </button>
+            <button onClick={this.onTestClicked}> Force-next </button>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <div className="VotingContainer">
+            <h1>Voting</h1>
+            <div className="playersStatusContainer">{this.renderPlayerStatus()}</div>
+            <button onClick={this.onTestClicked}> Force-next </button>
+          </div>
+          <div className="AfterVote">
+            <h3>Vote counted! Waiting for other players to vote...</h3>
+          </div>
+        </div>
+      );
+    }
   }
 }
 

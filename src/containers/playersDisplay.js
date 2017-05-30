@@ -31,7 +31,6 @@ class PlayersDisplay extends Component {
             </div>
           );
         } else {
-          console.log(player.status);
           return (
             <div key={player.id} className="playerStatusContainer">
               <div className="playerDeadName">{player.name}</div>

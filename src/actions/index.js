@@ -119,7 +119,7 @@ export function healPlayer(id) {
 export function voteKill(id) {
   return (dispatch) => {
     axios.put(`${ROOT_URL}/players/vote/${id}`).then((response) => {
-      console.log(response);
+      console.log(response.data);
       dispatch({ type: ActionTypes.VOTE_KILL, payload: response });
     }).catch((error) => {
       console.log(error);
@@ -133,7 +133,7 @@ export function tallyVotes(gameID) {
     axios.get(`${ROOT_URL}/players/${gameID}`).then((response) => {
       console.log(response.data);
       let deadMan;
-      let max = Number.MIN_SAFE_INTEGER;
+      let max = 0;
       response.data.forEach((player) => {
         if (player.voteCount > max) {
           max = player.voteCount;
@@ -143,6 +143,14 @@ export function tallyVotes(gameID) {
       console.log(deadMan);
       dispatch({ type: ActionTypes.VOTES_COUNTED, payload: deadMan });
     });
+  };
+}
+
+export function resetVotes(gameID) {
+  console.log('resetVotes');
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/players/clearvotes/${gameID}`)
+    .catch((err) => { console.log(err); });
   };
 }
 

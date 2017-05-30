@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { mafiaChoose } from '../actions';
+import { killPlayer } from '../actions';
 
 class MafiaSelection extends Component {
   constructor(props) {
@@ -10,6 +10,7 @@ class MafiaSelection extends Component {
     this.state = {};
     this.renderSelection = this.renderSelection.bind(this);
     this.onMafiaKill = this.onMafiaKill.bind(this);
+    this.onKillClicked = this.onKillClicked.bind(this);
     this.onTestClicked = this.onTestClicked.bind(this);
   }
 
@@ -95,4 +96,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { mafiaChoose })(MafiaSelection));
+export default withRouter(connect(mapStateToProps, { killPlayer })(MafiaSelection));
