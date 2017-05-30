@@ -16,7 +16,6 @@ class Chat extends Component {
         .emit('authenticate', { token: localStorage.getItem('token') })
         .on('authenticated', () => {
           this.socket.emit('room', this.props.gameID);
-          console.log(`the gameID is ${this.props.gameID}`);
         })
         .on('unauthorized', (msg) => {
           console.log(`unauthorized: ${JSON.stringify(msg.data)}`);
@@ -97,7 +96,9 @@ class Chat extends Component {
           <div ref={(node) => { this.chatEnd = node; }} />
         </div>
         <form onSubmit={this.handleChatSubmit} className="chat-input">
-          <input onChange={this.onTextChange} value={this.state.text} type="text" placeholder="Type a message..." id="text-area" />
+          <input onChange={this.onTextChange} value={this.state.text}
+            type="text" placeholder="Type a message..." id="text-area"
+          />
         </form>
       </div>
     );
