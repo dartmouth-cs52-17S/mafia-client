@@ -68,36 +68,39 @@ class Lobby extends Component {
         case 3:
           break;
         case 4:
+          setTimeout(() => {
+            this.socket.emit('updateStage', { id: this.props.game.id, stage: 5 });
+          });
           break;
         case 5:
           break;
         case 6:
           break;
         case 7:
-          console.log('THE SHIT');
-          setTimeout(() => {
-            console.log('WHAT THE FUCKING FUCK');
-            this.socket.emit('updateStage', { id: this.props.game.id, stage: 8 });
-          }, 8000);
           break;
         case 8:
           setTimeout(() => {
             this.socket.emit('updateStage', { id: this.props.game.id, stage: 9 });
-          }, 2000);
+          }, 8000);
           break;
         case 9:
-          this.props.resetVotes(this.props.game.id);
           setTimeout(() => {
             this.socket.emit('updateStage', { id: this.props.game.id, stage: 10 });
           }, 2000);
           break;
         case 10:
-          this.props.checkEnd(this.props.game.id);
+          this.props.resetVotes(this.props.game.id);
           setTimeout(() => {
             this.socket.emit('updateStage', { id: this.props.game.id, stage: 11 });
-          }, 1000);
+          }, 2000);
           break;
         case 11:
+          this.props.checkEnd(this.props.game.id);
+          setTimeout(() => {
+            this.socket.emit('updateStage', { id: this.props.game.id, stage: 12 });
+          }, 1000);
+          break;
+        case 12:
           if (!nextProps.game.isOver) {
             this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 });
           }
@@ -221,10 +224,6 @@ class Lobby extends Component {
         <h2>Your role is:</h2>
         <div>{this.renderRole()}</div>
         <span>Will automatically advance stage after 10 secs</span>
-        <div className="reactComment">{setTimeout(() => {
-          this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 });
-        }, 7000)}
-        </div>
       </div>
     );
   }
@@ -250,7 +249,7 @@ class Lobby extends Component {
   renderStage5() {
     return (
       <div className="night">
-        <MafiaSelect fetch={id => this.socket.emit('fetch', id)} updateStage={(id, stage) => this.socket.emit('updateStage', { id, stage })} />
+        <MafiaSelect fetch={id => this.socket.emit('fetch', id)} updateStage={(id, stage) => this.socket.emit('updateStage', { id, stage: 6 })} />
       </div>
     );
   }
@@ -259,7 +258,7 @@ class Lobby extends Component {
   renderStage6() {
     return (
       <div className="night stage">
-        <DoctorSelect fetch={id => this.socket.emit('fetch', id)} updateStage={id => this.socket.emit('updateStage', { id, stage: 6 })} />
+        <DoctorSelect fetch={id => this.socket.emit('fetch', id)} updateStage={id => this.socket.emit('updateStage', { id, stage: 7 })} />
       </div>
     );
   }
@@ -268,7 +267,7 @@ class Lobby extends Component {
   renderStage7() {
     return (
       <div className="night stage">
-        <PoliceSelect fetch={id => this.socket.emit('fetch', id)} updateStage={id => this.socket.emit('updateStage', { id, stage: 7 })} />
+        <PoliceSelect fetch={id => this.socket.emit('fetch', id)} updateStage={id => this.socket.emit('updateStage', { id, stage: 8 })} />
       </div>
     );
   }
@@ -276,8 +275,8 @@ class Lobby extends Component {
   renderStage8() {
     return (
       <div className="stage">
-        <p3>It is Day Time</p3>
-        <Voting fetch={id => this.socket.emit('fetch', id)} updateStage={id => this.socket.emit('updateStage', { id, stage: 8 })} />
+        <h3>It is Day Time</h3>
+        <Voting />
       </div>
     );
   }
@@ -286,10 +285,6 @@ class Lobby extends Component {
     return (
       <div>
         <CountVotes />
-        <div className="reactComment">{setTimeout(() => {
-          this.socket.emit('updateStage', { id: this.props.game.id, stage: 10 });
-        }, 2000)}
-        </div>
       </div>
     );
   }
