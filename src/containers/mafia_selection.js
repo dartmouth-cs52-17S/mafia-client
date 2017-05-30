@@ -13,18 +13,22 @@ class MafiaSelection extends Component {
     this.onTestClicked = this.onTestClicked.bind(this);
   }
 
+  onKillClicked(event) {
+    this.onMafiaKill();
+  }
+
   onMafiaKill() {
     if (document.querySelector('input[name="mafia"]:checked')) {
       const mafia = document.querySelector('input[name="mafia"]:checked').value;
       this.props.mafiaChoose(this.props.game.id, mafia);
-      this.props.updateStage(this.props.game.id, 5);
+      this.props.updateStage(this.props.game.id, 6);
     } else {
       alert('Mafia must kill one person.');
     }
   }
 
   onTestClicked(event) {
-    this.props.updateStage(this.props.game.id, 5);
+    this.props.updateStage(this.props.game.id, 6);
   }
 
   renderSelection() {

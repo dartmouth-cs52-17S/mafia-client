@@ -19,7 +19,7 @@ class DoctorSelection extends Component {
     if (document.querySelector('input[name="doctor"]:checked')) {
       const doctor = document.querySelector('input[name="doctor"]:checked').value;
       this.props.doctorChoose(this.props.game.id, doctor);
-      this.props.updateStage(this.props.game.id, 6);
+      this.props.updateStage(this.props.game.id, 7);
     } else {
       alert('Doctor must heal one person.');
     }
@@ -30,7 +30,7 @@ class DoctorSelection extends Component {
   }
 
   onTestClicked(event) {
-    this.props.updateStage(this.props.game.id, 6);
+    this.props.updateStage(this.props.game.id, 7);
   }
 
   renderSelection() {
