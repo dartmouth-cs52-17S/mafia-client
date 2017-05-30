@@ -1,38 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { guessMafia } from '../actions';
+import { guessMafia, checkSelection } from '../actions';
 
 class PoliceSelection extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
-    this.renderSelection = this.renderSelection.bind(this);
-    this.onPoliceReveal = this.onPoliceReveal.bind(this);
+    this.state = { clicked: false };
     this.onRevealClicked = this.onRevealClicked.bind(this);
     this.onTestClicked = this.onTestClicked.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.fetch(this.props.game.id);
-  }
-
-  onPoliceReveal() {
-    if (localStorage.getItem('role') === 'police') {
-      const police = document.querySelector('input[name="police"]:checked').value;
-      this.props.guessMafia(police);
-      console.log(this.props.guessMafia(police));
-    }
-    this.props.updateStage(this.props.game.id, 7);
+    this.onNextClicked = this.onNextClicked.bind(this);
   }
 
   onRevealClicked(event) {
-    this.onPoliceReveal();
+    if (document.querySelector('input[name="police"]:checked')) {
+      const police = document.querySelector('input[name="police"]:checked').value;
+      this.props.guessMafia(police);
+      this.setState({ clicked: true });
+    } else {
+      alert('Police must reveal one person.');
+    }
+    this.props.checkSelection(this.props.game.id);
+  }
+
+  onNextClicked(event) {
+    this.props.updateStage(this.props.game.id, 8);
   }
 
   onTestClicked(event) {
-    this.props.updateStage(this.props.game.id, 7);
+    this.props.checkSelection(this.props.game.id);
+    this.props.updateStage(this.props.game.id, 8);
   }
 
   renderSelection() {
@@ -43,20 +41,16 @@ class PoliceSelection extends Component {
        this.props.players.map((player) => {
          if (player.status) {
            return (
-             <div className="players_container">
-               <div className="option">
-                 <input type="radio" name="police" value={player.id} />
-                 <div className="playerAliveName">{player.name}</div>
-               </div>
+             <div className="option">
+               <input type="radio" name="police" value={player.id} />
+               <div className="playerAliveName">{player.name}</div>
              </div>
            );
          } else {
            return (
              <div className="players_container">
-
                <div className="playerDeadName">{player.name}</div>
              </div>
-
            );
          }
        })
@@ -69,15 +63,37 @@ class PoliceSelection extends Component {
     }
   }
 
+  renderReveal() {
+    if (localStorage.getItem('correctGuess') === 'true') {
+      return (
+        <div> You have caught the mafia. </div>
+      );
+    } else {
+      return (
+        <div> You have caught an innocent villager. </div>
+      );
+    }
+  }
+
 
   render() {
     if (localStorage.getItem('role') === 'police') {
-      return (
-        <div className="stage">
-          <div> {this.renderSelection()} </div>
-          <button onClick={this.onRevealClicked}> Next </button>
-        </div>
-      );
+      if (this.state.clicked) {
+        return (
+          <div>
+            <div> {this.renderSelection()} </div>
+            <div> {this.renderReveal()}</div>
+            <button onClick={this.onNextClicked}> Next </button>
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            <div> {this.renderSelection()} </div>
+            <button onClick={this.onRevealClicked}> Reveal </button>
+          </div>
+        );
+      }
     } else {
       return (
         <div className="stage">
@@ -96,4 +112,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { guessMafia })(PoliceSelection));
+export default withRouter(connect(mapStateToProps, { guessMafia, checkSelection })(PoliceSelection));

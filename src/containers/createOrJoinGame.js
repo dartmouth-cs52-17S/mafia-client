@@ -15,7 +15,7 @@ class CreateOrJoinGame extends Component {
       <div>
         <Nav />
         <div className="join-container">
-          <Link to="/lobby">
+          <Link to="/joinGame">
             <button id="join-button">
               <i className="fa fa-sign-in" aria-hidden="true" /> <br />
               Join Game

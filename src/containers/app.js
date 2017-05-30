@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 import Profile from './profile';
 import LandingPage from './landing_page';
 import CreateOrJoinGame from './createOrJoinGame';
+import JoinGame from './joinGame';
 // import Nav from './nav';
 import Lobby from './lobby';
 
@@ -38,7 +39,6 @@ class App extends Component {
     return (
       <Router>
         <div>
-          {/* <Nav />*/}
           <Switch>
             <Route exact path="/" component={LandingPage} />
             <Route path="/home" component={CreateOrJoinGame} />
@@ -46,7 +46,7 @@ class App extends Component {
             <Route exact path="/lobby" component={Lobby} />
             <Route path="/directions" component={Directions} />
             <Route path="/profile/:userID" component={Profile} />
-
+            <Route path="/joinGame" component={JoinGame} />
             {/* <Route path="/chat" component={Chat} /> */}
             <Route component={FallBack} />
           </Switch>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { healPlayer } from '../actions';
+import { doctorChoose } from '../actions';
 
 
 class DoctorSelection extends Component {
@@ -15,16 +15,14 @@ class DoctorSelection extends Component {
     this.onTestClicked = this.onTestClicked.bind(this);
   }
 
-  componentDidMount() {
-    this.props.fetch(this.props.game.id);
-  }
-
   onDoctorHeal() {
-    if (localStorage.getItem('role') === 'doctor') {
+    if (document.querySelector('input[name="doctor"]:checked')) {
       const doctor = document.querySelector('input[name="doctor"]:checked').value;
-      this.props.healPlayer(doctor);
+      this.props.doctorChoose(this.props.game.id, doctor);
+      this.props.updateStage(this.props.game.id, 7);
+    } else {
+      alert('Doctor must heal one person.');
     }
-    this.props.updateStage(this.props.game.id, 6);
   }
 
   onHealClicked(event) {
@@ -32,7 +30,7 @@ class DoctorSelection extends Component {
   }
 
   onTestClicked(event) {
-    this.props.updateStage(this.props.game.id, 6);
+    this.props.updateStage(this.props.game.id, 7);
   }
 
   renderSelection() {
@@ -98,4 +96,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { healPlayer })(DoctorSelection));
+export default withRouter(connect(mapStateToProps, { doctorChoose })(DoctorSelection));

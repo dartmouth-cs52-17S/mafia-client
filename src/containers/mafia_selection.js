@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { killPlayer } from '../actions';
+import { mafiaChoose } from '../actions';
 
 class MafiaSelection extends Component {
   constructor(props) {
@@ -10,30 +10,25 @@ class MafiaSelection extends Component {
     this.state = {};
     this.renderSelection = this.renderSelection.bind(this);
     this.onMafiaKill = this.onMafiaKill.bind(this);
-    this.onKillClicked = this.onKillClicked.bind(this);
     this.onTestClicked = this.onTestClicked.bind(this);
   }
-
-  componentDidMount() {
-    this.props.fetch(this.props.game.id);
-  }
-
 
   onKillClicked(event) {
     this.onMafiaKill();
   }
 
-
   onMafiaKill() {
-    if (localStorage.getItem('role') === 'mafia') {
+    if (document.querySelector('input[name="mafia"]:checked')) {
       const mafia = document.querySelector('input[name="mafia"]:checked').value;
-      this.props.killPlayer(mafia);
+      this.props.mafiaChoose(this.props.game.id, mafia);
+      this.props.updateStage(this.props.game.id, 6);
+    } else {
+      alert('Mafia must kill one person.');
     }
-    this.props.updateStage(this.props.game.id, 5);
   }
 
   onTestClicked(event) {
-    this.props.updateStage(this.props.game.id, 5);
+    this.props.updateStage(this.props.game.id, 6);
   }
 
   renderSelection() {
@@ -55,7 +50,6 @@ class MafiaSelection extends Component {
            return (
              <div className="players_container">
                <div>
-                 <input type="radio" name="mafia" value={player.id} id="player" />
                  <div className="playerDeadName">{player.name}</div>
                </div>
              </div>
@@ -101,4 +95,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { killPlayer })(MafiaSelection));
+export default withRouter(connect(mapStateToProps, { mafiaChoose })(MafiaSelection));
