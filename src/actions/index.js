@@ -173,6 +173,7 @@ export function fetchPlayers(gameID) {
 
 export function checkEnd(gameID) {
   return (dispatch) => {
+    let winner;
     axios.get(`${ROOT_URL}/players/${gameID}`).then((response) => {
       const survivor = response.data.filter((player) => { return (player.status === true); },
     );
@@ -180,7 +181,6 @@ export function checkEnd(gameID) {
       // update backend
       if (survivor.length === 2) {
         axios.put(`${ROOT_URL}/game/end/${gameID}`);
-        let winner;
         if (survivor.every((player) => { return player.role !== 'mafia'; })) {
           winner = 'villagers';
         } else if (survivor.some((player) => { return player.role !== 'doctor'; })) {
@@ -189,7 +189,7 @@ export function checkEnd(gameID) {
           winner = 'tie';
         }
       }
-      dispatch({ type: DECLARE_WINNER, payload: winner });
+      dispatch({ type: ActionTypes.DECLARE_WINNER, payload: winner });
     }).catch((error) => {
       console.log(error);
     });
