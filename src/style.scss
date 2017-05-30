@@ -395,19 +395,20 @@ nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    .StagesDisplay {
-      width: 80vw;
-      margin-left: 10px;
-      margin: 0px;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      align-content: center;
-      // justify-content: space-between;
-      // .chat-section{
-      //   left:75vw;
-      //   position: absolute;
-      // }
+  }
+    // .StagesDisplay {
+    //   width: 80vw;
+    //   margin-left: 10px;
+    //   margin: 0px;
+    //   display: flex;
+    //   flex-direction: row;
+    //   align-items: center;
+    //   align-content: center;
+    //   // justify-content: space-between;
+    //   // .chat-section{
+    //   //   left:75vw;
+    //   //   position: absolute;
+    //   // }
 
   .StagesDisplay {
     width: 80vw;
@@ -500,6 +501,7 @@ nav {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  // color: black;
   color: white;
 }
 
@@ -588,7 +590,7 @@ nav {
   animation: pulse 4s infinite;
   }
 
-  @keyframes pulse{
+  @keyframes pulse {
     0% { background-color: white; }
     100% { background-color: black; }
   }
@@ -608,5 +610,4 @@ nav {
 .joingameUpper {
   display: flex;
   justify-content: flex-start;
-
 }
