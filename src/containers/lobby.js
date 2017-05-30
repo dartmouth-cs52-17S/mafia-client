@@ -48,6 +48,7 @@ class Lobby extends Component {
     this.refetchAll = this.refetchAll.bind(this);
     this.tempOnPlayClicked = this.tempOnPlayClicked.bind(this);
     this.onQuitClicked = this.onQuitClicked.bind(this);
+    this.onReplayClicked = this.onReplayClicked.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -125,6 +126,10 @@ class Lobby extends Component {
   onQuitClicked(event) {
     this.props.deleteGame(this.props.game.id);
     this.props.history.push('/');
+  }
+
+  onReplayClicked(event) {
+    this.socket.emit('updateStage', { id: this.props.game.id, stage: 2 });
   }
 
 // must delete
