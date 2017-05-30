@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
-import { createGame, createPlayers, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, checkEnd } from '../actions';
+import { createGame, createPlayers, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, checkEnd, deleteGame } from '../actions';
 import Chat from './chat';
 import { socketserver } from './app';
 import Players from './playersDisplay';
@@ -46,21 +46,9 @@ class Lobby extends Component {
 
     // this.renderPlayers = this.renderPlayers.bind(this);
     this.onPlayClicked = this.onPlayClicked.bind(this);
-    // this.renderPlayButton = this.renderPlayButton.bind(this);
-    // this.renderStage0 = this.renderStage0.bind(this);
-    // this.renderStage1 = this.renderStage1.bind(this);
-    // this.renderStage2 = this.renderStage2.bind(this);
-    // this.renderStage3 = this.renderStage3.bind(this);
-    // this.renderStage4 = this.renderStage4.bind(this);
-    // this.renderStage5 = this.renderStage5.bind(this);
-    // this.renderStage6 = this.rederStage6.bind(this);
-    // this.renderStage7 = this.rederStage7.bind(this);
-    // this.renderStages = this.renderStages.bind(this);
-    // this.renderChat = this.renderChat.bind(this);
     this.refetchAll = this.refetchAll.bind(this);
     this.tempOnPlayClicked = this.tempOnPlayClicked.bind(this);
-    // this.backtoStage3 = this.backtoStage3.bind(this);
-    // this.tempRenderNextButton = this.tempRenderNextButton.bind(this);
+    this.onQuitClicked = this.onQuitClicked.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -119,6 +107,11 @@ class Lobby extends Component {
     this.socket.emit('updateStage', { id: this.props.game.id, stage: 1 });
   }
 //  onPlayClicked, players are created.
+
+  onQuitClicked(event) {
+    this.props.deleteGame(this.props.game.id);
+    this.props.history.push('/');
+  }
 
 // must delete
   tempOnPlayClicked(event) {
@@ -306,6 +299,8 @@ class Lobby extends Component {
         <div>
           <div>Game Over</div>
           <div>Winner is {this.props.game.winner}</div>
+          <button onClick={this.onQuitClicked}>Quit Game</button>
+          <button>Restart Game</button>
         </div>
       );
     } else {
@@ -391,4 +386,4 @@ const mapStateToProps = state => ({
   players: state.players,
 });
 
-export default withRouter(connect(mapStateToProps, { createPlayers, createGame, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, checkEnd })(Lobby));
+export default withRouter(connect(mapStateToProps, { createPlayers, createGame, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, checkEnd, deleteGame })(Lobby));
