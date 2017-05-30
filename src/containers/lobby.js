@@ -71,7 +71,7 @@ class Lobby extends Component {
         case 4:
           setTimeout(() => {
             this.socket.emit('updateStage', { id: this.props.game.id, stage: 5 });
-          });
+          }, 3000);
           break;
         case 5:
           break;
