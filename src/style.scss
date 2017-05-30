@@ -7,6 +7,15 @@ body {
   background-color:black;
 }
 
+#loader {
+  margin: 100px;
+  margin-top: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+}
+
 // text and image
 h1 {
   font-family: 'Open Sans';
@@ -297,6 +306,11 @@ nav {
 }
 
 // Chat
+.chat-load {
+  text-align: center;
+  padding-top: 30px;
+}
+
 .chat-render-container {
   background-color: white;
   // background-color: #979797;
@@ -539,6 +553,7 @@ nav {
   cursor: progress;
 }
 
+
 .next-butt{
   font-size: 15px;
   color: black;
@@ -549,4 +564,10 @@ nav {
   outline: none;
   border-radius: 3px;
   background-color: white;
+}
+
+.joingameUpper {
+  display: flex;
+  justify-content: flex-start;
+
 }
