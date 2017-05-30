@@ -150,7 +150,6 @@ export function guessMafia(id) {
 export function fetchGame(id) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/game/${id}`).then((response) => {
-      console.log(response.data);
       dispatch({ type: ActionTypes.FETCH_GAME, payload: response.data });
     }).catch((error) => {
       console.log(error);
@@ -188,7 +187,6 @@ export function checkEnd(gameID) {
     axios.get(`${ROOT_URL}/players/${gameID}`).then((response) => {
       const survivor = response.data.filter((player) => { return (player.status === true); },
     );
-      console.log(survivor);
       // update backend
       if (survivor.length <= 2) {
         axios.put(`${ROOT_URL}/game/end/${gameID}`);
