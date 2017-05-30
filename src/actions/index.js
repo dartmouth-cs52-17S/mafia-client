@@ -7,6 +7,7 @@ export const ActionTypes = {
   FETCH_USER: 'FETCH_USER',
   KILL_PLAYER: 'KILL_PLAYER',
   FETCH_GAME: 'FETCH_GAME',
+  FETCH_GAMES: 'FETCH_GAMES',
   CREATE_GAME: 'CREATE_GAME',
   UPDATE_GAME: 'UPDATE_GAME',
   AUTH_USER: 'AUTH_USER',
@@ -149,6 +150,16 @@ export function fetchGame(id) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/game/${id}`).then((response) => {
       dispatch({ type: ActionTypes.FETCH_GAME, payload: response.data });
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
+
+export function fetchGames() {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/games`).then((response) => {
+      dispatch({ type: ActionTypes.FETCH_GAMES, payload: response.data });
     }).catch((error) => {
       console.log(error);
     });

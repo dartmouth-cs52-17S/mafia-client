@@ -1,6 +1,7 @@
 import { ActionTypes } from '../actions';
 
 const initialState = {
+  all: [],
   id: 'unassigned',
   players: [],
   winner: '',
@@ -24,6 +25,8 @@ const GameReducer = (state = initialState, action) => {
       }
     case ActionTypes.FETCH_GAME:
       return Object.assign({}, state, action.payload);
+    case ActionTypes.FETCH_GAMES:
+      return Object.assign({}, state, { all: action.payload });
     case ActionTypes.ADD_USER:
       return Object.assign({}, state, state.players.push(action.payload.data.name));
     case ActionTypes.UPDATE_STAGE:
