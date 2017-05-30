@@ -167,7 +167,7 @@ class Lobby extends Component {
   // Stage 2: Dislay Assigned Roles to Individual Player
   renderStage2() {
     return (
-      <div>
+      <div className="stage2">
         <h3>Roles have been assigned!</h3>
         <h2>Your role is:</h2>
         <div>{this.renderRole()}</div>
@@ -242,7 +242,7 @@ class Lobby extends Component {
       <div>
         <h3>The people have spoken!</h3>
         <h5>The village has decided to kill...</h5>
-        <div>{this.props.players.deadMan}</div>
+        <div>{this.props.players.deadMan.name}</div>
       </div>
     );
   }
