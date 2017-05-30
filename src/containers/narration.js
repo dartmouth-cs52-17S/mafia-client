@@ -47,7 +47,7 @@ class Narration extends Component {
 
   render() {
     return (
-      <div className="NarrationContainer">
+      <div className="stage">
         <h1>The Village</h1>
         <div className="palyersStatusContainer">{this.renderPlayerStatus}</div>
       </div>

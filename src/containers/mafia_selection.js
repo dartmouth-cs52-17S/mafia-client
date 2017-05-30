@@ -21,15 +21,15 @@ class MafiaSelection extends Component {
   onMafiaKill() {
     if (document.querySelector('input[name="mafia"]:checked')) {
       const mafia = document.querySelector('input[name="mafia"]:checked').value;
-      this.props.killPlayer(mafia);
-      this.props.updateStage(this.props.game.id, 5);
+      this.props.mafiaChoose(this.props.game.id, mafia);
+      this.props.updateStage(this.props.game.id, 6);
     } else {
       alert('Mafia must kill one person.');
     }
   }
 
   onTestClicked(event) {
-    this.props.updateStage(this.props.game.id, 5);
+    this.props.updateStage(this.props.game.id, 6);
   }
 
   renderSelection() {
@@ -60,7 +60,7 @@ class MafiaSelection extends Component {
       );
     } else {
       return (
-        <div className="wait">Waiting 4 mafia 2 kill sum1...
+        <div className="wait">Waiting for Mafia to make a move...
         </div>
       );
     }
@@ -70,17 +70,17 @@ class MafiaSelection extends Component {
     console.log('Entered mafia selection');
     if (localStorage.getItem('role') === 'mafia') {
       return (
-        <div>
-          <div>
-            <div> {this.renderSelection()} </div>
-            <button onClick={this.onKillClicked}> Next </button>
-          </div>
+
+        <div className="stage">
+          <div className="stage"> {this.renderSelection()} </div>
+          <button onClick={this.onKillClicked}> Next </button>
         </div>
+
       );
     } else {
       return (
-        <div>
-          <div> {this.renderSelection()} </div>
+        <div className="stage">
+          <div className="stage"> {this.renderSelection()} </div>
           <button onClick={this.onTestClicked}> Force-next </button>
         </div>
       );

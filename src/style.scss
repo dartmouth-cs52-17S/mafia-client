@@ -4,6 +4,16 @@ $mafia-red: #D0011B;
 body {
   font-family: 'Open Sans', sans-serif;
   margin: 0;
+  background-color:black;
+}
+
+#loader {
+  margin: 100px;
+  margin-top: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
 }
 
 // text and image
@@ -13,10 +23,19 @@ h1 {
   font-weight: bold;
   height: auto;
   width: auto;
+  color: white;
 }
 
 ul {
   list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+}
+
+li{
+  font-size: 30px;
 }
 
 a{
@@ -33,7 +52,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 10vh;
+  height: 14vh;
 
   .logo-top-left {
     padding: 20px;
@@ -49,6 +68,7 @@ nav {
     border-radius: 10px;
     background-color: #000000;
     padding: 5px;
+    outline: none;
   }
 
   #signoutbutt:hover {
@@ -71,12 +91,12 @@ nav {
       width: 40vw;
       left: 28vw;
       top: 30vh;
-      opacity:0.1;
-      transition:opacity 1s linear;
+      opacity:0.2;
+      transition:opacity 1s ease-in-out;
     }
 
     img:hover{
-      opacity: 1;
+      opacity: .88;
     }
   }
 
@@ -86,7 +106,7 @@ nav {
 
   .signin {
     position: absolute;
-    top: 73vh;
+    top: 76vh;
     left: 42vw;
     height: 10vh;
     width: 15vw;
@@ -94,6 +114,10 @@ nav {
     border-radius: 10px;
     background-color: $mafia-red;
     box-shadow: 3px 3px 0 #ad0015;
+    color: white;
+    outline: none;
+    opacity: .3;
+    transition:opacity 1s ease-in-out;
 
     .signin-text {
       font-size: 4vh;
@@ -104,6 +128,11 @@ nav {
   .signin:active {
     box-shadow: 0 3px 0 #ad0015;
     transform: translateY(3px);
+    outline: none;
+  }
+
+  .signin:hover{
+    opacity:.88;
   }
 
   .signin:hover {
@@ -140,6 +169,7 @@ nav {
       background-color: #E10000;
       font-size: 2vw;
       color: white;
+      outline: none;
     }
   }
 }
@@ -178,6 +208,7 @@ nav {
         background-color: #E10000;
         font-size: 2vw;
         color: white;
+        outline: none;
       }
     }
 
@@ -275,15 +306,20 @@ nav {
 }
 
 // Chat
+.chat-load {
+  text-align: center;
+  padding-top: 30px;
+}
+
 .chat-render-container {
-  background-color: #D8D8D8;
+  background-color: white;
   // background-color: #979797;
 
   // background-color: #ffffff;
   color: #000000;
   margin-right: 12px;
   margin-top: 12px;
-  border: 3px solid black;
+  border: 2px solid black;
   display:flex;
   flex-direction: column;
   justify-content:flex-end;
@@ -291,29 +327,36 @@ nav {
   width: 20vw;
   height: 85vh;
 
-  .message {
-    padding-left: 10px;
-    padding-bottom: 5px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+  .all-chats {
+    overflow: scroll;
 
-    .chat-sender {
-      padding-right: 5px;
-      font-weight: 900;
-      color: $mafia-red;
+    .message {
+      padding-left: 10px;
+      padding-bottom: 5px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+
+      .chat-sender {
+        padding-right: 5px;
+        font-weight: 900;
+        color: $mafia-red;
+      }
+
+      .chat-message {
+        font-weight: 100;
+      }
     }
 
-    .chat-message {
+    .notice {
+      text-align: center;
+      padding-left: 10px;
+      padding-bottom: 5px;
+      font-size: 13px;
       font-weight: 100;
+      opacity: 0.5;
     }
-  }
-
-  .notice {
-    text-align: center;
-    padding-left: 10px;
-    padding-bottom: 5px;
-    font-size: 13px;
   }
 
   .chat-input {
@@ -323,7 +366,7 @@ nav {
     align-items: center;
 
     #text-area {
-      border-top: 3px solid black;
+      border-top: 2px solid black;
       border-left: none;
       border-right: none;
       border-bottom: none;
@@ -341,18 +384,47 @@ nav {
  flex-direction: row;
  justify-content: space-between;
  height: 90vh;
+ align-items: flex-start;
  // background-color: #D8D8D8;
 
  // background-color: #979797;
+  .StagesSec{
+    width:100vw;
+    margin: 0px;
+    // margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .StagesDisplay {
+      width: 80vw;
+      margin-left: 10px;
+      margin: 0px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      align-content: center;
+      // justify-content: space-between;
+      // .chat-section{
+      //   left:75vw;
+      //   position: absolute;
+      // }
 
   .StagesDisplay {
     width: 80vw;
-    margin-left: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     align-content: center;
+
+    h1{
+      font-size: 30px;
+      border: 1px solid black;
+      padding: 20px;
+      background-color: #0051E9;
+      border-radius: 5px;
+    }
   }
+
 }
 
 //effect
@@ -380,11 +452,13 @@ nav {
     color: #ffffff;
     font-size: 5vh;
     margin: 100px;
+    outline: none;
   }
 
   #join-button:active {
     box-shadow: 0 2px 0 #db4d4d;
     transform: translateY(3px);
+    outline: none;
   }
 
   #join-button:hover {
@@ -396,12 +470,13 @@ nav {
   background-color: $mafia-red;
   border: none;
   color: #ffffff;
-  font-size: 2.5vh;
+  font-size: 4vh;
   border-radius: 10px;
-  width: 5vw;
-  height: 5vh;
+  width: 15vw;
+  height: 10vh;
   position: absolute;
   top: 80vh;
+  outline: none;
 }
 
 #render-butt:hover {
@@ -409,26 +484,85 @@ nav {
 }
 
 .reactComment {
-  color: white;
+  color: black;
 }
 
 .playerAliveName {
-  color: black;
+  color: white;
 }
 
 .playerDeadName {
   color: $mafia-red;
 }
 
-.stag0{
+.stage{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.wait{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  text-align: center;
+}
+
+.VotingContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.playersStatusContainer{
+  font-size: 20px;
+  color:white;
+}
+
+.roleAssigned {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
+  h3{
+    padding: 0px;
+    margin: 0px;
+  }
 }
 
-.stage1 {
+.mafia-text{
+  font-size: 25px;
+  color: $mafia-red;
+}
+
+.doctor-text{
+  font-size: 25px;
+  color: white;
+}
+
+.police-text{
+  font-size: 25px;
+  color: #0051E9;
+}
+
+.villager-text{
+  font-size: 25px;
+  color: #f7ff00;
+}
+
+.option{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -437,4 +571,42 @@ nav {
 
 .stage2 {
   cursor: progress;
+}
+
+.night{
+  background-color: black;
+  color:white;
+  width: 100vw;
+  height: 88vh;
+  padding: 10px;
+
+}
+
+.nightFall{
+  height: 90vh;
+  width: 100vw;
+  animation: pulse 4s infinite;
+  }
+
+  @keyframes pulse{
+    0% { background-color: white; }
+    100% { background-color: black; }
+  }
+
+.next-butt{
+  font-size: 15px;
+  color: black;
+  border: 4px solid #ffffff;
+  height: 5vh;
+  width: 7vw;
+  padding: 5px;
+  outline: none;
+  border-radius: 3px;
+  background-color: white;
+}
+
+.joingameUpper {
+  display: flex;
+  justify-content: flex-start;
+
 }

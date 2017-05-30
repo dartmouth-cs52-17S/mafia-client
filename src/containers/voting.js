@@ -24,7 +24,7 @@ class Voting extends Component {
   }
 
   onTestClicked(event) {
-    this.props.updateStage(this.props.game.id, 8);
+    this.props.updateStage(this.props.game.id, 9);
   }
 
   onSubmitVote() {
@@ -42,7 +42,7 @@ class Voting extends Component {
       this.props.players.map((player) => {
         if (player.status) {
           return (
-            <div className="playerStatusContainer">
+            <div className="option">
               <input type="radio" name="vote" value={player.id} />
               <div className="playerAliveName" key={player.id}>{player.name}</div>
             </div>
