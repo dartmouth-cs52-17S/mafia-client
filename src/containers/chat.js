@@ -40,6 +40,14 @@ class Chat extends Component {
     this.renderChat = this.renderChat.bind(this);
   }
 
+  componentDidMount() {
+    this.chatEnd.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  componentDidUpdate() {
+    this.chatEnd.scrollIntoView({ behavior: 'smooth' });
+  }
+
   onTextChange(event) {
     this.setState({ text: event.target.value });
   }
@@ -86,6 +94,7 @@ class Chat extends Component {
       <div className="chat-render-container">
         <div className="all-chats">
           {this.renderChat()}
+          <div ref={(node) => { this.chatEnd = node; }} />
         </div>
         <form onSubmit={this.handleChatSubmit} className="chat-input">
           <input onChange={this.onTextChange} value={this.state.text} type="text" placeholder="Type a message..." id="text-area" />
