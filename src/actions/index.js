@@ -76,6 +76,16 @@ export function createGame(jwt, history) {
   };
 }
 
+export function deleteGame(gameID) {
+  return (dispatch) => {
+    axios.delete(`${ROOT_URL}/game/${gameID}/remove`).then((response) => {
+      dispatch({ type: ActionTypes.DELETE_GAME });
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
+
 export function getPlayers(jwt, gameID) { // actionCreator
   return (dispatch) => {
     console.log(`gameID is ${gameID}`);

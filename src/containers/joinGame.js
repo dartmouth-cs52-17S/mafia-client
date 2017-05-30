@@ -15,11 +15,21 @@ class JoinGame extends Component {
     this.props.fetchGames();
   }
 
+  renderNames(game) {
+    return game.players.map((user) => {
+      return (
+        <div>{user.name}</div>
+      );
+    });
+  }
+
   render() {
     const gamelinks = this.props.games.all.map((game) => {
       return (
         <Link to={`/lobby/${game.id}`}>
-          <button id="join-button"> {game.id} </button>
+          <button id="join-button">
+            players: {this.renderNames(game)}
+          </button>
         </Link>
       );
     });
