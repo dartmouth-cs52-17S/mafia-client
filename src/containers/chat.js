@@ -29,18 +29,6 @@ class Chat extends Component {
       chat: [],
     };
 
-    // this.socket.on('message', (msg) => {
-    //   const newmessages = [...this.state.messages, msg];
-    //   this.setState({
-    //     messages: newmessages,
-    //   });
-    // });
-    //
-    // this.socket.on('notif', (notif) => {
-    //   console.log(notif);
-    //   this.props.reload();
-    // });
-
     this.socket.on('newchat', (newchat) => {
       this.setState({
         chat: newchat,
@@ -50,6 +38,14 @@ class Chat extends Component {
     this.onTextChange = this.onTextChange.bind(this);
     this.handleChatSubmit = this.handleChatSubmit.bind(this);
     this.renderChat = this.renderChat.bind(this);
+  }
+
+  componentDidMount() {
+    this.chatEnd.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  componentDidUpdate() {
+    this.chatEnd.scrollIntoView({ behavior: 'smooth' });
   }
 
   onTextChange(event) {
@@ -96,7 +92,10 @@ class Chat extends Component {
   render() {
     return (
       <div className="chat-render-container">
-        {this.renderChat()}
+        <div className="all-chats">
+          {this.renderChat()}
+          <div ref={(node) => { this.chatEnd = node; }} />
+        </div>
         <form onSubmit={this.handleChatSubmit} className="chat-input">
           <input onChange={this.onTextChange} value={this.state.text} type="text" placeholder="Type a message..." id="text-area" />
         </form>
