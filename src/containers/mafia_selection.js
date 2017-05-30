@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { killPlayer, mafiaChoose, updateStage } from '../actions';
+import { killPlayer, mafiaChoose } from '../actions';
 
 class MafiaSelection extends Component {
   constructor(props) {
@@ -22,14 +22,14 @@ class MafiaSelection extends Component {
     if (document.querySelector('input[name="mafia"]:checked')) {
       const mafia = document.querySelector('input[name="mafia"]:checked').value;
       this.props.mafiaChoose(this.props.game.id, mafia);
-      this.props.updateStage(this.props.game.id, 6);
+      this.props.updateStage(this.props.game.id);
     } else {
       alert('Mafia must kill one person.');
     }
   }
 
   onTestClicked(event) {
-    this.props.updateStage(this.props.game.id, 6);
+    this.props.updateStage(this.props.game.id);
   }
 
   renderSelection() {
@@ -98,4 +98,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { killPlayer, mafiaChoose, updateStage })(MafiaSelection));
+export default withRouter(connect(mapStateToProps, { killPlayer, mafiaChoose })(MafiaSelection));

@@ -35,7 +35,16 @@ const GameReducer = (state = initialState, action) => {
     case ActionTypes.UPDATE_STAGE:
       return Object.assign({}, state, { stage: action.payload.data.currentGameStage });
     case ActionTypes.DECLARE_WINNER:
-      return Object.assign({}, state, { winner: action.payload });
+      switch (action.payload) {
+        case 'villagers':
+          return Object.assign({}, state, { winner: 'The villagers have won!' });
+        case 'mafia':
+          return Object.assign({}, state, { winner: 'The mafia has won!' });
+        case 'tie':
+          return Object.assign({}, state, { winner: 'A mafiosa and a doctor remain. It\'s a tie!' });
+        default:
+          return Object.assign({}, state, { winner: 'Nobody has won!' });
+      }
     default:
       return state;
   }
