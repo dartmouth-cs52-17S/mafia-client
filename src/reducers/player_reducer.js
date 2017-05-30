@@ -17,6 +17,7 @@ const PlayerReducer = (state = defaultState, action) => {
       return Object.assign({}, state, { player: action.payload });
     case ActionTypes.VOTES_COUNTED:
       return Object.assign({}, state, { deadMan: action.payload });
+
     default:
       return state;
   }
