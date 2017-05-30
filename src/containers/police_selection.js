@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { guessMafia } from '../actions';
+import { guessMafia, checkSelection } from '../actions';
 
 class PoliceSelection extends Component {
   constructor(props) {
@@ -21,6 +21,8 @@ class PoliceSelection extends Component {
     } else {
       alert('Police must reveal one person.');
     }
+    this.props.checkSelection(this.props.game.id);
+    this.props.updateStage(this.props.game.id, 7);
   }
 
   onNextClicked(event) {
@@ -28,6 +30,7 @@ class PoliceSelection extends Component {
   }
 
   onTestClicked(event) {
+    this.props.checkSelection(this.props.game.id);
     this.props.updateStage(this.props.game.id, 7);
   }
 
@@ -116,4 +119,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { guessMafia })(PoliceSelection));
+export default withRouter(connect(mapStateToProps, { guessMafia, checkSelection })(PoliceSelection));

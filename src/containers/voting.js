@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { voteKill, killPlayer } from '../actions';
+import { voteKill } from '../actions';
 // import { withRouter, NavLink } from 'react-router-dom';
 
 
@@ -28,35 +28,11 @@ class Voting extends Component {
     this.props.updateStage(this.props.game.id, 8);
   }
 
-
   onSubmitVote() {
     const selection = document.querySelector('input[name="vote"]:checked').value;
-    console.log(selection);
-    this.props.killPlayer(selection);
-    this.props.updateStage(this.props.game.id, 8);
+    this.props.voteKill(selection);
+    this.props.updateStage(this.props.game.id, 3);
   }
-
-
-  // update players' votes
-  // go back to check everyone's vote
-  // kill player with most votes
-
-
-  //   let votesNeeded = 0;
-  //   for (this.player in this.props.players) {
-  //     if (this.player.status) {
-  //       votesNeeded += 1;
-  //       return votesNeeded;
-  //     }
-  //   }
-  //
-  //   // make sure everyone who is alive has cast a vote
-  //   if (selection.length === votesNeeded.length) {
-  //     this.props.voteKill(selection);
-  //   }
-  //   this.props.updateStage(this.props.game.id, 3);
-  // }
-
 
   renderPlayerStatus() {
     // this just checks if data has been fetched and mapped to props yet
@@ -106,4 +82,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default withRouter(connect(mapStateToProps, { voteKill, killPlayer })(Voting));
+export default withRouter(connect(mapStateToProps, { voteKill })(Voting));
