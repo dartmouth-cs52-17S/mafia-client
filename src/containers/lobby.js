@@ -243,6 +243,10 @@ class Lobby extends Component {
         <h3>The people have spoken!</h3>
         <h5>The village has decided to kill...</h5>
         <div>{this.props.players.deadMan.name}</div>
+        <div className="reactComment">{setTimeout(() => {
+          this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 });
+        }, 2000)}
+        </div>
       </div>
     );
   }
