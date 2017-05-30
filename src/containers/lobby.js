@@ -199,9 +199,9 @@ class Lobby extends Component {
   // Stage 0: Show Players Connected, Waiting for Players
   renderStage0() {
     return (
-      <div>
+      <div className="stage">
         <h3>Players Connected:</h3>
-        <ul>
+        <ul className="stage">
           {this.renderPlayers()}
           {this.renderPlayButton()}
         </ul>
@@ -212,7 +212,7 @@ class Lobby extends Component {
   // Stage 1: Assigning Role Processing
   renderStage1() {
     return (
-      <div>
+      <div className="stage">
         <h3>Assigning Roles...</h3>
         <div>
           <div className="spinny-loady" />

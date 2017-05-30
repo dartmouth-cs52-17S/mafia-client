@@ -32,7 +32,7 @@ class PlayersDisplay extends Component {
           );
         } else {
           return (
-            <div key={player.id} className="playerStatusContainer">
+            <div key={player.id} className="playersStatusContainer">
               <div className="playerDeadName">{player.name}</div>
             </div>
           );
@@ -45,10 +45,10 @@ class PlayersDisplay extends Component {
   render() {
     return (
       <div>
-        <div className="village">
+        <div className="stage">
           <img src="/images/village.svg" alt="Village" />
           <h1>The Village</h1>
-          <div>{this.renderPlayerStatus()}</div>
+          <div className="playersStatusContainer">{this.renderPlayerStatus()}</div>
         </div>
       </div>
     );

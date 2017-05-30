@@ -41,7 +41,7 @@ class MafiaSelection extends Component {
          if (player.status) {
            return (
              <div className="players_container">
-               <div>
+               <div className="option">
                  <input type="radio" name="mafia" value={player.id} />
                  <div className="playerAliveName">{player.name}</div>
                </div>

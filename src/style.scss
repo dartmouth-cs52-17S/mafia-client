@@ -28,11 +28,13 @@ h1 {
 }
 
 ul {
+  display:flex;
   list-style-type: none;
   margin: 0px;
   padding: 0px;
   display: flex;
   justify-content: center;
+  flex-direction: column;
 }
 
 li{
@@ -422,7 +424,8 @@ nav {
       font-size: 30px;
       border: 1px solid black;
       padding: 20px;
-      background-color: #0051E9;
+      background-color: #ffcb03;
+      // background-color: #0051E9;
       border-radius: 5px;
     }
   }
@@ -496,6 +499,14 @@ nav {
 .playerAliveName {
   color: white;
   font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content:center;
+  text-align:center;
+  width: auto;
+
 }
 
 .playerDeadName {
@@ -509,6 +520,11 @@ nav {
   justify-content: center;
   align-items: center;
   color: white;
+
+  h1{
+  text-align: center;
+
+  }
 }
 
 .VotingContainer{
@@ -559,6 +575,7 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: row;
 }
 
 .card{
@@ -593,15 +610,16 @@ nav {
   }
 
 .next-butt{
+  margin-top: 20px;
   font-size: 20px;
-  color: black;
-  border: 4px solid #ffffff;
-  height: 5vh;
-  width: 7vw;
+  color: white;
+  border: 4px solid white;
+  height: 7vh;
+  width: 10vw;
   padding: 5px;
   outline: none;
   border-radius: 3px;
-  background-color: white;
+  background-color: #12c311;
 }
 
 .joingameUpper {
@@ -723,4 +741,8 @@ nav {
       transform: translateX(2px) translateY(3px);
     }
   }
+}
+
+.stageTitle{
+  width: 100%;
 }
