@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
-import { createGame, createPlayers, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame } from '../actions';
+import { createGame, createPlayers, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, checkEnd } from '../actions';
 import Chat from './chat';
 import { socketserver } from './app';
 import Players from './playersDisplay';
@@ -247,6 +247,26 @@ class Lobby extends Component {
     );
   }
 
+  renderStage10() {
+    this.props.checkEnd(this.props.game.id);
+    this.props.fetchGame(this.props.game.id);
+    if (this.props.game.isOver) {
+      return (
+        <div>
+          <div>Game Over</div>
+          <div>Winner is {this.props.game.winner}</div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="reactComment">{setTimeout(() => {
+          this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 });
+        }, 2000)}
+        </div>
+      );
+    }
+  }
+
   renderStages() {
     switch (this.props.game.stage) {
       case 0:
@@ -269,6 +289,8 @@ class Lobby extends Component {
         return <div>{this.renderStage8()}</div>;
       case 9:
         return <div>{this.renderStage9()}</div>;
+      case 10:
+        return <div>{this.renderStage10()}</div>;
       default: return '';
     }
   }
@@ -317,4 +339,4 @@ const mapStateToProps = state => ({
   players: state.players,
 });
 
-export default withRouter(connect(mapStateToProps, { createPlayers, createGame, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame })(Lobby));
+export default withRouter(connect(mapStateToProps, { createPlayers, createGame, updatePlayers, fetchPlayers, getPlayers, addUserToGame, fetchGame, checkEnd })(Lobby));
