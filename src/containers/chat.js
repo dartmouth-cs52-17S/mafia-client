@@ -29,18 +29,6 @@ class Chat extends Component {
       chat: [],
     };
 
-    // this.socket.on('message', (msg) => {
-    //   const newmessages = [...this.state.messages, msg];
-    //   this.setState({
-    //     messages: newmessages,
-    //   });
-    // });
-    //
-    // this.socket.on('notif', (notif) => {
-    //   console.log(notif);
-    //   this.props.reload();
-    // });
-
     this.socket.on('newchat', (newchat) => {
       this.setState({
         chat: newchat,
