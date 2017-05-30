@@ -60,6 +60,42 @@ class Lobby extends Component {
     // this.tempRenderNextButton = this.tempRenderNextButton.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    switch (nextProps.game.stage) {
+      case 0:
+        break;
+      case 1:
+        setTimeout(() => {
+          this.socket.emit('updateStage', { id: this.props.game.id, stage: 2 });
+        }, 2000);
+        break;
+      case 2:
+        setTimeout(() => {
+          this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 });
+        }, 2000);
+        break;
+      case 3:
+        break;
+      case 4:
+        break;
+      case 5:
+        break;
+      case 6:
+        break;
+      case 7:
+        break;
+      case 8:
+        setTimeout(() => {
+          this.socket.emit('updateStage', { id: this.props.game.id, stage: 9 });
+        }, 2000);
+        break;
+      case 9:
+        break;
+      default:
+        break;
+    }
+  }
+
   // Switch Stages
   // creates player objects based off of array of users
   onPlayClicked(event) {
@@ -156,10 +192,6 @@ class Lobby extends Component {
         <div>
           <div className="spinny-loady" />
         </div>
-        <div className="reactComment">{setTimeout(() => {
-          this.socket.emit('updateStage', { id: this.props.game.id, stage: 2 });
-        }, 2000)}
-        </div>
       </div>
     );
   }
@@ -172,10 +204,6 @@ class Lobby extends Component {
         <h2>Your role is:</h2>
         <div>{this.renderRole()}</div>
         <span>Will automatically advance stage after 10 secs</span>
-        <div className="reactComment">{setTimeout(() => {
-          this.socket.emit('updateStage', { id: this.props.game.id, stage: 3 });
-        }, 2000)}
-        </div>
       </div>
     );
   }
