@@ -108,7 +108,8 @@ export function healPlayer(id) {
 
 export function voteKill(id) {
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/player/vote/${id}`).then((response) => {
+    axios.put(`${ROOT_URL}/players/vote/${id}`).then((response) => {
+      console.log(response);
       dispatch({ type: ActionTypes.VOTE_KILL, payload: response });
     }).catch((error) => {
       console.log(error);
