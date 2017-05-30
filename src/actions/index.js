@@ -148,6 +148,7 @@ export function guessMafia(id) {
 export function fetchGame(id) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/game/${id}`).then((response) => {
+      console.log(response.data);
       dispatch({ type: ActionTypes.FETCH_GAME, payload: response.data });
     }).catch((error) => {
       console.log(error);
@@ -177,7 +178,7 @@ export function checkEnd(gameID) {
     );
       console.log(survivor);
       // update backend
-      if (survivor.length === 2) {
+      if (survivor.length <= 2) {
         axios.put(`${ROOT_URL}/game/end/${gameID}`);
         if (survivor.every((player) => { return player.role !== 'mafia'; })) {
           winner = 'villagers';
