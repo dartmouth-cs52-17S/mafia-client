@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-
-// import { withRouter, NavLink } from 'react-router-dom';
-
-
 class PlayersDisplay extends Component {
 
   constructor(props) {
@@ -13,12 +9,10 @@ class PlayersDisplay extends Component {
 
     this.state = {};
 
-    // binding
     this.renderPlayerStatus = this.renderPlayerStatus.bind(this);
   }
 
   renderPlayerStatus() {
-    // this just checks if data has been fetched and mapped to props yet
     if (!this.props.players) {
       return '';
     } else {
@@ -48,7 +42,9 @@ class PlayersDisplay extends Component {
         <div className="stage">
           <img src="/images/village.svg" alt="Village" />
           <h1>The Village</h1>
-          <div className="playersStatusContainer">{this.renderPlayerStatus()}</div>
+          <div className="playersStatusContainer">
+            {this.renderPlayerStatus()}
+          </div>
         </div>
       </div>
     );
