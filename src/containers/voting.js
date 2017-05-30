@@ -25,13 +25,13 @@ class Voting extends Component {
   }
 
   onTestClicked(event) {
-    this.props.updateStage(this.props.game.id, 8);
+    this.props.updateStage(this.props.game.id, 9);
   }
 
   onSubmitVote() {
     const selection = document.querySelector('input[name="vote"]:checked').value;
     this.props.voteKill(selection);
-    this.props.updateStage(this.props.game.id, 8);
+    this.props.updateStage(this.props.game.id, 9);
   }
 
   renderPlayerStatus() {
