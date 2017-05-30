@@ -10,12 +10,7 @@ class MafiaSelection extends Component {
     this.state = {};
     this.renderSelection = this.renderSelection.bind(this);
     this.onMafiaKill = this.onMafiaKill.bind(this);
-    this.onKillClicked = this.onKillClicked.bind(this);
     this.onTestClicked = this.onTestClicked.bind(this);
-  }
-
-  onKillClicked(event) {
-    this.onMafiaKill();
   }
 
   onMafiaKill() {

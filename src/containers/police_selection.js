@@ -22,7 +22,6 @@ class PoliceSelection extends Component {
       alert('Police must reveal one person.');
     }
     this.props.checkSelection(this.props.game.id);
-    this.props.updateStage(this.props.game.id, 7);
   }
 
   onNextClicked(event) {
