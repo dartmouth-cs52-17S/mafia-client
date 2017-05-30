@@ -6,6 +6,7 @@ const initialState = {
   winner: '',
   creator: '',
   stage: 0,
+  isOver: false,
 };
 
 const GameReducer = (state = initialState, action) => {
