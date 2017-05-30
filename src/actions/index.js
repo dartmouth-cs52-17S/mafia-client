@@ -22,6 +22,7 @@ export const ActionTypes = {
   UPDATE_STAGE: 'UPDATE_STAGE',
   VOTE_KILL: 'VOTE_KILL',
   VOTES_COUNTED: 'VOTES_COUNTED',
+  DECLARE_WINNER: 'DECLARE_WINNER',
 };
 
 export const ROOT_URL = RUNNING_LOCALLY ? 'http://localhost:9090/api' : 'https://online-mafia.herokuapp.com/api';
@@ -162,6 +163,31 @@ export function fetchPlayers(gameID) {
         return { id: fragment.id, userID: fragment.user, gameID: fragment.game, status: fragment.status, name: fragment.name };
       });
       dispatch({ type: ActionTypes.FETCH_PLAYERS, payload });
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
+
+export function checkEnd(gameID) {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/players/${gameID}`).then((response) => {
+      const survivor = response.data.filter((player) => { return (player.status === true); },
+    );
+      console.log(survivor);
+      // update backend
+      if (survivor.length === 2) {
+        axios.put(`${ROOT_URL}/game/end/${gameID}`);
+        let winner;
+        if (survivor.every((player) => { return player.role !== 'mafia'; })) {
+          winner = 'villagers';
+        } else if (survivor.some((player) => { return player.role !== 'doctor'; })) {
+          winner = 'mafia';
+        } else {
+          winner = 'tie';
+        }
+      }
+      dispatch({ type: DECLARE_WINNER, payload: winner });
     }).catch((error) => {
       console.log(error);
     });
