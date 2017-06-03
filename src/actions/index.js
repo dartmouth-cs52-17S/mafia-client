@@ -93,8 +93,7 @@ export function deleteGame(gameID) {
 
 export function getPlayers(jwt, gameID) {
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/game/${gameID}`, null, {
-      headers: { authorization: localStorage.getItem('token') },
+    axios.put(`${ROOT_URL}/game/${gameID}`, null, { headers: { authorization: localStorage.getItem('token') },
     }).catch((error) => {
       console.log(error);
     });
@@ -191,8 +190,10 @@ export function fetchPlayers(gameID) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/players/${gameID}`).then((response) => {
       console.log(response.data);
-      // trim the payload to remove roles from the response
       const payload = response.data.map((fragment) => {
+        if (`${fragment.user}` === localStorage.getItem('userID')) {
+          localStorage.setItem('role', fragment.role);
+        }
         return {
           id: fragment.id,
           userID: fragment.user,
