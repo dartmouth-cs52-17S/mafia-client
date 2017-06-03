@@ -31,7 +31,10 @@ export function createPlayers(gameId, userIds) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/players/${gameId}`, { gameId, userIds }).then((response) => {
       response.data.forEach((fragment) => {
+        console.log(`fragment.user is ${fragment.user}`);
+        console.log(`localStorage is ${localStorage.getItem('userID')}`);
         if (`${fragment.user}` === localStorage.getItem('userID')) {
+          console.log(`role is being set to ${fragment.role}`);
           localStorage.setItem('role', fragment.role);
         }
       });
