@@ -41,7 +41,11 @@ class JoinGame extends Component {
         <div>
           <Nav />
           <ul className="joingameUpper">
-            <li><Link to={'/home'}><i className="fa fa-chevron-left" aria-hidden="true" /> Back</Link></li>
+            <li>
+              <Link to={'/home'}>
+                <i className="fa fa-chevron-left" aria-hidden="true" /> Back
+              </Link>
+            </li>
           </ul>
           <div className="gamelinks">
             {gamelinks}

@@ -6,7 +6,6 @@ const defaultState = {
   deadMan: 'Nobody! (what nice villagers)',
 };
 
-// const UserReducer = (state = defaultState, action) => {
 const PlayerReducer = (state = defaultState, action) => {
   switch (action.type) {
     case ActionTypes.CREATE_PLAYERS:

@@ -55,7 +55,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 14vh;
+  height: 10vh;
 
   .logo-top-left {
     padding: 20px;
@@ -327,7 +327,7 @@ nav {
   flex-direction: column;
   justify-content:flex-end;
   overflow: auto;
-  width: 20vw;
+  width: 25vw;
   height: 85vh;
 
   .all-chats {
@@ -342,7 +342,7 @@ nav {
       flex-wrap: wrap;
 
       .chat-sender {
-        padding-right: 5px;
+        padding-right: 10px;
         font-weight: 900;
         color: $mafia-red;
       }
@@ -374,7 +374,7 @@ nav {
       border-right: none;
       border-bottom: none;
       height: 3vh;
-      width: 20vw;
+      width: 25vw;
       padding-left: 10px;
       font-size: 18px;
     }
@@ -514,7 +514,11 @@ nav {
 
   h1{
   text-align: center;
+  font-size: 40px;
+  }
 
+  h3 {
+    font-size: 40px;
   }
 }
 
@@ -574,6 +578,10 @@ nav {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  a {
+    margin-top: 20px;
+  }
 }
 
 .stage2 {
@@ -584,9 +592,8 @@ nav {
   background-color: black;
   color:white;
   width: 100vw;
-  height: 88vh;
+  height: 86vh;
   padding: 10px;
-
 }
 
 .nightFall {
@@ -612,7 +619,7 @@ nav {
   }
 
 .next-butt{
-  margin-top: 20px;
+  margin-top: 80px;
   font-size: 20px;
   color: white;
   border: 4px solid white;
@@ -662,6 +669,7 @@ nav {
   justify-content: center;
   align-items: center;
   height: 75vh;
+
   .waiting {
     display: flex;
     justify-content: center;
@@ -671,6 +679,13 @@ nav {
   }
 }
 
+.waiting {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  text-align: center;
+}
 
 @keyframes blink {
     0% {
@@ -700,12 +715,13 @@ nav {
 }
 
 .stage3 {
+  margin-top: 25px;
   display: flex;
   flex-direction: column;
   align-items: center;
   border: 5px solid white;
   border-radius: 40px;
-  padding-top: 20px;
+  padding-top: 50px;
   padding-left: 300px;
   padding-right: 300px;
   padding-bottom: 100px;
@@ -716,6 +732,7 @@ nav {
   flex-direction: column;
   height: 80vh;
   justify-content: center;
+  align-items: center;
 
   #gameover {
     font-size: 130px;
@@ -747,4 +764,12 @@ nav {
 
 .stageTitle{
   width: 100%;
+}
+
+#mafia-select {
+  width: 10vw;
+}
+
+.doctor-select {
+  width: 25vw;
 }
