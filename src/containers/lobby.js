@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 import { createGame, createPlayers, updatePlayers, fetchPlayers, getPlayers,
-  addUserToGame, fetchGame, checkEnd, deleteGame, resetVotes } from '../actions';
+  addUserToGame, fetchGame, checkEnd, deleteGame, resetVotes, killPlayer } from '../actions';
 import Chat from './chat';
 import { socketserver } from './app';
 import Players from './playersDisplay';
@@ -89,7 +89,7 @@ class Lobby extends Component {
           break;
         case 10:
           this.props.resetVotes(this.props.game.id);
-          this.props.killPlayer(this.props.doomed.id);
+          this.props.killPlayer(this.props.players.doomed.id);
           setTimeout(() => {
             this.socket.emit('updateStage', { id: this.props.game.id, stage: 11 });
           }, 3000);
@@ -428,4 +428,5 @@ export default withRouter(connect(mapStateToProps, {
   checkEnd,
   resetVotes,
   deleteGame,
+  killPlayer,
 })(Lobby));

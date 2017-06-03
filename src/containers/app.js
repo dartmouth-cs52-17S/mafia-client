@@ -7,7 +7,7 @@ import CreateOrJoinGame from './createOrJoinGame';
 import JoinGame from './joinGame';
 import Lobby from './lobby';
 
-export const RUNNING_LOCALLY = false;
+export const RUNNING_LOCALLY = true;
 
 export const socketserver = RUNNING_LOCALLY ? 'http://localhost:3000/' : 'http://mafia-sockets.herokuapp.com/';
 
