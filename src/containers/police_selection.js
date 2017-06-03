@@ -35,7 +35,7 @@ class PoliceSelection extends Component {
   }
 
   renderSelection() {
-    if (!localStorage.getItem('role')) { // this just checks if data has been fetched and mapped to props yet
+    if (!localStorage.getItem('role')) {
       return '';
     } else if (localStorage.getItem('role') === 'police') {
       return (
@@ -60,9 +60,9 @@ class PoliceSelection extends Component {
       return (
         <div className="waiting-container">
           <div className="waiting">
-          Waiting for the police to reveal<span>.</span><span>.</span><span>.</span>
+            Waiting for the police to reveal<span>.</span><span>.</span><span>.</span>
           </div>
-          <img src="/images/reveal.svg" alt="reveal" />
+          <img src="/images/reveal.svg" alt="reveal" className="doctor-select" />
         </div>
       );
     }
@@ -71,17 +71,17 @@ class PoliceSelection extends Component {
   renderReveal() {
     if (localStorage.getItem('correctGuess') === 'true') {
       return (
-        <div>
-          You have caught the mafia.
-          <img src="/images/mafia.png" alt="Mafia" />
+        <div className="stage">
+          <div> You have caught the mafia. </div>
+          <img src="/images/mafia.png" alt="Mafia" className="doctor-select" />
         </div>
 
       );
     } else {
       return (
-        <div>
-          You have caught an innocent villager.
-          <img src="/images/villager.png" alt="Villager" />
+        <div className="stage">
+          <div> You have caught an innocent villager. </div>
+          <img src="/images/villager.png" alt="Villager" className="doctor-select" />
         </div>
       );
     }
@@ -92,7 +92,8 @@ class PoliceSelection extends Component {
     if (localStorage.getItem('role') === 'police') {
       if (this.state.clicked) {
         return (
-          <div>
+          <div className="stage">
+            <h1>Choose a player to reveal...</h1>
             <div> {this.renderSelection()} </div>
             <div> {this.renderReveal()}</div>
             <button onClick={this.onNextClicked}> Next </button>
@@ -100,7 +101,8 @@ class PoliceSelection extends Component {
         );
       } else {
         return (
-          <div>
+          <div className="stage">
+            <h1>Choose a player to reveal...</h1>
             <div> {this.renderSelection()} </div>
             <button onClick={this.onRevealClicked}> Reveal </button>
           </div>
