@@ -157,6 +157,7 @@ export function resetVotes(gameID) {
 export function guessMafia(id) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/player/${id}`).then((response) => {
+      console.log(response.data.role);
       const payload = (response.data.role === 'mafia');
       localStorage.setItem('correctGuess', payload);
     }).catch((error) => {

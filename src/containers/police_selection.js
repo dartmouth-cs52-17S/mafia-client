@@ -18,7 +18,9 @@ class PoliceSelection extends Component {
     if (document.querySelector('input[name="police"]:checked')) {
       const police = document.querySelector('input[name="police"]:checked').value;
       this.props.guessMafia(police);
-      this.setState({ clicked: true });
+      setTimeout(() => {
+        this.setState({ clicked: true });
+      }, 1000);
     } else {
       alert('Police must reveal one person.');
     }
