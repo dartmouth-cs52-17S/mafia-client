@@ -3,7 +3,7 @@ import { ActionTypes } from '../actions';
 const defaultState = {
   all: [],
   player: {},
-  deadMan: 'Nobody! (what nice villagers)',
+  doomed: 'Nobody! (what nice villagers)',
 };
 
 const PlayerReducer = (state = defaultState, action) => {
@@ -15,7 +15,7 @@ const PlayerReducer = (state = defaultState, action) => {
     case ActionTypes.FETCH_PLAYER:
       return Object.assign({}, state, { player: action.payload });
     case ActionTypes.VOTES_COUNTED:
-      return Object.assign({}, state, { deadMan: action.payload });
+      return Object.assign({}, state, { doomed: action.payload });
 
     default:
       return state;
