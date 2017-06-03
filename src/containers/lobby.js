@@ -24,6 +24,10 @@ class Lobby extends Component {
       this.props.fetchGame(this.props.game.id);
     });
 
+    this.socket.on('fetchGame', () => {
+      this.props.fetchGame(this.props.game.id);
+    });
+
     this.socket.on('connect', () => {
       if (window.location.pathname === '/lobby' || window.location.pathname === '/lobby/') {
         this.props.createGame(localStorage.getItem('token'), this.props.history)
