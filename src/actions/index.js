@@ -134,15 +134,15 @@ export function tallyVotes(gameID) {
   console.log(`tallyVotes for players in game ${gameID}`);
   return (dispatch) => {
     axios.get(`${ROOT_URL}/players/${gameID}`).then((response) => {
-      let deadMan;
+      let doomed;
       let max = 0;
       response.data.forEach((player) => {
         if (player.voteCount > max) {
           max = player.voteCount;
-          deadMan = player;
+          doomed = player;
         }
       });
-      dispatch({ type: ActionTypes.VOTES_COUNTED, payload: deadMan });
+      dispatch({ type: ActionTypes.VOTES_COUNTED, payload: doomed });
     });
   };
 }

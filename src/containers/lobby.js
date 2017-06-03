@@ -89,6 +89,7 @@ class Lobby extends Component {
           break;
         case 10:
           this.props.resetVotes(this.props.game.id);
+          this.props.killPlayer(this.props.doomed.id);
           setTimeout(() => {
             this.socket.emit('updateStage', { id: this.props.game.id, stage: 11 });
           }, 3000);
@@ -315,7 +316,7 @@ class Lobby extends Component {
       <div>
         <h3>The people have spoken!</h3>
         <h5>The village has decided to kill...</h5>
-        <div>{this.props.players.deadMan.name}</div>
+        <div>{this.props.players.doomed.name}</div>
       </div>
     );
   }
