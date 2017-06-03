@@ -91,7 +91,7 @@ class Lobby extends Component {
           this.props.resetVotes(this.props.game.id);
           setTimeout(() => {
             this.socket.emit('updateStage', { id: this.props.game.id, stage: 11 });
-          }, 2000);
+          }, 3000);
           break;
         case 11:
           this.props.checkEnd(this.props.game.id);
