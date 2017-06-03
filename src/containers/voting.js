@@ -16,10 +16,6 @@ class Voting extends Component {
     this.onTestClicked = this.onTestClicked.bind(this);
   }
 
-  componentDidMount() {
-    this.props.fetch(this.props.game.id);
-  }
-
   onTestClicked(event) {
     this.props.updateStage(this.props.game.id, 9);
   }
