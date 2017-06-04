@@ -399,19 +399,6 @@ nav {
     flex-direction: row;
     justify-content: space-between;
   }
-    // .StagesDisplay {
-    //   width: 80vw;
-    //   margin-left: 10px;
-    //   margin: 0px;
-    //   display: flex;
-    //   flex-direction: row;
-    //   align-items: center;
-    //   align-content: center;
-    //   // justify-content: space-between;
-    //   // .chat-section{
-    //   //   left:75vw;
-    //   //   position: absolute;
-    //   // }
 
   .StagesDisplay {
     width: 80vw;
@@ -591,14 +578,13 @@ nav {
 .night{
   background-color: black;
   color:white;
-  width: 100vw;
   height: 86vh;
   padding: 10px;
 }
 
 .nightFall {
   height: 90vh;
-  width: 100vw;
+  width: 100vh;
   animation: pulse 3s;
   display: flex;
   align-items: center;

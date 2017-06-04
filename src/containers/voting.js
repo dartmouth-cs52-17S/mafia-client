@@ -58,6 +58,7 @@ class Voting extends Component {
         <div>
           <div className="VotingContainer">
             <h1>Voting: Who do you think is the mafia?</h1>
+            <p>*You have 1 minute to discuss and vote.</p>
             <div className="playersStatusContainer">{this.renderPlayerStatus()}</div>
             <button onClick={this.onSubmitVote}> Submit </button>
             <button onClick={this.onTestClicked}> Force-next </button>
