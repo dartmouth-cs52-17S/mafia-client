@@ -12,6 +12,7 @@ Support Facebook Login
 
 ### Create or Join Room
 ![startGame](public/images/Join:Create.png "start")
+
 You can either create or join an exiting room. In the later one, we'll direct you to a list of existing rooms:
 ![Rooms](public/images/Rooms.png "Room")
 
@@ -46,6 +47,7 @@ When there are only two players left, the game will end and display the winner.
 
 ### Chat
 ![chat](public/images/chatbox.png "chat")
+
 Thanks to Annie for this cool chatbox that supports emoji and many languages!
 
 ## Architecture
