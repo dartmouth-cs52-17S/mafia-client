@@ -7,19 +7,46 @@ This is an online Mafia game where players are automatically given roles to play
 ## Mockups
 
 ### Home
-![home](public/images/Mafia_home.png "home")
+![home](public/images/Landing Page.png "home")
+Support Facebook Login
 
-### Profile
-![profile](public/images/Mafia_profile.png "profile")
+### Create or Join Room
+![startGame](public/images/Join:Create.png "start")
+You can either create or join an exiting room. In the later one, we'll direct you to a list of existing rooms:
+![Rooms](public/images/Rooms.png "Room")
 
-### Directions
-![directions](public/images/Mafia_directions.png "directions")
+### Role Assignment
+![Role](public/images/Role Assignment.png "role")
+Once the creator start the game, you will be assigned a role from the following:
+Mafia, Doctor, Police, and Villager
 
-### Players
-![players](public/images/Mafia_players.png "players")
+### Village and Player Status
+![village](public/images/Player Status.png "village")
+This is a daytime page that display players' status. Those dead people's names will become red.
+
+### Mafia Kill
+![mafia](public/images/Mafia Kill.png "mafia")
+Only Mafia will be able to chose people to kill. 
+
+### Doctor Heal
+![doctor](public/images/Doctor Heal.png "doctor")
+Only Doctor will be able to heal people. 
+
+### Police Reveal
+![police](public/images/Police Reveal.png "police")
+Since I'm police in this demo, I'm able to reveal one player's role in each round. 
+
+### Vote
+![vote](public/images/Mafia_chat.png "vote")
+After all the selection, everyone will vote one person who they think is Mafia to death.
+
+### Game Result
+![result](public/images/Game Result.png "result")
+When there are only two players left, the game will end and display the winner.
 
 ### Chat
-![chat](public/images/Mafia_chat.png "chat")
+![chat](public/images/chatbox.png "chat")
+Thanks to Annie for this cool chatbox that supports emoji and many languages!
 
 ## Architecture
 
