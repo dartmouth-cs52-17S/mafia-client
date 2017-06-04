@@ -8,47 +8,47 @@ This is an online Mafia game where players are automatically given roles to play
 
 ### Home
 ![home](public/images/Landing_Page.png "home")
-Support Facebook Login
+Supports Facebook Login!
 
 ### Create or Join Room
 ![startGame](public/images/Join:Create.png "start")
 
-You can either create or join an exiting room. In the later one, we'll direct you to a list of existing rooms:
+You can either create or join an existing room. The following picture shows a list of existing rooms, sorted by time of creation and displaying players currently in the game.
 ![Rooms](public/images/Rooms.png "Room")
 
 ### Role Assignment
 ![Role](public/images/Role_Assignment.png "role")
-Once the creator start the game, you will be assigned a role from the following:
+Once the creator starts the game, players are assigned a role from the following list:
 Mafia, Doctor, Police, and Villager
 
 ### Village and Player Status
 ![village](public/images/Player_Status.png "village")
-This is a daytime page that display players' status. Those dead people's names will become red.
+This is a daytime page that display players' status. If dead, a player's name will display as red.
 
 ### Mafia Kill
 ![mafia](public/images/Mafia_Kill.png "mafia")
-Only Mafia will be able to chose people to kill. 
+Only the Mafia will be able to chose people to kill.
 
 ### Doctor Heal
 ![doctor](public/images/Doctor_Heal.png "doctor")
-Only Doctor will be able to heal people. 
+Only the Doctor will be able to heal people.
 
 ### Police Reveal
 ![police](public/images/Police_Reveal.png "police")
-Since I'm police in this demo, I'm able to reveal one player's role in each round. 
+Since I'm police in this demo, I'm able to reveal the role of one player per round.
 
 ### Vote
 ![vote](public/images/Voting.png "vote")
-After all the selection, everyone will vote one person who they think is Mafia to death.
+After the special roles have made their selections, everyone will discuss and vote for who they think is the mafia, and put them to death!
 
 ### Game Result
 ![result](public/images/Game_Result.png "result")
-When there are only two players left, the game will end and display the winner.
+When there are only two players left, the game will end, and calculate and display the winner.
 
 ### Chat
 ![chat](public/images/chatbox.png "chat")
 
-Thanks to Annie for this cool chatbox that supports emoji and many languages!
+Thanks to Annie for this cool chatbox that supports emoji and multiple languages!
 
 ## Architecture
 
